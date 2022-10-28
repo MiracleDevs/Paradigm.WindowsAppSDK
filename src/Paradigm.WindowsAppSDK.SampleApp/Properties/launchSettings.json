@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Paradigm.WindowsAppSDK.SampleApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Paradigm.WindowsAppSDK.SampleApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
