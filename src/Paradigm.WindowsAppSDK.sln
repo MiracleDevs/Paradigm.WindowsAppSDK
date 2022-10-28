@@ -17,13 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.LegacyConfiguration", "Paradigm.WindowsAppSDK.Services.LegacyConfiguration\Paradigm.WindowsAppSDK.Services.LegacyConfiguration.csproj", "{771370BE-334C-4FF3-8370-134CF348949F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Logging", "Paradigm.WindowsAppSDK.Services.Logging\Paradigm.WindowsAppSDK.Services.Logging.csproj", "{DA6E7688-3F66-495E-A535-5BC5A2AD7D32}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Telemetry", "Paradigm.WindowsAppSDK.Services.Telemetry\Paradigm.WindowsAppSDK.Services.Telemetry.csproj", "{B68B5461-653A-41D9-9FDE-999F54B342A1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Navigation", "Paradigm.WindowsAppSDK.Services.Navigation\Paradigm.WindowsAppSDK.Services.Navigation.csproj", "{4C075CED-2DA8-4AE8-8CB7-2919E8DA81CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigm.WindowsAppSDK.Services.FileStorage", "Paradigm.WindowsAppSDK.Services.FileStorage\Paradigm.WindowsAppSDK.Services.FileStorage.csproj", "{7E622D48-E6C6-4D91-B001-A9ECE72B29DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.FileStorage", "Paradigm.WindowsAppSDK.Services.FileStorage\Paradigm.WindowsAppSDK.Services.FileStorage.csproj", "{7E622D48-E6C6-4D91-B001-A9ECE72B29DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigm.WindowsAppSDK.Services.Logging", "Paradigm.WindowsAppSDK.Services.Logging\Paradigm.WindowsAppSDK.Services.Logging.csproj", "{831FCA62-2F59-4BC1-AAE4-936740F68EB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +51,6 @@ Global
 		{771370BE-334C-4FF3-8370-134CF348949F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{771370BE-334C-4FF3-8370-134CF348949F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{771370BE-334C-4FF3-8370-134CF348949F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA6E7688-3F66-495E-A535-5BC5A2AD7D32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA6E7688-3F66-495E-A535-5BC5A2AD7D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA6E7688-3F66-495E-A535-5BC5A2AD7D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA6E7688-3F66-495E-A535-5BC5A2AD7D32}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B68B5461-653A-41D9-9FDE-999F54B342A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B68B5461-653A-41D9-9FDE-999F54B342A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B68B5461-653A-41D9-9FDE-999F54B342A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,6 +63,10 @@ Global
 		{7E622D48-E6C6-4D91-B001-A9ECE72B29DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E622D48-E6C6-4D91-B001-A9ECE72B29DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E622D48-E6C6-4D91-B001-A9ECE72B29DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{831FCA62-2F59-4BC1-AAE4-936740F68EB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831FCA62-2F59-4BC1-AAE4-936740F68EB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831FCA62-2F59-4BC1-AAE4-936740F68EB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831FCA62-2F59-4BC1-AAE4-936740F68EB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,10 +77,10 @@ Global
 		{CDA0FA2D-8A04-45CD-8C4F-C8871F3C912F} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
 		{5E231022-A449-495C-917A-073FF9578FB5} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
 		{771370BE-334C-4FF3-8370-134CF348949F} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
-		{DA6E7688-3F66-495E-A535-5BC5A2AD7D32} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
 		{B68B5461-653A-41D9-9FDE-999F54B342A1} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
 		{4C075CED-2DA8-4AE8-8CB7-2919E8DA81CC} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
 		{7E622D48-E6C6-4D91-B001-A9ECE72B29DD} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
+		{831FCA62-2F59-4BC1-AAE4-936740F68EB6} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E838D54E-7F9D-446F-9651-F3AF09A8EC84}

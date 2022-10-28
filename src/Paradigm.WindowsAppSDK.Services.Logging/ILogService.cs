@@ -1,4 +1,6 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
+using System;
+using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.Services.Logging
 {
@@ -7,8 +9,9 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// <summary>
         /// Initializes the service.
         /// </summary>
+        /// <param name="logType">Type of the log.</param>
         /// <returns></returns>
-        Task InitializeAsync();
+        Task InitializeAsync(int logType);
 
         /// <summary>
         /// Sets the minimum type of the log.
@@ -45,7 +48,7 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="ex">The ex.</param>
-        void Error(string message, Exception? ex = default);
+        void Error(string message, Exception ex = default);
 
         /// <summary>
         /// Errors the specified ex.
