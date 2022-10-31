@@ -1,4 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
+using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
+using Paradigm.WindowsAppSDK.Services.Navigation;
+using Paradigm.WindowsAppSDK.ViewModels;
 
 namespace Paradigm.WindowsAppSDK.SampleApp
 {
@@ -24,9 +27,14 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             m_window = new MainWindow();
+
+            var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
+            navigationService.Initialize(m_window.Content as Microsoft.UI.Xaml.Controls.Frame);
+            await navigationService.NavigateToAsync<MainViewModel>();
+
             m_window.Activate();
         }
     }

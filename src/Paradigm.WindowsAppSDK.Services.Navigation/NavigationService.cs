@@ -112,6 +112,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         public void Initialize(Frame frame)
         {
             this.Frame = frame;
+            this.Frame.Navigated += this.OnNavigated;
         }
 
         /// <summary>
@@ -125,16 +126,6 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         {
             this.NavigationViews.Add(typeof(TNavigable), typeof(TPage));
             this.Navigables.Add(typeof(TPage), typeof(TNavigable));
-        }
-
-        public void ActivateInstance()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeactivateInstance()
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

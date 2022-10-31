@@ -12,6 +12,10 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Views\Pages\MainPage.xaml" />
+    <None Remove="Views\Pages\TestPage.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -43,7 +47,14 @@
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.ViewModels\Paradigm.WindowsAppSDK.ViewModels.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Pages\" />
+    <Page Update="Views\Pages\TestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Pages\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!-- 

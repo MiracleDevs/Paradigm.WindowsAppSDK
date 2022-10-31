@@ -8,7 +8,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-
-    </Grid>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="Welcome to the Main page" TextAlignment="Center" />
+        <Button Content="Navigate to another page" Click="{x:Bind ViewModel.ExecuteActionAsync}" />
+    </StackPanel>
 </Page>

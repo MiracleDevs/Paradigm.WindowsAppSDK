@@ -9,16 +9,6 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
     public interface INavigationService : IService
     {
         /// <summary>
-        /// Activates the instance.
-        /// </summary>
-        void ActivateInstance();
-
-        /// <summary>
-        /// Deactivates this instance.
-        /// </summary>
-        void DeactivateInstance();
-
-        /// <summary>
         /// Gets a value indicating whether this instance can go back.
         /// </summary>
         /// <value>
@@ -41,6 +31,12 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// The current navigable.
         /// </value>
         INavigable CurrentNavigable { get; }
+
+        /// <summary>
+        /// Initializes the instance.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
+        void Initialize(Frame frame);
 
         /// <summary>
         /// Registers a navigable element and its paired view.

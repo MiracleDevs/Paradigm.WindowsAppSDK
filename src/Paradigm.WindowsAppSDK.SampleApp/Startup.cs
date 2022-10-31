@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
+using Paradigm.WindowsAppSDK.SampleApp.Views.Pages;
 using Paradigm.WindowsAppSDK.Services.Logging;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
@@ -40,7 +42,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         private static void RegisterNavigation()
         {
             var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
-            //navigationService.Register<MainWindow, ViewModels.Main.MainViewModel>();
+            navigationService.Register<MainPage, MainViewModel>();
+            navigationService.Register<TestPage, TestViewModel>();
         }
     }
 }
