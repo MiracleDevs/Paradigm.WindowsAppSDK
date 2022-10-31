@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using Paradigm.WindowsAppSDK.Services.Logging.Enums;
 using System;
-using Windows.Storage;
-using Paradigm.WindowsAppSDK.Services.Logging.Enums;
 using System.IO;
+using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace Paradigm.WindowsAppSDK.Services.Logging
 {

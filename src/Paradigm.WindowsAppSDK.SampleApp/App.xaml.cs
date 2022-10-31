@@ -16,6 +16,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         public App()
         {
             this.InitializeComponent();
+            Startup.Start();
         }
 
         /// <summary>
