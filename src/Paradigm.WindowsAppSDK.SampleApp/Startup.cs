@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Paradigm.WindowsAppSDK.Services.Logging;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
 using Paradigm.WindowsAppSDK.ViewModels.Extensions;
@@ -25,7 +26,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             var assemblies = new[]
             {
                 typeof(App).Assembly,
-                typeof(INavigationService).Assembly
+                typeof(INavigationService).Assembly,
+                typeof(ILogService).Assembly,
             };
 
             serviceCollection.RegisterServices(assemblies);
