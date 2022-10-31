@@ -42,6 +42,9 @@
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Navigation\Paradigm.WindowsAppSDK.Services.Navigation.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.ViewModels\Paradigm.WindowsAppSDK.ViewModels.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Pages\" />
+  </ItemGroup>
 
   <!-- 
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
