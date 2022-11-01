@@ -14,6 +14,7 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
     /// <seealso cref="IFileStorageService" />
     public class FileStorageService : IFileStorageService
     {
+        private const string InstallationRootFolderName = "Assets";
         #region Properties
 
         /// <summary>
@@ -47,7 +48,16 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// <returns></returns>
         public async Task<string> ReadContentFromApplicationUriAsync(string path)
         {
-            var uri = this.GetLocalFileUri(path);
+            return await ReadContentFromApplicationUriAsync(this.GetLocalFileUri(path));
+        }
+
+        /// <summary>
+        /// Reads the content from application URI asynchronous.
+        /// </summary>
+        /// <param name="uri">The URI.</param>
+        /// <returns></returns>
+        public async Task<string> ReadContentFromApplicationUriAsync(Uri uri)
+        {
             var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
 
             return await File.ReadAllTextAsync(file.Path);
@@ -102,7 +112,7 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
             if (validateEmptyPath && string.IsNullOrWhiteSpace(path))
                 return default;
 
-            var baseUri = useInstallationFolder ? "ms-appx:///Assets" : "ms-appdata:///local";
+            var baseUri = useInstallationFolder ? $"ms-appx:///{InstallationRootFolderName}" : "ms-appdata:///local";
 
             return new Uri($"{baseUri}/{path}", UriKind.Absolute);
         }
@@ -257,7 +267,11 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
             try
             {
                 var folder = useInstallationFolder
-                    ? await StorageFolder.GetFolderFromPathAsync($"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\{folderPath}")
+                    ? await StorageFolder.GetFolderFromPathAsync(
+                        Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path,
+                        InstallationRootFolderName,
+                        folderPath
+                        ))
                     : await this.LocalFolder.GetFolderAsync(folderPath);
 
                 var files = await folder.GetFilesAsync();

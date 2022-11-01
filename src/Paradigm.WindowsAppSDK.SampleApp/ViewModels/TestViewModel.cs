@@ -4,43 +4,96 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.System;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {
     public class TestViewModel : SampleAppViewModelBase
     {
-        private INavigationService Navigation { get; }
-        public IFileStorageService FileStorageService { get; }
+        #region Properties
 
+        /// <summary>
+        /// Gets the navigation.
+        /// </summary>
+        /// <value>
+        /// The navigation.
+        /// </value>
+        private INavigationService Navigation { get; }
+
+        /// <summary>
+        /// Gets the file storage service.
+        /// </summary>
+        /// <value>
+        /// The file storage service.
+        /// </value>
+        protected IFileStorageService FileStorageService { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether [use local state].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [use local state]; otherwise, <c>false</c>.
+        /// </value>
+        protected virtual bool UseLocalState { get; } = false;
+
+        #endregion
+        
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestViewModel"/> class.
+        /// </summary>
+        /// <param name="serviceProvider">The service provider.</param>
         public TestViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             Navigation = serviceProvider.GetRequiredService<INavigationService>();
             FileStorageService = serviceProvider.GetRequiredService<IFileStorageService>();
         }
 
-        public async Task ExecuteActionAsync()
+        #endregion
+        
+        #region Public Methods
+
+        /// <summary>
+        /// Executes the action asynchronous.
+        /// </summary>
+        public virtual async Task ExecuteActionAsync()
         {
-            var path = "testData.json";
-            var completePath = Path.Combine("Test", path);
-
-            if (!FileStorageService.FileExists(completePath))
-            {
-                LogService.Error($"{path} file does not exist.");
-            }
-            else
-            {
-                var testFileContent = await FileStorageService.ReadContentFromApplicationUriAsync(completePath);
-                
-                LogService.Information(string.Join(Environment.NewLine, new[] { $"{completePath} content is", testFileContent }));
-
-                var properties = await FileStorageService.ReadFilePropertiesAsync(completePath, Enumerable.Empty<string>());
-
-                LogService.Information(string.Join(Environment.NewLine, (new[] { $"{completePath} properties are " }).ToList().Concat(properties.Select(kvp => $"{kvp.Key} = {kvp.Value}"))));
-
-            }
+            await ReadFolderContentAsync("Test", !this.UseLocalState);
 
             if (await Navigation.GoBackAsync())
-                LogService.Information("Executed back navigation");
+                LogService.Information($"Executed back navigation from {this.GetType().FullName}");
+        }
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Reads the folder content asynchronous.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
+        protected virtual async Task ReadFolderContentAsync(string path, bool useInstallationFolder)
+        {
+            var fileNames = await FileStorageService.GetFilesFromFolderAsync(path, useInstallationFolder);
+
+            if (fileNames != null)
+            {
+                foreach (var name in fileNames)
+                {
+                    var filePath = Path.Combine(path, name);
+
+                    var fileProperties = await FileStorageService.ReadFilePropertiesAsync(filePath, Enumerable.Empty<string>(), useInstallationFolder);
+
+                    LogService.Information(string.Join(Environment.NewLine, (new[] { $"{filePath} properties." }).ToList().Concat(fileProperties.Select(prop => $"{prop.Key} = {prop.Value}"))));
+
+                    var fileContent = await FileStorageService.ReadContentFromApplicationUriAsync(FileStorageService.GetLocalFileUri(filePath, true, useInstallationFolder));
+
+                    LogService.Information(string.Join(Environment.NewLine, new[] { $"{filePath} content.", fileContent }));
+                }
+            }
+
+            #endregion
         }
     }
 }

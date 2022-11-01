@@ -13,7 +13,9 @@
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Assets\Test\testData.json" />
+    <None Remove="Assets\Test\testData - 1.json" />
+    <None Remove="Assets\Test\testData - 2 .json" />
+    <None Remove="Views\Pages\LocalStateTestPage.xaml" />
     <None Remove="Views\Pages\MainPage.xaml" />
     <None Remove="Views\Pages\TestPage.xaml" />
   </ItemGroup>
@@ -63,6 +65,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\Pages\LocalStateTestPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Views\Pages\TestPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,9 +1,9 @@
 ﻿{
 	"currencies": [
 		{
-			"displayName": "Quote tests",
+			"displayName": "Quote tests 1",
 			"id": 1,
-			"key": "Test",
+			"key": "Test 1" ,
 			"quotes": [
 				{
 					"quoteDate": "2016-01-01",
@@ -34,7 +34,7 @@
 					"quoteValue": 600.99
 				}
 			],
-			"updatedAt": "2020-10-22"
+			"updatedAt": "2021-10-22"
 		}
 	]
 }

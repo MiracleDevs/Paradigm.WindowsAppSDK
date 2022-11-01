@@ -16,6 +16,13 @@ public interface IFileStorageService : IService
     Task<string> ReadContentFromApplicationUriAsync(string path);
 
     /// <summary>
+    /// Reads the content from application URI asynchronous.
+    /// </summary>
+    /// <param name="uri">The URI.</param>
+    /// <returns></returns>
+    Task<string> ReadContentFromApplicationUriAsync(Uri uri);
+
+    /// <summary>
     /// Reads the bytes from application URI.
     /// </summary>
     /// <param name="path">The path.</param>
