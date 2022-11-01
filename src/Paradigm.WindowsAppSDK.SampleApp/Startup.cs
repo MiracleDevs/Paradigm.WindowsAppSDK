@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Paradigm.WindowsAppSDK.Services.Interfaces;
 using Paradigm.WindowsAppSDK.Services.Logging;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
 using Paradigm.WindowsAppSDK.ViewModels.Extensions;
+using System.Linq;
+using Paradigm.WindowsAppSDK.SampleApp.Extensions;
 
 namespace Paradigm.WindowsAppSDK.SampleApp
 {
@@ -23,15 +26,15 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// <param name="serviceCollection">The service collection.</param>
         private static void RegisterDependencies(IServiceCollection serviceCollection)
         {
-            var assemblies = new[]
+            var mainAssemblies = new[]
             {
-                typeof(App).Assembly,
-                typeof(INavigationService).Assembly,
-                typeof(ILogService).Assembly,
+                typeof(App).Assembly
             };
+            
+            var serviceAssemblies = mainAssemblies.SelectMany(asm => asm.GetFilteredReferencedAssemblies(typeof(IService))).Distinct();
 
-            serviceCollection.RegisterServices(assemblies);
-            serviceCollection.RegisterViewModels(assemblies);
+            serviceCollection.RegisterServices(serviceAssemblies.ToArray());
+            serviceCollection.RegisterViewModels(mainAssemblies.ToArray());
         }
 
         /// <summary>
