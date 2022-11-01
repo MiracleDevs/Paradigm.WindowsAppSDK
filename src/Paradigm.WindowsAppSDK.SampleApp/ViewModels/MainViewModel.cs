@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.Services.Navigation;
-using Paradigm.WindowsAppSDK.ViewModels.Base;
 using System;
 using System.Threading.Tasks;
 

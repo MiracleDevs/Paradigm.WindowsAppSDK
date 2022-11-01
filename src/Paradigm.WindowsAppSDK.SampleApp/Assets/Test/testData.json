@@ -1,0 +1,40 @@
+﻿{
+	"currencies": [
+		{
+			"displayName": "Quote tests",
+			"id": 1,
+			"key": "Test",
+			"quotes": [
+				{
+					"quoteDate": "2016-01-01",
+					"quoteValue": 100.99
+				},
+				{
+					"quoteDate": "2022-10-01",
+					"quoteValue": 110.12
+				},
+				{
+					"quoteDate": "2022-10-02",
+					"quoteValue": 130.23
+				},
+				{
+					"quoteDate": "2022-10-03",
+					"quoteValue": 140.3
+				},
+				{
+					"quoteDate": "2022-10-04",
+					"quoteValue": 150.44
+				},
+				{
+					"quoteDate": "2022-10-06",
+					"quoteValue": 160.55
+				},
+				{
+					"quoteDate": "2025-01-01",
+					"quoteValue": 600.99
+				}
+			],
+			"updatedAt": "2020-10-22"
+		}
+	]
+}
