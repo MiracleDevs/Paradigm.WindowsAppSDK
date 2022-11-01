@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Interfaces\Paradigm.WindowsAppSDK.Services.Interfaces.csproj" />
-    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Logging\Paradigm.WindowsAppSDK.Services.Logging.csproj" />
   </ItemGroup>
 
 </Project>

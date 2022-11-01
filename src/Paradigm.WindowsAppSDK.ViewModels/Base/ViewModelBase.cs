@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.Services.Interfaces;
-using Paradigm.WindowsAppSDK.Services.Logging;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -20,14 +19,6 @@ namespace Paradigm.WindowsAppSDK.ViewModels.Base
         /// </summary>
         protected IServiceProvider ServiceProvider { get; }
 
-        /// <summary>
-        /// Gets the log service.
-        /// </summary>
-        /// <value>
-        /// The log service.
-        /// </value>
-        protected ILogService LogService { get; }
-
         #endregion
 
         #region Constructor
@@ -40,7 +31,6 @@ namespace Paradigm.WindowsAppSDK.ViewModels.Base
         protected ViewModelBase(IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-            this.LogService = serviceProvider.GetRequiredService<ILogService>();
         }
 
         #endregion

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : SampleAppViewModelBase
     {
         private INavigationService Navigation { get; }
 

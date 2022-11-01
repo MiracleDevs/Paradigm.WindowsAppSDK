@@ -2,12 +2,10 @@
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
 using Paradigm.WindowsAppSDK.SampleApp.Views.Pages;
 using Paradigm.WindowsAppSDK.Services.Interfaces;
-using Paradigm.WindowsAppSDK.Services.Logging;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
 using Paradigm.WindowsAppSDK.ViewModels.Extensions;
 using System.Linq;
-using Paradigm.WindowsAppSDK.SampleApp.Extensions;
 
 namespace Paradigm.WindowsAppSDK.SampleApp
 {

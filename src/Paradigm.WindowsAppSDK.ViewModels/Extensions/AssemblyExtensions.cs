@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace Paradigm.WindowsAppSDK.SampleApp.Extensions
+namespace Paradigm.WindowsAppSDK.ViewModels.Extensions
 {
     public static class AssemblyExtensions
     {
