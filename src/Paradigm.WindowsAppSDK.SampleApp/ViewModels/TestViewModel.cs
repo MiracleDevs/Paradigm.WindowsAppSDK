@@ -25,7 +25,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 
             if (!FileStorageService.FileExists(completePath))
             {
-                throw new InvalidOperationException($"{path} file does not exist.");
+                LogService.Error($"{path} file does not exist.");
             }
             else
             {
