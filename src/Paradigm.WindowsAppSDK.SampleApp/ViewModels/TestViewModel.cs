@@ -1,28 +1,16 @@
-﻿using Microsoft.ApplicationInsights.Channel;
-using Microsoft.Extensions.DependencyInjection;
-using Paradigm.WindowsAppSDK.Services.Navigation;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using Windows.System;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {
-    public class TestViewModel : SampleAppViewModelBase
+    public class TestViewModel : Base.SampleAppPageViewModelBase
     {
         #region Properties
-
-        /// <summary>
-        /// Gets the navigation.
-        /// </summary>
-        /// <value>
-        /// The navigation.
-        /// </value>
-        private INavigationService Navigation { get; }
 
         /// <summary>
         /// Gets the telemetry.
@@ -47,7 +35,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         ///   <c>true</c> if [use local state]; otherwise, <c>false</c>.
         /// </value>
         protected virtual bool UseLocalState { get; } = false;
-
 
         /// <summary>
         /// Gets the storage files header text.
@@ -83,7 +70,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <param name="serviceProvider">The service provider.</param>
         public TestViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            Navigation = serviceProvider.GetRequiredService<INavigationService>();
             Telemetry = serviceProvider.GetRequiredService<ITelemetryService>();
             FileStorageService = serviceProvider.GetRequiredService<IFileStorageService>();
         }

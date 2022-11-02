@@ -1,11 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Paradigm.WindowsAppSDK.Services.Interfaces;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Paradigm.WindowsAppSDK.ViewModels.Base
 {
-    public abstract class ViewModelBase : INotifyPropertyChanged, INavigable, IDisposable
+    public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
     {
         #region Properties
 
@@ -42,28 +41,6 @@ namespace Paradigm.WindowsAppSDK.ViewModels.Base
         /// </summary>
         public virtual void Dispose()
         {
-        }
-
-        /// <summary>
-        /// Determines whether this instance [can navigate to] the specified navigable element.
-        /// </summary>
-        /// <param name="navigable">The navigable element.</param>
-        /// <returns></returns>
-        public async Task<bool> CanNavigateTo(INavigable navigable)
-        {
-            await Task.CompletedTask;
-            return true;
-        }
-
-        /// <summary>
-        /// Determines whether this instance [can navigate from] the specified navigable element.
-        /// </summary>
-        /// <param name="navigable">The navigable element.</param>
-        /// <returns></returns>
-        public async Task<bool> CanNavigateFrom(INavigable navigable)
-        {
-            await Task.CompletedTask;
-            return true;
         }
 
         #endregion
