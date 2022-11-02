@@ -48,6 +48,31 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </value>
         protected virtual bool UseLocalState { get; } = false;
 
+
+        /// <summary>
+        /// Gets the storage files header text.
+        /// </summary>
+        /// <value>
+        /// The storage files header text.
+        /// </value>
+        public string StorageFilesHeaderText => this.HasStorageFiles ? "Files" : "There are no files";
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has storage files.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance has storage files; otherwise, <c>false</c>.
+        /// </value>
+        public bool HasStorageFiles => this.StorageFiles != null && this.StorageFiles.Any();
+
+        /// <summary>
+        /// Gets the storage files.
+        /// </summary>
+        /// <value>
+        /// The storage files.
+        /// </value>
+        public IEnumerable<string> StorageFiles { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -69,8 +94,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 
         public async Task GoBackAsync()
         {
-            await ReadFolderContentAsync("Test", !this.UseLocalState);
-
             if (await Navigation.GoBackAsync())
                 LogService.Information($"Executed back navigation from {this.GetType().FullName}");
         }
@@ -109,11 +132,24 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             {
                 var filePath = Path.Combine(path, name);
                 var fileProperties = await FileStorageService.ReadFilePropertiesAsync(filePath, Enumerable.Empty<string>(), useInstallationFolder);
-
                 LogService.Information(string.Join(Environment.NewLine, (new[] { $"{filePath} properties." }).ToList().Concat(fileProperties.Select(prop => $"{prop.Key} = {prop.Value}"))));
                 var fileContent = await FileStorageService.ReadContentFromApplicationUriAsync(FileStorageService.GetLocalFileUri(filePath, true, useInstallationFolder));
                 LogService.Information(string.Join(Environment.NewLine, new[] { $"{filePath} content.", fileContent }));
             }
+
+            StorageFiles = fileNames;
+            OnPropertyChanged(nameof(StorageFiles));
+            OnPropertyChanged(nameof(HasStorageFiles));
+            OnPropertyChanged(nameof(StorageFilesHeaderText));
+        }
+
+        /// <summary>
+        /// Initializes the view model.
+        /// </summary>
+        public virtual async Task InitializeAsync()
+        {
+            await Task.Delay(1500);
+            await this.ReadFolderContentAsync("Test", !this.UseLocalState);
         }
 
         #endregion

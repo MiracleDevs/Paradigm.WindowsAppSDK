@@ -11,5 +11,7 @@
         <TextBlock Text="This is a test page" TextAlignment="Center" />
         <Button Content="Go back" Click="{x:Bind ViewModel.GoBackAsync}" HorizontalAlignment="Center" />
         <Button Content="Test telemetry" Click="{x:Bind ViewModel.SendTelemetryAsync}" HorizontalAlignment="Center" />
+        <TextBlock Text="{x:Bind ViewModel.StorageFilesHeaderText, Mode=OneWay}" ></TextBlock>
+        <ListBox Visibility="{x:Bind ViewModel.HasStorageFiles, Mode=OneWay}" ItemsSource="{x:Bind ViewModel.StorageFiles, Mode=OneWay}"></ListBox>
     </StackPanel>
 </Page>
