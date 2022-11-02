@@ -49,10 +49,28 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         protected virtual bool UseLocalState { get; } = false;
 
 
+        /// <summary>
+        /// Gets the storage files header text.
+        /// </summary>
+        /// <value>
+        /// The storage files header text.
+        /// </value>
         public string StorageFilesHeaderText => this.HasStorageFiles ? "Files" : "There are no files";
 
+        /// <summary>
+        /// Gets a value indicating whether this instance has storage files.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance has storage files; otherwise, <c>false</c>.
+        /// </value>
         public bool HasStorageFiles => this.StorageFiles != null && this.StorageFiles.Any();
 
+        /// <summary>
+        /// Gets the storage files.
+        /// </summary>
+        /// <value>
+        /// The storage files.
+        /// </value>
         public IEnumerable<string> StorageFiles { get; private set; }
 
         #endregion
@@ -130,7 +148,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </summary>
         public virtual async Task InitializeAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(1500);
             await this.ReadFolderContentAsync("Test", !this.UseLocalState);
         }
 
