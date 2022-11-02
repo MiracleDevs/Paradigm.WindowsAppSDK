@@ -23,7 +23,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         public async Task InitializeNavigationAsync(INavigable navigable)
         {
             this.ViewModel = (TestViewModel)navigable;
-            await Task.CompletedTask;
+            await this.ViewModel.InitializeAsync();
         }
     }
 }

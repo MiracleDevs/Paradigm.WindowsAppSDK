@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,6 +37,13 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </value>
         protected virtual bool UseLocalState { get; } = false;
 
+
+        public string StorageFilesHeaderText => this.HasStorageFiles ? "Files" : "There are no files";
+
+        public bool HasStorageFiles => this.StorageFiles != null && this.StorageFiles.Any();
+
+        public IEnumerable<string> StorageFiles { get; private set; }
+
         #endregion
         
         #region Constructor
@@ -59,8 +67,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </summary>
         public virtual async Task ExecuteActionAsync()
         {
-            await ReadFolderContentAsync("Test", !this.UseLocalState);
-
             if (await Navigation.GoBackAsync())
                 LogService.Information($"Executed back navigation from {this.GetType().FullName}");
         }
@@ -92,8 +98,25 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
                     LogService.Information(string.Join(Environment.NewLine, new[] { $"{filePath} content.", fileContent }));
                 }
             }
+            
+            StorageFiles = fileNames;
 
-            #endregion
+            OnPropertyChanged(nameof(StorageFiles));
+            
+            OnPropertyChanged(nameof(HasStorageFiles));
+            
+            OnPropertyChanged(nameof(StorageFilesHeaderText)); 
         }
+
+        /// <summary>
+        /// Initializes the view model.
+        /// </summary>
+        public virtual async Task InitializeAsync()
+        {
+            await Task.Delay(1000);
+            await this.ReadFolderContentAsync("Test", !this.UseLocalState);
+        }
+
+        #endregion
     }
 }

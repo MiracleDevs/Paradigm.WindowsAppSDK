@@ -11,5 +11,7 @@
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <TextBlock Text="This is a test page" TextAlignment="Center" />
         <Button Content="Go back" Click="{x:Bind ViewModel.ExecuteActionAsync}" />
+        <TextBlock Text="{x:Bind ViewModel.StorageFilesHeaderText, Mode=OneWay}" ></TextBlock>
+        <ListBox Visibility="{x:Bind ViewModel.HasStorageFiles, Mode=OneWay}" ItemsSource="{x:Bind ViewModel.StorageFiles, Mode=OneWay}"></ListBox>
     </StackPanel>
 </Page>
