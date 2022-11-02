@@ -1,4 +1,7 @@
-﻿namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
+﻿using Paradigm.WindowsAppSDK.Services.LegacyConfiguration.JsonConverters;
+using System.Text.Json;
+
+namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
 {
     /// <summary>
     /// Implements the legacy configuration service to load the legacy configuration json file values.
@@ -35,10 +38,38 @@
         /// <summary>
         /// Initializes the instance.
         /// </summary>
-        /// <returns></returns>
-        public async Task InitializeAsync()
+        /// <param name="serializedContent">Content of the serialized.</param>
+        public void Initialize(string serializedContent)
         {
-            await LoadConfigurationsAsync();
+            try
+            {
+                //const string configFileName = "config.json";
+                //var alternativePath = Path.Combine("IdleContent", configFileName);
+                //var content = string.Empty;
+
+                //if (this.FileStorageService.FileExists(configFileName))
+                //    content = await this.FileStorageService.ReadLocalTextAsync(configFileName);
+
+                //else if (this.FileStorageService.FileExists(Path.ChangeExtension(configFileName, "jsonc")))
+                //    content = await this.FileStorageService.ReadLocalTextAsync(Path.ChangeExtension(configFileName, "jsonc"));
+
+                //else if (this.FileStorageService.FileExists(alternativePath))
+                //    content = await this.FileStorageService.ReadLocalTextAsync(alternativePath);
+
+                //else if (this.FileStorageService.FileExists(Path.ChangeExtension(alternativePath, "jsonc")))
+                //    content = await this.FileStorageService.ReadLocalTextAsync(Path.ChangeExtension(alternativePath, "jsonc"));
+
+                //else
+                //    content = await this.FileStorageService.ReadContentFromApplicationUriAsync(Path.Combine("Configuration", configFileName));
+
+                var deserializerOptions = new JsonSerializerOptions();
+                deserializerOptions.Converters.Add(new DictionaryStringObjectJsonConverter());
+                this.Configurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, deserializerOptions);
+            }
+            catch
+            {
+                this.Configurations = new Dictionary<string, object>();
+            }
         }
 
         /// <summary>
@@ -95,42 +126,6 @@
             Configurations.TryGetValue(key, out var value);
 
             return value;
-        }
-
-        /// <summary>
-        /// Loads the configurations asynchronous.
-        /// </summary>
-        private async Task LoadConfigurationsAsync()
-        {
-            try
-            {
-                //const string configFileName = "config.json";
-                //var alternativePath = Path.Combine("IdleContent", configFileName);
-                //var content = string.Empty;
-
-                //if (this.FileStorageService.FileExists(configFileName))
-                //    content = await this.FileStorageService.ReadLocalTextAsync(configFileName);
-
-                //else if (this.FileStorageService.FileExists(Path.ChangeExtension(configFileName, "jsonc")))
-                //    content = await this.FileStorageService.ReadLocalTextAsync(Path.ChangeExtension(configFileName, "jsonc"));
-
-                //else if (this.FileStorageService.FileExists(alternativePath))
-                //    content = await this.FileStorageService.ReadLocalTextAsync(alternativePath);
-
-                //else if (this.FileStorageService.FileExists(Path.ChangeExtension(alternativePath, "jsonc")))
-                //    content = await this.FileStorageService.ReadLocalTextAsync(Path.ChangeExtension(alternativePath, "jsonc"));
-
-                //else
-                //    content = await this.FileStorageService.ReadContentFromApplicationUriAsync(Path.Combine("Configuration", configFileName));
-
-                //var deserializerOptions = new JsonSerializerOptions();
-                //deserializerOptions.Converters.Add(new DictionaryStringObjectJsonConverter());
-                //this.Configurations = JsonSerializer.Deserialize<Dictionary<string, object>>(content, deserializerOptions);
-            }
-            catch
-            {
-                this.Configurations = new Dictionary<string, object>();
-            }
         }
 
         #endregion

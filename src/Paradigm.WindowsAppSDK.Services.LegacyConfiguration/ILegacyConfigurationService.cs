@@ -7,8 +7,9 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         /// <summary>
         /// Initializes the instance.
         /// </summary>
+        /// <param name="serializedContent">Content of the serialized.</param>
         /// <returns></returns>
-        Task InitializeAsync();
+        void Initialize(string serializedContent);
 
         /// <summary>
         /// Gets the string.
