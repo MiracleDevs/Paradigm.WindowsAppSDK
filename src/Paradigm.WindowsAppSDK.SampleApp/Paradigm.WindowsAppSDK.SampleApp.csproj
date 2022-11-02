@@ -13,6 +13,7 @@
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\Configuration\config.json" />
     <None Remove="Assets\Test\testData - 1.json" />
     <None Remove="Assets\Test\testData - 2 .json" />
     <None Remove="Views\Pages\LocalStateTestPage.xaml" />
@@ -47,6 +48,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Interfaces\Paradigm.WindowsAppSDK.Services.Interfaces.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.FileStorage\Paradigm.WindowsAppSDK.Services.FileStorage.csproj" />
+    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.LegacyConfiguration\Paradigm.WindowsAppSDK.Services.LegacyConfiguration.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Logging\Paradigm.WindowsAppSDK.Services.Logging.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Navigation\Paradigm.WindowsAppSDK.Services.Navigation.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Telemetry\Paradigm.WindowsAppSDK.Services.Telemetry.csproj" />

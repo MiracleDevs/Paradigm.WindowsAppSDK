@@ -1,5 +1,8 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.ApplicationInsights.Channel;
+using Microsoft.UI.Xaml;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
+using Paradigm.WindowsAppSDK.Services.LegacyConfiguration;
+using Paradigm.WindowsAppSDK.Services.Logging;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
 
@@ -32,7 +35,11 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             m_window = new MainWindow();
 
             var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
+            var legacyConfigurationService = ServiceLocator.Instance.GetRequiredService<ILegacyConfigurationService>();
+            var fileStorageService = ServiceLocator.Instance.GetRequiredService<IFileStorageService>();
             navigationService.Initialize(m_window.Content as Microsoft.UI.Xaml.Controls.Frame);
+            legacyConfigurationService.Initialize(await fileStorageService.ReadContentFromApplicationUriAsync(fileStorageService.GetLocalFileUri(System.IO.Path.Combine("Configuration", "config.json"))));
+
             await navigationService.NavigateToAsync<MainViewModel>();
 
             m_window.Activate();
