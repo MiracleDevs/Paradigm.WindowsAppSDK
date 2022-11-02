@@ -27,7 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Test", "02.Test", "{D6BF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.SampleApp", "Paradigm.WindowsAppSDK.SampleApp\Paradigm.WindowsAppSDK.SampleApp.csproj", "{BD83BBA8-8EAD-42BE-8E90-B2AE10403E0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigm.WindowsAppSDK.Services.Navigation", "Paradigm.WindowsAppSDK.Services.Navigation\Paradigm.WindowsAppSDK.Services.Navigation.csproj", "{DB8C663D-00A8-439A-BE37-F27E06B2A43D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Navigation", "Paradigm.WindowsAppSDK.Services.Navigation\Paradigm.WindowsAppSDK.Services.Navigation.csproj", "{DB8C663D-00A8-439A-BE37-F27E06B2A43D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigm.WindowsAppSDK.Services.ApplicationInformation", "Paradigm.WindowsAppSDK.Services.ApplicationInformation\Paradigm.WindowsAppSDK.Services.ApplicationInformation.csproj", "{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -209,6 +211,22 @@ Global
 		{DB8C663D-00A8-439A-BE37-F27E06B2A43D}.Release|x64.Build.0 = Release|Any CPU
 		{DB8C663D-00A8-439A-BE37-F27E06B2A43D}.Release|x86.ActiveCfg = Release|Any CPU
 		{DB8C663D-00A8-439A-BE37-F27E06B2A43D}.Release|x86.Build.0 = Release|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Debug|arm64.Build.0 = Debug|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Debug|x64.Build.0 = Debug|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Debug|x86.Build.0 = Debug|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Release|arm64.ActiveCfg = Release|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Release|arm64.Build.0 = Release|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Release|x64.ActiveCfg = Release|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Release|x64.Build.0 = Release|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Release|x86.ActiveCfg = Release|Any CPU
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -224,6 +242,7 @@ Global
 		{831FCA62-2F59-4BC1-AAE4-936740F68EB6} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
 		{BD83BBA8-8EAD-42BE-8E90-B2AE10403E0D} = {D6BF0F1F-36C2-4282-8541-08854CD0E53A}
 		{DB8C663D-00A8-439A-BE37-F27E06B2A43D} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
+		{E19CA44F-CDD5-4B5E-89DA-2E1D24B32A82} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E838D54E-7F9D-446F-9651-F3AF09A8EC84}
