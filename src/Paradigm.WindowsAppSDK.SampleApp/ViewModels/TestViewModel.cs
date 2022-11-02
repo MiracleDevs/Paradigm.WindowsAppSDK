@@ -1,8 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.ApplicationInsights.Channel;
+using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.Services.Navigation;
+using Paradigm.WindowsAppSDK.Services.Telemetry;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Windows.System;
 
@@ -21,6 +25,14 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         private INavigationService Navigation { get; }
 
         /// <summary>
+        /// Gets the telemetry.
+        /// </summary>
+        /// <value>
+        /// The telemetry.
+        /// </value>
+        private ITelemetryService Telemetry { get; }
+
+        /// <summary>
         /// Gets the file storage service.
         /// </summary>
         /// <value>
@@ -37,7 +49,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         protected virtual bool UseLocalState { get; } = false;
 
         #endregion
-        
+
         #region Constructor
 
         /// <summary>
@@ -47,23 +59,36 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public TestViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             Navigation = serviceProvider.GetRequiredService<INavigationService>();
+            Telemetry = serviceProvider.GetRequiredService<ITelemetryService>();
             FileStorageService = serviceProvider.GetRequiredService<IFileStorageService>();
         }
 
         #endregion
-        
+
         #region Public Methods
 
-        /// <summary>
-        /// Executes the action asynchronous.
-        /// </summary>
-        public virtual async Task ExecuteActionAsync()
+        public async Task GoBackAsync()
         {
             await ReadFolderContentAsync("Test", !this.UseLocalState);
 
             if (await Navigation.GoBackAsync())
                 LogService.Information($"Executed back navigation from {this.GetType().FullName}");
         }
+
+        public async Task SendTelemetryAsync()
+        {
+            Telemetry.Initialize(new TelemetrySettings("InstrumentationKey=761f753b-f1e0-4442-91c2-0bea33fdded6;IngestionEndpoint=https://eastus2-3.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus2.livediagnostics.monitor.azure.com/"));
+            Telemetry.AddExtraProperty("rac", "rac1");
+            Telemetry.AddExtraProperty("storeId", "store1");
+            Telemetry.TrackEvent("sampleAppTestEvent", new Dictionary<string, string>
+            {
+                ["test1"] = Guid.NewGuid().ToString(),
+                ["test2"] = "Paradigm.WindowsAppSDK.SampleApp"
+            });
+
+            await Task.CompletedTask;
+        }
+
         #endregion
 
         #region Private Methods
@@ -77,23 +102,20 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         {
             var fileNames = await FileStorageService.GetFilesFromFolderAsync(path, useInstallationFolder);
 
-            if (fileNames != null)
+            if (fileNames == null)
+                return;
+
+            foreach (var name in fileNames)
             {
-                foreach (var name in fileNames)
-                {
-                    var filePath = Path.Combine(path, name);
+                var filePath = Path.Combine(path, name);
+                var fileProperties = await FileStorageService.ReadFilePropertiesAsync(filePath, Enumerable.Empty<string>(), useInstallationFolder);
 
-                    var fileProperties = await FileStorageService.ReadFilePropertiesAsync(filePath, Enumerable.Empty<string>(), useInstallationFolder);
-
-                    LogService.Information(string.Join(Environment.NewLine, (new[] { $"{filePath} properties." }).ToList().Concat(fileProperties.Select(prop => $"{prop.Key} = {prop.Value}"))));
-
-                    var fileContent = await FileStorageService.ReadContentFromApplicationUriAsync(FileStorageService.GetLocalFileUri(filePath, true, useInstallationFolder));
-
-                    LogService.Information(string.Join(Environment.NewLine, new[] { $"{filePath} content.", fileContent }));
-                }
+                LogService.Information(string.Join(Environment.NewLine, (new[] { $"{filePath} properties." }).ToList().Concat(fileProperties.Select(prop => $"{prop.Key} = {prop.Value}"))));
+                var fileContent = await FileStorageService.ReadContentFromApplicationUriAsync(FileStorageService.GetLocalFileUri(filePath, true, useInstallationFolder));
+                LogService.Information(string.Join(Environment.NewLine, new[] { $"{filePath} content.", fileContent }));
             }
-
-            #endregion
         }
+
+        #endregion
     }
 }

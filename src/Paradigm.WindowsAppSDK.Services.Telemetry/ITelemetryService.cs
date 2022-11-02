@@ -4,5 +4,24 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
 {
     public interface ITelemetryService : IService
     {
+        /// <summary>
+        /// Initializes the service using the provided settings.
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        void Initialize(TelemetrySettings settings);
+
+        /// <summary>
+        /// Tracks the event.
+        /// </summary>
+        /// <param name="eventName">Name of the event.</param>
+        /// <param name="properties">The properties.</param>
+        void TrackEvent(string eventName, IDictionary<string, string> properties);
+
+        /// <summary>
+        /// Adds the extra property.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
+        void AddExtraProperty(string name, string value);
     }
 }

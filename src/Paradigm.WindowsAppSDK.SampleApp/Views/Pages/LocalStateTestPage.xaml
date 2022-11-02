@@ -10,6 +10,6 @@
 
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <TextBlock Text="This is a test page" TextAlignment="Center" />
-        <Button Content="Go back" Click="{x:Bind ViewModel.ExecuteActionAsync}" />
+        <Button Content="Go back" Click="{x:Bind ViewModel.GoBackAsync}" />
     </StackPanel>
 </Page>
