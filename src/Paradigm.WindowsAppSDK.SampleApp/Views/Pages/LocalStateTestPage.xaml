@@ -10,7 +10,7 @@
 
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <TextBlock Text="This is a test page with local state storage access" TextAlignment="Center" />
-        <Button Content="Go back" Click="{x:Bind ViewModel.ExecuteActionAsync}" />
+        <Button Content="Go back" Click="{x:Bind ViewModel.GoBackAsync}" />
         <TextBlock Text="{x:Bind ViewModel.StorageFilesHeaderText, Mode=OneWay}" ></TextBlock>
         <ListBox ItemsSource="{x:Bind ViewModel.StorageFiles, Mode=OneWay}"></ListBox>
     </StackPanel>
