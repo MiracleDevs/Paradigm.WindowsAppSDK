@@ -112,25 +112,17 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 
             foreach (var name in fileNames)
             {
-                    var filePath = Path.Combine(path, name);
-
-                    var fileProperties = await FileStorageService.ReadFilePropertiesAsync(filePath, Enumerable.Empty<string>(), useInstallationFolder);
-
-                    LogService.Information(string.Join(Environment.NewLine, (new[] { $"{filePath} properties." }).ToList().Concat(fileProperties.Select(prop => $"{prop.Key} = {prop.Value}"))));
-
-                    var fileContent = await FileStorageService.ReadContentFromApplicationUriAsync(FileStorageService.GetLocalFileUri(filePath, true, useInstallationFolder));
-
-                    LogService.Information(string.Join(Environment.NewLine, new[] { $"{filePath} content.", fileContent }));
-                }
+                var filePath = Path.Combine(path, name);
+                var fileProperties = await FileStorageService.ReadFilePropertiesAsync(filePath, Enumerable.Empty<string>(), useInstallationFolder);
+                LogService.Information(string.Join(Environment.NewLine, (new[] { $"{filePath} properties." }).ToList().Concat(fileProperties.Select(prop => $"{prop.Key} = {prop.Value}"))));
+                var fileContent = await FileStorageService.ReadContentFromApplicationUriAsync(FileStorageService.GetLocalFileUri(filePath, true, useInstallationFolder));
+                LogService.Information(string.Join(Environment.NewLine, new[] { $"{filePath} content.", fileContent }));
             }
-            
-            StorageFiles = fileNames;
 
+            StorageFiles = fileNames;
             OnPropertyChanged(nameof(StorageFiles));
-            
             OnPropertyChanged(nameof(HasStorageFiles));
-            
-            OnPropertyChanged(nameof(StorageFilesHeaderText)); 
+            OnPropertyChanged(nameof(StorageFilesHeaderText));
         }
 
         /// <summary>
