@@ -1,4 +1,5 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
+using Paradigm.WindowsAppSDK.Services.MessageBus.Models;
 
 namespace Paradigm.WindowsAppSDK.Services.MessageBus
 {

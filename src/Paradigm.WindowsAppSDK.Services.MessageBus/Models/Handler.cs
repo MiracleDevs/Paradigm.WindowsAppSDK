@@ -1,4 +1,4 @@
-﻿namespace Paradigm.WindowsAppSDK.Services.MessageBus
+﻿namespace Paradigm.WindowsAppSDK.Services.MessageBus.Models
 {
     /// <summary>
     /// Represents a message listener handler.
@@ -28,8 +28,8 @@
         /// <param name="messageListener">The message listener.</param>
         public Handler(Type type, object messageListener)
         {
-            this.MessageListener = messageListener;
-            this.Token = new RegistrationToken(type);
+            MessageListener = messageListener;
+            Token = new RegistrationToken(type);
         }
     }
 }

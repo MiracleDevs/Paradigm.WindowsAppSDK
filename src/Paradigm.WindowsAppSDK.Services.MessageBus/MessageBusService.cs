@@ -1,4 +1,6 @@
-﻿namespace Paradigm.WindowsAppSDK.Services.MessageBus
+﻿using Paradigm.WindowsAppSDK.Services.MessageBus.Models;
+
+namespace Paradigm.WindowsAppSDK.Services.MessageBus
 {
     /// <summary>
     /// Provides an agnostic message bus implementation.

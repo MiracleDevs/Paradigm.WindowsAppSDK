@@ -1,4 +1,4 @@
-﻿namespace Paradigm.WindowsAppSDK.Services.MessageBus
+﻿namespace Paradigm.WindowsAppSDK.Services.MessageBus.Models
 {
     /// <summary>
     /// Stores the message bus registration information that can be used
@@ -31,8 +31,8 @@
         /// <param name="type">The type.</param>
         public RegistrationToken(Type type)
         {
-            this.Type = type;
-            this.Identity = Guid.NewGuid();
+            Type = type;
+            Identity = Guid.NewGuid();
         }
     }
 }
