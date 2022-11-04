@@ -2,43 +2,64 @@
 {
     public static class MessageBusExtensions
     {
-        ///// <summary>
-        ///// Registers the specified message listener.
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="messageListener">The message listener.</param>
-        //protected void RegisterMessage<T>(Func<T, Task> messageListener)
-        //{
-        //    this.MessageBusRegistrations.Add(typeof(T), this.MessageBusService.Register(messageListener));
-        //}
+        /// <summary>
+        /// Registers the message.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="messageBusServiceHandler">The message bus service handler.</param>
+        /// <param name="messageListener">The message listener.</param>
+        public static void RegisterMessage<T>(this IMessageBusServiceConsumer messageBusServiceHandler, Func<T, Task> messageListener)
+        {
+            messageBusServiceHandler.MessageBusConsumerRegistrations.Add(typeof(T), messageBusServiceHandler.MessageBusService.Register(messageListener));
+        }
 
-        ///// <summary>
-        ///// Unregisters the message listener.
-        ///// </summary>
-        ///// <typeparam name="T">The message type.</typeparam>
-        //protected void UnregisterMessage<T>()
-        //{
-        //    if (!this.MessageBusRegistrations.ContainsKey(typeof(T)))
-        //    {
-        //        LogService.Debug($"The message '{typeof(T).Name}' was not registered in the type '{this.GetType().Name}' and can not be unregistered.");
-        //        return;
-        //    }
+        /// <summary>
+        /// Unregisters the message.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="messageBusServiceHandler">The message bus service handler.</param>
+        public static void UnregisterMessage<T>(this IMessageBusServiceConsumer messageBusServiceHandler)
+        {
+            UnregisterMessage(messageBusServiceHandler, typeof(T));
+        }
 
-        //    this.MessageBusService.Unregister(this.MessageBusRegistrations[typeof(T)]);
-        //    this.MessageBusRegistrations.Remove(typeof(T));
-        //}
+        /// <summary>
+        /// Unregisters the messages.
+        /// </summary>
+        /// <param name="messageBusServiceHandler">The message bus service handler.</param>
+        public static void UnregisterMessages (this IMessageBusServiceConsumer messageBusServiceHandler)
+        {
+            foreach(var registration in messageBusServiceHandler.MessageBusConsumerRegistrations)
+            {
+                UnregisterMessage(messageBusServiceHandler, registration.Key);
+            }
+        }
 
-        ///// <summary>
-        ///// Sends the message.
-        ///// </summary>
-        ///// <typeparam name="T">The message type.</typeparam>
-        ///// <param name="message">The message.</param>
-        //protected async Task SendMessageAsync<T>(T message)
-        //{
-        //    if (_disposed)
-        //        return;
+        /// <summary>
+        /// Sends the message asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="messageBusServiceHandler">The message bus service handler.</param>
+        /// <param name="message">The message.</param>
+        public static async Task SendMessageAsync<T>(this IMessageBusServiceConsumer messageBusServiceHandler, T message)
+        {
+            await messageBusServiceHandler.MessageBusService.SendAsync(message);
+        }
 
-        //    await this.MessageBusService.SendAsync(message);
-        //}
+        /// <summary>
+        /// Unregisters the message.
+        /// </summary>
+        /// <param name="messageBusServiceHandler">The message bus service handler.</param>
+        /// <param name="messageType">Type of the message.</param>
+        private static void UnregisterMessage(IMessageBusServiceConsumer messageBusServiceHandler, Type messageType)
+        {
+            if (!messageBusServiceHandler.MessageBusConsumerRegistrations.ContainsKey(messageType))
+            {
+                return;
+            }
+
+            messageBusServiceHandler.MessageBusService.Unregister(messageBusServiceHandler.MessageBusConsumerRegistrations[messageType]);
+            messageBusServiceHandler.MessageBusConsumerRegistrations.Remove(messageType);
+        }
     }
 }
