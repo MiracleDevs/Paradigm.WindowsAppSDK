@@ -1,4 +1,5 @@
 ﻿using Paradigm.WindowsAppSDK.SampleApp.Messages;
+using Paradigm.WindowsAppSDK.Services.MessageBus.Extensions;
 using System;
 using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="Paradigm.WindowsAppSDK.SampleApp.ViewModels.TestViewModel" />
+    /// <seealso cref="TestViewModel" />
     public class LocalStateTestViewModel : TestViewModel
     {
         #region Properties 
@@ -38,12 +39,12 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <summary>
         /// Sends the message asynchronous.
         /// </summary>
-        protected override async Task SendMessageAsync()
+        protected override async Task SendContentFolderReadFinishedMessageAsync()
         {
             var message = new LocalStateContentFolderReadFinishedMessage();
 
             LogService.Debug($"Sending message {message.GetType()}");
-            await this.MessageBusService.SendAsync(message);
+            await this.SendMessageAsync(message);
         }
 
         #endregion

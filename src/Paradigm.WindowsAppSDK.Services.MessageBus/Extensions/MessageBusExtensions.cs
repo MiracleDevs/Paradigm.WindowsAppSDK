@@ -39,11 +39,11 @@
         /// Sends the message asynchronous.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="messageBusServiceConsumer">The message bus service consumer.</param>
+        /// <param name="messageBusServiceSender">The message bus service sender.</param>
         /// <param name="message">The message.</param>
-        public static async Task SendMessageAsync<T>(this IMessageBusServiceConsumer messageBusServiceConsumer, T message)
+        public static async Task SendMessageAsync<T>(this IMessageBusServiceSender messageBusServiceSender, T message)
         {
-            await messageBusServiceConsumer.MessageBusService.SendAsync(message);
+            await messageBusServiceSender.MessageBusService.SendAsync(message);
         }
 
         /// <summary>

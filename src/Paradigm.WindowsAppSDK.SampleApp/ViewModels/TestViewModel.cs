@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.SampleApp.Messages;
 using Paradigm.WindowsAppSDK.Services.MessageBus;
+using Paradigm.WindowsAppSDK.Services.MessageBus.Extensions;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {
-    public class TestViewModel : Base.SampleAppPageViewModelBase
+    public class TestViewModel : Base.SampleAppPageViewModelBase, IMessageBusServiceSender
     {
         #region Properties
 
@@ -138,15 +139,15 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             OnPropertyChanged(nameof(HasStorageFiles));
             OnPropertyChanged(nameof(StorageFilesHeaderText));
 
-            await SendMessageAsync();
+            await SendContentFolderReadFinishedMessageAsync();
         }
 
-        protected virtual async Task SendMessageAsync() 
+        protected virtual async Task SendContentFolderReadFinishedMessageAsync() 
         {
             var message = new ContentFolderReadFinishedMessage();
 
             LogService.Debug($"Sending message {message.GetType()}");
-            await this.MessageBusService.SendAsync(message);
+            await this.SendMessageAsync(message);
         }
 
         #endregion
