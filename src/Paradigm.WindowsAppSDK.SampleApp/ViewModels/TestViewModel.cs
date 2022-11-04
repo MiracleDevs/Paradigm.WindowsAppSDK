@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Paradigm.WindowsAppSDK.SampleApp.Messages;
+using Paradigm.WindowsAppSDK.Services.MessageBus;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
 using System;
 using System.Collections.Generic;
@@ -98,6 +100,14 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Initializes the view model.
+        /// </summary>
+        public virtual async Task InitializeAsync()
+        {
+            await this.ReadFolderContentAsync("Test", !this.UseLocalState);
+        }
+
         #endregion
 
         #region Private Methods
@@ -118,24 +128,25 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             {
                 var filePath = Path.Combine(path, name);
                 var fileProperties = await FileStorageService.ReadFilePropertiesAsync(filePath, Enumerable.Empty<string>(), useInstallationFolder);
-                LogService.Information(string.Join(Environment.NewLine, (new[] { $"{filePath} properties." }).ToList().Concat(fileProperties.Select(prop => $"{prop.Key} = {prop.Value}"))));
+                LogService.Information($"{filePath} properties count is {fileProperties.Count}");
                 var fileContent = await FileStorageService.ReadContentFromApplicationUriAsync(FileStorageService.GetLocalFileUri(filePath, true, useInstallationFolder));
-                LogService.Information(string.Join(Environment.NewLine, new[] { $"{filePath} content.", fileContent }));
+                LogService.Information($"{filePath} content length is {fileContent.Length}");
             }
 
             StorageFiles = fileNames;
             OnPropertyChanged(nameof(StorageFiles));
             OnPropertyChanged(nameof(HasStorageFiles));
             OnPropertyChanged(nameof(StorageFilesHeaderText));
+
+            await SendMessageAsync();
         }
 
-        /// <summary>
-        /// Initializes the view model.
-        /// </summary>
-        public virtual async Task InitializeAsync()
+        protected virtual async Task SendMessageAsync() 
         {
-            await Task.Delay(1500);
-            await this.ReadFolderContentAsync("Test", !this.UseLocalState);
+            var message = new ContentFolderReadFinishedMessage();
+
+            LogService.Debug($"Sending message {message.GetType()}");
+            await this.MessageBusService.SendAsync(message);
         }
 
         #endregion
