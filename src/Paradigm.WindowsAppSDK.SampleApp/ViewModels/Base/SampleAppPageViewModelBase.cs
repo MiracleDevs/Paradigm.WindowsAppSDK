@@ -36,7 +36,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         /// <value>
         /// The message bus service.
         /// </value>
-        public IMessageBusService MessageBusService { get;} = ServiceLocator.Instance.GetRequiredService<IMessageBusService>();
+        protected IMessageBusService MessageBusService { get; private set; }
 
         #endregion
 
@@ -50,6 +50,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         {
             LogService = serviceProvider.GetRequiredService<ILogService>();
             Navigation = serviceProvider.GetRequiredService<INavigationService>();
+            MessageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
 
             RegisterServiceBusMessageHandlers();
         }
@@ -82,7 +83,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         public virtual void UnRegisterServiceBusMessageHandlers()
         {
             LogService.Debug($"Unregistering {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message registrations from {this.GetType().FullName}");
-            MessageBusRegistrationsHandler.Instance.UnregisterMessageHandlers(this);
+            MessageBusRegistrationsHandler.Instance.UnregisterMessageHandlers(this, this.ServiceProvider);
             LogService.Debug($"Found {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message registrations from {this.GetType().FullName}");
         }
 

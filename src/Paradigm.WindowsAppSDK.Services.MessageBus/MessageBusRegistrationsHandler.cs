@@ -1,4 +1,6 @@
 ﻿using Paradigm.WindowsAppSDK.Services.MessageBus.Models;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Paradigm.WindowsAppSDK.Services.MessageBus
 {
@@ -44,27 +46,29 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// </summary>
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <param name="consumer">The consumer.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         /// <param name="messageListener">The message listener.</param>
         /// <returns></returns>
-        public RegistrationToken RegisterMessageHandler<TMessage>(IMessageBusConsumer consumer, Func<TMessage, Task> messageListener)
+        public RegistrationToken RegisterMessageHandler<TMessage>(IMessageBusConsumer consumer, IServiceProvider serviceProvider, Func<TMessage, Task> messageListener)
         {
             RegistrationToken token;
 
             var consumerType = consumer.GetType();
+            var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
 
             if (MessageBusConsumerRegistrations.TryGetValue(typeof(TMessage), out var registrations))
             {
                 if (!registrations.ContainsKey(consumerType))
                 {
 
-                    registrations.Add(consumerType, consumer.MessageBusService.Register(messageListener));
+                    registrations.Add(consumerType, messageBusService.Register(messageListener));
                 }
 
                 token = registrations[consumerType];
             }
             else
             {
-                token = consumer.MessageBusService.Register(messageListener);
+                token = messageBusService.Register(messageListener);
 
                 MessageBusConsumerRegistrations.Add(typeof(TMessage), new Dictionary<Type, RegistrationToken>
                 {
@@ -80,21 +84,27 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// </summary>
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <param name="consumer">The consumer.</param>
-        public void UnregisterMessageHandler<TMessage>(IMessageBusConsumer consumer)
+        /// <param name="serviceProvider">The service provider.</param>
+        public void UnregisterMessageHandler<TMessage>(IMessageBusConsumer consumer, IServiceProvider serviceProvider)
         {
-            UnregisterMessage(consumer, typeof(TMessage));
+            var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
+
+            UnregisterMessage(consumer, messageBusService, typeof(TMessage));
         }
 
         /// <summary>
         /// Unregisters the message handlers.
         /// </summary>
         /// <param name="consumer">The consumer.</param>
-        public void UnregisterMessageHandlers(IMessageBusConsumer consumer)
+        /// <param name="serviceProvider">The service provider.</param>
+        public void UnregisterMessageHandlers(IMessageBusConsumer consumer, IServiceProvider serviceProvider)
         {
             var consumerType = consumer.GetType();
+            
+            var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
 
             var registrationMessageTypes = this.MessageBusConsumerRegistrations
-            .Where(messageRegistration => messageRegistration.Value.Any(consumerRegistration => consumerRegistration.Key == consumerType));
+                .Where(messageRegistration => messageRegistration.Value.Any(consumerRegistration => consumerRegistration.Key == consumerType));
 
             foreach (var messageType in registrationMessageTypes)
             {
@@ -102,7 +112,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
                 {
                     if (consumerRegistration.Key == consumerType)
                     {
-                        UnregisterMessage(consumer, messageType.Key);
+                        UnregisterMessage(consumer, messageBusService, messageType.Key);
                     }
                 }
             }
@@ -131,8 +141,9 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// Unregisters the message.
         /// </summary>
         /// <param name="consumer">The consumer.</param>
+        /// <param name="messageBusService">The message bus service.</param>
         /// <param name="messageType">Type of the message.</param>
-        private void UnregisterMessage(IMessageBusConsumer consumer, Type messageType)
+        private void UnregisterMessage(IMessageBusConsumer consumer, IMessageBusService messageBusService, Type messageType)
         {
             var consumerType = consumer.GetType();
 
@@ -145,7 +156,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
             {
                 if (MessageBusConsumerRegistrations[messageType].TryGetValue(consumerType, out var token))
                 {
-                    consumer.MessageBusService.Unregister(token);
+                    messageBusService.Unregister(token);
                 }
 
                 MessageBusConsumerRegistrations[messageType].Remove(consumerType);

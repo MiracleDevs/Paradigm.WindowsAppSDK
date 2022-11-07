@@ -1,4 +1,5 @@
-﻿using Paradigm.WindowsAppSDK.SampleApp.Messages;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Paradigm.WindowsAppSDK.SampleApp.Messages;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
 using Paradigm.WindowsAppSDK.Services.MessageBus;
 using System;
@@ -21,6 +22,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <param name="serviceProvider">The service provider.</param>
         public MainWindowViewModel(IServiceProvider serviceProvider): base(serviceProvider)
         {
+         
         }
 
         #endregion
@@ -32,8 +34,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </summary>
         public override void RegisterServiceBusMessageHandlers()
         {
-            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<ContentFolderReadFinishedMessage>(this, OnContentReadFinishedAsync);
-            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<LocalStateContentFolderReadFinishedMessage>(this, OnLocalStateContentReadFinishedAsync);
+            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<ContentFolderReadFinishedMessage>(this, this.ServiceProvider, OnContentReadFinishedAsync);
+            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<LocalStateContentFolderReadFinishedMessage>(this, this.ServiceProvider, OnLocalStateContentReadFinishedAsync);
 
             LogService.Debug($"Registered {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message handlers");
         }
