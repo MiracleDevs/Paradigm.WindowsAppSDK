@@ -13,7 +13,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <value>
         /// The settings.
         /// </value>
-        private TelemetrySettings? Settings { get; set; }
+        protected TelemetrySettings? Settings { get; private set; }
 
         /// <summary>
         /// Gets or sets the telemetries client.
@@ -21,7 +21,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <value>
         /// The telemetries client.
         /// </value>
-        private TelemetryClient? TelemetriesClient { get; set; }
+        protected TelemetryClient? TelemetriesClient { get; private set; }
 
         /// <summary>
         /// Gets the extra properties.
@@ -29,7 +29,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <value>
         /// The extra properties.
         /// </value>
-        private IDictionary<string, string> ExtraProperties { get; }
+        protected IDictionary<string, string> ExtraProperties { get; }
 
         /// <summary>
         /// Gets the timers dictionary.
@@ -115,26 +115,13 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
 
         #endregion
 
-        #region Private Methods
-
-        /// <summary>
-        /// Initializes the client.
-        /// </summary>
-        private void InitializeClient()
-        {
-            if (Settings == null)
-                return;
-
-            var configuration = TelemetryConfiguration.CreateDefault();
-            configuration.ConnectionString = Settings.ConnectionString;
-            TelemetriesClient = new TelemetryClient(configuration);
-        }
+        #region Protected Methods
 
         /// <summary>
         /// Adds the extra properties.
         /// </summary>
         /// <param name="properties">The properties.</param>
-        private void AddExtraPropertiesTo(IDictionary<string, string> properties)
+        protected void AddExtraPropertiesTo(IDictionary<string, string> properties)
         {
             if (ExtraProperties.Count == 0)
                 return;
@@ -150,8 +137,11 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// Renames the props.
         /// </summary>
         /// <param name="properties">The properties.</param>
-        private void RenameProps(IDictionary<string, string> properties)
+        protected void RenameProps(IDictionary<string, string> properties)
         {
+            if (Settings == null || !Settings.RenamePropertiesEnabled)
+                return;
+
             var i = 0;
             IDictionary<string, string> retProperties = new Dictionary<string, string>();
 
@@ -165,13 +155,30 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
 
             foreach (var prop in retProperties)
             {
-                if (Settings?.AllowedCustomProps?.Contains(prop.Key, StringComparer.OrdinalIgnoreCase) ?? false)
+                if (Settings.AllowedCustomProps?.Contains(prop.Key, StringComparer.OrdinalIgnoreCase) ?? false)
                     continue;
 
                 i++;
                 properties.Remove(prop);
                 properties.Add($"value{i}", prop.Value);
             }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Initializes the client.
+        /// </summary>
+        private void InitializeClient()
+        {
+            if (Settings == null)
+                return;
+
+            var configuration = TelemetryConfiguration.CreateDefault();
+            configuration.ConnectionString = Settings.ConnectionString;
+            TelemetriesClient = new TelemetryClient(configuration);
         }
 
         /// <summary>
