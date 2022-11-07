@@ -103,6 +103,38 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         }
 
         /// <summary>
+        /// Tracks the exception.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        public void TrackException(Exception ex)
+        {
+            if (Settings == null || TelemetriesClient == null)
+                throw new InvalidOperationException("Telemetry was not initialized");
+
+            if (Settings.DebounceEnabled)
+            {
+                Debounce("exception", () => Task.Run(() =>
+                {
+                    var properties = new Dictionary<string, string>();
+                    AddExtraPropertiesTo(properties);
+                    AddDebounceCount("exception", properties);
+                    TelemetriesClient.TrackException(ex, properties);
+                    TelemetriesClient.Flush();
+                }), 500);
+            }
+            else
+            {
+                Task.Run(() =>
+                {
+                    var properties = new Dictionary<string, string>();
+                    AddExtraPropertiesTo(properties);
+                    TelemetriesClient.TrackException(ex, properties);
+                    TelemetriesClient.Flush();
+                });
+            }
+        }
+
+        /// <summary>
         /// Adds the extra property.
         /// </summary>
         /// <param name="name">The name.</param>

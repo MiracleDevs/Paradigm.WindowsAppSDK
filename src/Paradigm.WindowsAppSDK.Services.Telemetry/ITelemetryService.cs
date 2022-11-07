@@ -18,6 +18,12 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         void TrackEvent(string eventName, IDictionary<string, string> properties);
 
         /// <summary>
+        /// Tracks the exception.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        void TrackException(Exception ex);
+
+        /// <summary>
         /// Adds the extra property.
         /// </summary>
         /// <param name="name">The name.</param>
