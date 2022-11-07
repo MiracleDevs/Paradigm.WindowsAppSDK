@@ -1,5 +1,4 @@
 ﻿using Paradigm.WindowsAppSDK.SampleApp.Messages;
-using Paradigm.WindowsAppSDK.Services.MessageBus.Extensions;
 using System;
 using System.Threading.Tasks;
 
@@ -44,7 +43,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             var message = new LocalStateContentFolderReadFinishedMessage();
 
             LogService.Debug($"Sending message {message.GetType()}");
-            await this.SendMessageAsync(message);
+            await this.MessageBusService.SendAsync(message);
         }
 
         #endregion

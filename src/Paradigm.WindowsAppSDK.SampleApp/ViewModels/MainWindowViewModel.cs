@@ -1,7 +1,8 @@
 ﻿using Paradigm.WindowsAppSDK.SampleApp.Messages;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
-using Paradigm.WindowsAppSDK.Services.MessageBus.Extensions;
+using Paradigm.WindowsAppSDK.Services.MessageBus;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
@@ -29,12 +30,12 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <summary>
         /// Registers the service bus message handlers.
         /// </summary>
-        protected override void RegisterServiceBusMessageHandlers()
+        public override void RegisterServiceBusMessageHandlers()
         {
-            this.RegisterMessage<ContentFolderReadFinishedMessage>(OnContentReadFinishedAsync);
-            this.RegisterMessage<LocalStateContentFolderReadFinishedMessage>(OnLocalStateContentReadFinishedAsync);
+            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<ContentFolderReadFinishedMessage>(this, OnContentReadFinishedAsync);
+            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<LocalStateContentFolderReadFinishedMessage>(this, OnLocalStateContentReadFinishedAsync);
 
-            LogService.Debug($"Registered {this.MessageBusConsumerRegistrations.Count} message handlers");
+            LogService.Debug($"Registered {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message handlers");
         }
 
         /// <summary>

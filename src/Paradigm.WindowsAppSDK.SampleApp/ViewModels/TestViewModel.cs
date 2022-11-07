@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.SampleApp.Messages;
-using Paradigm.WindowsAppSDK.Services.MessageBus;
-using Paradigm.WindowsAppSDK.Services.MessageBus.Extensions;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
 using System;
 using System.Collections.Generic;
@@ -11,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {
-    public class TestViewModel : Base.SampleAppPageViewModelBase, IMessageBusServiceSender
+    public class TestViewModel : Base.SampleAppPageViewModelBase
     {
         #region Properties
 
@@ -147,7 +145,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             var message = new ContentFolderReadFinishedMessage();
 
             LogService.Debug($"Sending message {message.GetType()}");
-            await this.SendMessageAsync(message);
+            await this.MessageBusService.SendAsync(message);
         }
 
         #endregion

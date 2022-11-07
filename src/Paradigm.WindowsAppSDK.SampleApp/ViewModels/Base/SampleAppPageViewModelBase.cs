@@ -1,16 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.Services.Logging;
-using Paradigm.WindowsAppSDK.Services.MessageBus.Models;
 using Paradigm.WindowsAppSDK.Services.MessageBus;
 using Paradigm.WindowsAppSDK.Services.Navigation;
+using Paradigm.WindowsAppSDK.ViewModels;
 using Paradigm.WindowsAppSDK.ViewModels.Base;
 using System;
-using System.Collections.Generic;
-using Paradigm.WindowsAppSDK.Services.MessageBus.Extensions;
+using System.Linq;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
 {
-    public abstract class SampleAppPageViewModelBase : PageViewModelBase, IMessageBusServiceConsumer
+    public abstract class SampleAppPageViewModelBase : PageViewModelBase, IMessageBusConsumer
     {
         #region Properties
 
@@ -37,16 +36,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         /// <value>
         /// The message bus service.
         /// </value>
-        public IMessageBusService MessageBusService { get; private set; }
-
-        /// <summary>
-        /// Gets the message bus consumer registrations.
-        /// </summary>
-        /// <value>
-        /// The message bus consumer registrations.
-        /// </value>
-        public IDictionary<Type, RegistrationToken> MessageBusConsumerRegistrations { get; private set; }
-
+        public IMessageBusService MessageBusService { get;} = ServiceLocator.Instance.GetRequiredService<IMessageBusService>();
 
         #endregion
 
@@ -61,9 +51,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
             LogService = serviceProvider.GetRequiredService<ILogService>();
             Navigation = serviceProvider.GetRequiredService<INavigationService>();
 
-            MessageBusService = serviceProvider.GetService<IMessageBusService>();
-            MessageBusConsumerRegistrations = new Dictionary<Type, RegistrationToken>();
-
             RegisterServiceBusMessageHandlers();
         }
 
@@ -77,9 +64,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         public override void Dispose()
         {
             base.Dispose();
-
-            LogService.Debug($"Unregistering {this.MessageBusConsumerRegistrations.Count} message registrations from {this.GetType().FullName}");
-            this.UnregisterMessages();
+            UnRegisterServiceBusMessageHandlers();
         }
 
         #endregion
@@ -89,9 +74,19 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         /// <summary>
         /// Registers the service bus message handlers.
         /// </summary>
-        protected virtual void RegisterServiceBusMessageHandlers()
+        public virtual void RegisterServiceBusMessageHandlers()
         {
 
+        }
+
+        /// <summary>
+        /// Uns the register service bus message handlers.
+        /// </summary>
+        public virtual void UnRegisterServiceBusMessageHandlers()
+        {
+            LogService.Debug($"Unregistering {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message registrations from {this.GetType().FullName}");
+            MessageBusRegistrationsHandler.Instance.UnregisterMessageHandlers(this);
+            LogService.Debug($"Found {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message registrations from {this.GetType().FullName}");
         }
 
         #endregion
