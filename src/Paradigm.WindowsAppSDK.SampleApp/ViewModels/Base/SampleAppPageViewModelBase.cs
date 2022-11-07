@@ -74,10 +74,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         /// <summary>
         /// Registers the service bus message handlers.
         /// </summary>
-        public virtual void RegisterServiceBusMessageHandlers()
-        {
-
-        }
+        public abstract void RegisterServiceBusMessageHandlers();
 
         /// <summary>
         /// Uns the register service bus message handlers.

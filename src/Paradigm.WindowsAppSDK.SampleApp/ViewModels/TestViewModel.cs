@@ -107,6 +107,14 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             await this.ReadFolderContentAsync("Test", !this.UseLocalState);
         }
 
+        /// <summary>
+        /// Registers the service bus message handlers.
+        /// </summary>
+        public override void RegisterServiceBusMessageHandlers()
+        {
+
+        }
+
         #endregion
 
         #region Private Methods
@@ -147,6 +155,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             LogService.Debug($"Sending message {message.GetType()}");
             await this.MessageBusService.SendAsync(message);
         }
+
+
 
         #endregion
     }
