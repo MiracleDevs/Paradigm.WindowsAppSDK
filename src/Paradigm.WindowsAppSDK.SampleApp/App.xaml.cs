@@ -37,7 +37,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
             var legacyConfigurationService = ServiceLocator.Instance.GetRequiredService<ILegacyConfigurationService>();
             var fileStorageService = ServiceLocator.Instance.GetRequiredService<IFileStorageService>();
-            navigationService.Initialize(m_window.Content as Microsoft.UI.Xaml.Controls.Frame);
+            navigationService.Initialize(m_window.Content as INavigationFrame);
             legacyConfigurationService.Initialize(await fileStorageService.ReadContentFromApplicationUriAsync(fileStorageService.GetLocalFileUri(System.IO.Path.Combine("Configuration", "config.json"))));
 
             await navigationService.NavigateToAsync<MainViewModel>();

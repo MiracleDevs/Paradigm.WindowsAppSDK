@@ -23,7 +23,7 @@ namespace Paradigm.WindowsAppSDK.ViewModels.Base
         /// </summary>
         /// <param name="navigable">The navigable element.</param>
         /// <returns></returns>
-        public async Task<bool> CanNavigateTo(INavigable navigable)
+        public async virtual Task<bool> CanNavigateTo(INavigable navigable)
         {
             await Task.CompletedTask;
             return true;
@@ -34,7 +34,7 @@ namespace Paradigm.WindowsAppSDK.ViewModels.Base
         /// </summary>
         /// <param name="navigable">The navigable element.</param>
         /// <returns></returns>
-        public async Task<bool> CanNavigateFrom(INavigable navigable)
+        public async virtual Task<bool> CanNavigateFrom(INavigable navigable)
         {
             await Task.CompletedTask;
             return true;

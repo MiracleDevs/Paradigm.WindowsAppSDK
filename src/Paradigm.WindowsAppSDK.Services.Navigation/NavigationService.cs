@@ -1,11 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Animation;
-using Microsoft.UI.Xaml.Navigation;
 using Paradigm.WindowsAppSDK.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.Services.Navigation
@@ -44,7 +40,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <value>
         /// The frame.
         /// </value>
-        private Frame Frame { get; set; }
+        private INavigationFrame Frame { get; set; }
 
         /// <summary>
         /// Gets or sets the candidate view.
@@ -109,7 +105,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// Initializes the specified frame.
         /// </summary>
         /// <param name="frame">The frame.</param>
-        public void Initialize(Frame frame)
+        public void Initialize(INavigationFrame frame)
         {
             this.Frame = frame;
             this.Frame.Navigated += this.OnNavigated;
@@ -121,7 +117,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <typeparam name="TPage">The type of the page.</typeparam>
         /// <typeparam name="TNavigable">The type of the navigable.</typeparam>
         public void Register<TPage, TNavigable>()
-            where TPage : Page
+            where TPage : INavigableView
             where TNavigable : INavigable
         {
             this.NavigationViews.Add(typeof(TNavigable), typeof(TPage));
@@ -138,7 +134,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
             if (!this.CanGoBack || this.CurrentNavigable == null || this.CurrentNavigableView == null)
                 return false;
 
-            var navigableView = this.Frame.BackStack.Last().SourcePageType;
+            var navigableView = this.Frame.LastBackStackSourcePageType();
 
             if (!this.Navigables.ContainsKey(navigableView))
                 throw new Exception($"The navigable view '{navigableView.Name}' is not registered.");
@@ -156,7 +152,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
             if (!this.CanGoForward || this.CurrentNavigable == null || this.CurrentNavigableView == null)
                 return false;
 
-            var navigableView = this.Frame.ForwardStack.Last().SourcePageType;
+            var navigableView = this.Frame.LastForwardStackSourcePageType();
 
             if (!this.Navigables.ContainsKey(navigableView))
                 throw new Exception($"The navigable view '{navigableView.Name}' is not registered.");
@@ -184,7 +180,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
             if (this.Frame == null)
                 return false;
 
-            return await this.NavigateToNavigableViewAsync(navigableType, x => this.Frame.Navigate(x, null, new SuppressNavigationTransitionInfo()));
+            return await this.NavigateToNavigableViewAsync(navigableType, x => this.Frame.Navigate(x, null));
         }
 
         /// <summary>
@@ -192,7 +188,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// </summary>
         public void ClearBackStack()
         {
-            this.Frame?.BackStack.Clear();
+            this.Frame?.ClearBackStack();
         }
 
         #endregion
@@ -220,7 +216,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
                 if (!await this.CurrentNavigable.CanNavigateTo(navigable) || !await navigable.CanNavigateFrom(this.CurrentNavigable))
                     return false;
 
-                await this.CurrentNavigableView.DisposeAsync();
+                await this.CurrentNavigableView?.DisposeAsync();
             }
 
             // 4. if we get to this point, the navigable elements allowed the transition, so we can try to navigate using the uwp navigator manager.
@@ -252,9 +248,9 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="NavigationEventArgs"/> instance containing the event data.</param>
-        private void OnNavigated(object sender, NavigationEventArgs e)
+        private void OnNavigated(object sender, NavigationFrameEventArgs e)
         {
-            this.CandidateView = e.Content as INavigableView;
+            this.CandidateView = e.Content;
         }
 
         #endregion

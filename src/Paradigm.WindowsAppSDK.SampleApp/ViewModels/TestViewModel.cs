@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.SampleApp.Messages;
+using Paradigm.WindowsAppSDK.Services.Interfaces;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
 using System;
 using System.Collections.Generic;
@@ -113,6 +114,16 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public override void RegisterServiceBusMessageHandlers()
         {
 
+        }
+
+        public override Task<bool> CanNavigateFrom(INavigable navigable)
+        {
+            return Task.FromResult(navigable is MainViewModel);
+        }
+
+        public override Task<bool> CanNavigateTo(INavigable navigable)
+        {
+            return Task.FromResult(navigable is MainViewModel);
         }
 
         #endregion
