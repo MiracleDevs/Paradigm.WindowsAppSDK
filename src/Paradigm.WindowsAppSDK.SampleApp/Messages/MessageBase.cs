@@ -30,7 +30,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Messages
         public MessageBase()
         {
             Guid = Guid.NewGuid();
-            Delay = 500;
+            Delay = 50;
         }
     }
 }

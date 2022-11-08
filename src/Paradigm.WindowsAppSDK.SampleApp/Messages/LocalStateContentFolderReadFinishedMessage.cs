@@ -12,7 +12,7 @@
         /// </summary>
         public LocalStateContentFolderReadFinishedMessage()
         {
-            Delay = 2000;
+            Delay = 20;
         }
     }
 }
