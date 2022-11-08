@@ -43,25 +43,6 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         {
             try
             {
-                //const string configFileName = "config.json";
-                //var alternativePath = Path.Combine("IdleContent", configFileName);
-                //var content = string.Empty;
-
-                //if (this.FileStorageService.FileExists(configFileName))
-                //    content = await this.FileStorageService.ReadLocalTextAsync(configFileName);
-
-                //else if (this.FileStorageService.FileExists(Path.ChangeExtension(configFileName, "jsonc")))
-                //    content = await this.FileStorageService.ReadLocalTextAsync(Path.ChangeExtension(configFileName, "jsonc"));
-
-                //else if (this.FileStorageService.FileExists(alternativePath))
-                //    content = await this.FileStorageService.ReadLocalTextAsync(alternativePath);
-
-                //else if (this.FileStorageService.FileExists(Path.ChangeExtension(alternativePath, "jsonc")))
-                //    content = await this.FileStorageService.ReadLocalTextAsync(Path.ChangeExtension(alternativePath, "jsonc"));
-
-                //else
-                //    content = await this.FileStorageService.ReadContentFromApplicationUriAsync(Path.Combine("Configuration", configFileName));
-
                 var deserializerOptions = new JsonSerializerOptions();
                 deserializerOptions.Converters.Add(new DictionaryStringObjectJsonConverter());
                 this.Configurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, deserializerOptions);
