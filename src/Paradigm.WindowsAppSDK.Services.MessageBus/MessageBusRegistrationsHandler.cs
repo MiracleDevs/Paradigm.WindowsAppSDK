@@ -4,7 +4,7 @@ using System;
 
 namespace Paradigm.WindowsAppSDK.Services.MessageBus
 {
-  
+
     public sealed class MessageBusRegistrationsHandler
     {
         #region Singleton
@@ -23,7 +23,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <value>
         /// The message bus consumer registrations.
         /// </value>
-        private IDictionary<Type, IDictionary<Type, RegistrationToken>> MessageBusConsumerRegistrations { get; set; }
+        private IDictionary<Tuple<Type, Type>, RegistrationToken> MessageBusConsumerRegistrations { get; set; }
 
         #endregion
 
@@ -34,7 +34,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// </summary>
         private MessageBusRegistrationsHandler()
         {
-            MessageBusConsumerRegistrations = new Dictionary<Type, IDictionary<Type, RegistrationToken>>();
+            MessageBusConsumerRegistrations = new Dictionary<Tuple<Type, Type>, RegistrationToken>();
         }
 
         #endregion
@@ -53,27 +53,19 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         {
             RegistrationToken token;
 
-            var consumerType = consumer.GetType();
             var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
 
-            if (MessageBusConsumerRegistrations.TryGetValue(typeof(TMessage), out var registrations))
+            var key = CreateMessageRegistrationKey(typeof(TMessage), consumer.GetType());
+
+            if (!MessageBusConsumerRegistrations.ContainsKey(key))
             {
-                if (!registrations.ContainsKey(consumerType))
-                {
+                token = messageBusService.Register(consumer, messageListener);
 
-                    registrations.Add(consumerType, messageBusService.Register(messageListener));
-                }
-
-                token = registrations[consumerType];
+                MessageBusConsumerRegistrations.Add(key, token);
             }
             else
             {
-                token = messageBusService.Register(messageListener);
-
-                MessageBusConsumerRegistrations.Add(typeof(TMessage), new Dictionary<Type, RegistrationToken>
-                {
-                    { consumerType, token }
-                });
+                token = MessageBusConsumerRegistrations[key];
             }
 
             return token;
@@ -100,21 +92,17 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         public void UnregisterMessageHandlers(object consumer, IServiceProvider serviceProvider)
         {
             var consumerType = consumer.GetType();
-            
+
             var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
 
-            var registrationMessageTypes = this.MessageBusConsumerRegistrations
-                .Where(messageRegistration => messageRegistration.Value.Any(consumerRegistration => consumerRegistration.Key == consumerType));
+            var registrationTokens = this.MessageBusConsumerRegistrations
+                .Where(messageRegistration => messageRegistration.Key.Item2 == consumerType)
+                .Select(messageRegistration => messageRegistration.Value)
+                .Distinct();
 
-            foreach (var messageType in registrationMessageTypes)
+            foreach (var token in registrationTokens.Where(t => t.ConsumerType == consumerType))
             {
-                foreach (var consumerRegistration in messageType.Value)
-                {
-                    if (consumerRegistration.Key == consumerType)
-                    {
-                        UnregisterMessage(consumer, messageBusService, messageType.Key);
-                    }
-                }
+                UnregisterMessage(consumer, messageBusService, token.Type);
             }
         }
 
@@ -128,8 +116,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
             var consumerType = consumer.GetType();
 
             return this.MessageBusConsumerRegistrations
-                .Where(messageRegistration => messageRegistration.Value.Any(consumerRegistration => consumerRegistration.Key == consumerType))
-                .SelectMany(consumerRegistration => consumerRegistration.Value.Where(a => a.Key == consumerType))
+                .Where(messageRegistration => messageRegistration.Key.Item2 == consumerType)
                 .Select(messageRegistration => messageRegistration.Value);
         }
 
@@ -145,27 +132,30 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <param name="messageType">Type of the message.</param>
         private void UnregisterMessage(object consumer, IMessageBusService messageBusService, Type messageType)
         {
-            var consumerType = consumer.GetType();
+            var key = CreateMessageRegistrationKey(messageType, consumer.GetType());
 
-            if (!MessageBusConsumerRegistrations.ContainsKey(messageType))
+            if (!MessageBusConsumerRegistrations.ContainsKey(key))
             {
                 return;
             }
-
-            if (MessageBusConsumerRegistrations[messageType].Any(r => r.Key == consumerType))
+            else
             {
-                if (MessageBusConsumerRegistrations[messageType].TryGetValue(consumerType, out var token))
-                {
-                    messageBusService.Unregister(token);
-                }
+                messageBusService.Unregister(MessageBusConsumerRegistrations[key]);
 
-                MessageBusConsumerRegistrations[messageType].Remove(consumerType);
+                MessageBusConsumerRegistrations.Remove(key);
             }
+        }
 
-            if (!MessageBusConsumerRegistrations[messageType].Any())
-            {
-                MessageBusConsumerRegistrations.Remove(messageType);
-            }
+
+        /// <summary>
+        /// Creates the message registration key.
+        /// </summary>
+        /// <param name="messageType">Type of the message.</param>
+        /// <param name="consumerType">Type of the consumer.</param>
+        /// <returns></returns>
+        private Tuple<Type, Type> CreateMessageRegistrationKey(Type messageType, Type consumerType)
+        {
+            return Tuple.Create(messageType, consumerType);
         }
 
         #endregion
