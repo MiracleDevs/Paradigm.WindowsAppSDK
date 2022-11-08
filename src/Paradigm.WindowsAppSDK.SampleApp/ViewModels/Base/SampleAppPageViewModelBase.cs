@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
 {
-    public abstract class SampleAppPageViewModelBase : PageViewModelBase, IMessageBusConsumer
+    public abstract class SampleAppPageViewModelBase : PageViewModelBase
     {
         #region Properties
 
