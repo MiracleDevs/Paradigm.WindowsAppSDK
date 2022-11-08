@@ -1,16 +1,23 @@
-﻿using Paradigm.WindowsAppSDK.Services.MessageBus.Models;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Paradigm.WindowsAppSDK.Services.MessageBus.Models;
 
 namespace Paradigm.WindowsAppSDK.Services.MessageBus
 {
-
     public sealed class MessageBusRegistrationsHandler
     {
         #region Singleton
 
+        /// <summary>
+        /// The internal instance
+        /// </summary>
         private static readonly Lazy<MessageBusRegistrationsHandler> InternalInstance = new Lazy<MessageBusRegistrationsHandler>(() => new MessageBusRegistrationsHandler(), true);
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
         public static MessageBusRegistrationsHandler Instance => InternalInstance.Value;
 
         #endregion
@@ -54,13 +61,11 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
             RegistrationToken token;
 
             var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
-
             var key = CreateMessageRegistrationKey(typeof(TMessage), consumer.GetType());
 
             if (!MessageBusConsumerRegistrations.ContainsKey(key))
             {
                 token = messageBusService.Register(consumer, messageListener);
-
                 MessageBusConsumerRegistrations.Add(key, token);
             }
             else
@@ -80,7 +85,6 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         public void UnregisterMessageHandler<TMessage>(object consumer, IServiceProvider serviceProvider)
         {
             var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
-
             UnregisterMessage(consumer, messageBusService, typeof(TMessage));
         }
 
@@ -92,7 +96,6 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         public void UnregisterMessageHandlers(object consumer, IServiceProvider serviceProvider)
         {
             var consumerType = consumer.GetType();
-
             var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
 
             var registrationTokens = this.MessageBusConsumerRegistrations
@@ -113,10 +116,8 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <returns></returns>
         public IEnumerable<RegistrationToken> GetRegisteredMessageHandlers(object consumer)
         {
-            var consumerType = consumer.GetType();
-
             return this.MessageBusConsumerRegistrations
-                .Where(messageRegistration => messageRegistration.Key.Item2 == consumerType)
+                .Where(messageRegistration => messageRegistration.Key.Item2 == consumer.GetType())
                 .Select(messageRegistration => messageRegistration.Value);
         }
 
@@ -135,17 +136,11 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
             var key = CreateMessageRegistrationKey(messageType, consumer.GetType());
 
             if (!MessageBusConsumerRegistrations.ContainsKey(key))
-            {
                 return;
-            }
-            else
-            {
-                messageBusService.Unregister(MessageBusConsumerRegistrations[key]);
 
-                MessageBusConsumerRegistrations.Remove(key);
-            }
+            messageBusService.Unregister(MessageBusConsumerRegistrations[key]);
+            MessageBusConsumerRegistrations.Remove(key);
         }
-
 
         /// <summary>
         /// Creates the message registration key.
@@ -159,6 +154,5 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         }
 
         #endregion
-
     }
 }

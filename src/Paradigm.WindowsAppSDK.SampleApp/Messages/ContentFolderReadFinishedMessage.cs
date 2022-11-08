@@ -12,7 +12,6 @@
         /// </summary>
         public ContentFolderReadFinishedMessage()
         {
-            Delay = 1000;
         }
     }
 }
