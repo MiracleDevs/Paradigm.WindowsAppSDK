@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.Services.Logging;
+using Paradigm.WindowsAppSDK.Services.MessageBus;
 using Paradigm.WindowsAppSDK.Services.Navigation;
+using Paradigm.WindowsAppSDK.ViewModels;
 using Paradigm.WindowsAppSDK.ViewModels.Base;
 using System;
+using System.Linq;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
 {
@@ -27,6 +30,14 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         /// </value>
         protected INavigationService Navigation { get; }
 
+        /// <summary>
+        /// Gets the message bus service.
+        /// </summary>
+        /// <value>
+        /// The message bus service.
+        /// </value>
+        protected IMessageBusService MessageBusService { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -39,6 +50,41 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         {
             LogService = serviceProvider.GetRequiredService<ILogService>();
             Navigation = serviceProvider.GetRequiredService<INavigationService>();
+            MessageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
+
+            RegisterServiceBusMessageHandlers();
+        }
+
+        #endregion
+
+        #region Public methods
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public override void Dispose()
+        {
+            base.Dispose();
+            UnRegisterServiceBusMessageHandlers();
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Registers the service bus message handlers.
+        /// </summary>
+        public abstract void RegisterServiceBusMessageHandlers();
+
+        /// <summary>
+        /// Uns the register service bus message handlers.
+        /// </summary>
+        public virtual void UnRegisterServiceBusMessageHandlers()
+        {
+            LogService.Debug($"Unregistering {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message registrations from {this.GetType().FullName}");
+            MessageBusRegistrationsHandler.Instance.UnregisterMessageHandlers(this, this.ServiceProvider);
+            LogService.Debug($"Found {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message registrations from {this.GetType().FullName}");
         }
 
         #endregion

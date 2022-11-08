@@ -40,14 +40,14 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <typeparam name="T"></typeparam>
         /// <param name="messageListener">The message listener.</param>
         /// <returns></returns>
-        public RegistrationToken Register<T>(Func<T, Task> messageListener)
+        public RegistrationToken Register<T>(object consumer, Func<T, Task> messageListener)
         {
             var type = typeof(T);
 
             if (!this.MessageHandler.ContainsKey(type))
                 this.MessageHandler.Add(type, new List<Handler>());
 
-            var handler = new Handler(type, messageListener);
+            var handler = new Handler(type, consumer.GetType(), messageListener);
             this.MessageHandler[type].Add(handler);
             return handler.Token;
         }

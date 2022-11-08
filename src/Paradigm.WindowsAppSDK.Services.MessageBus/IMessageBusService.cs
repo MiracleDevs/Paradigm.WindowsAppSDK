@@ -9,12 +9,13 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
     public interface IMessageBusService : IService
     {
         /// <summary>
-        /// Registers a message listener.
+        /// Registers the specified consumer.
         /// </summary>
-        /// <typeparam name="T">The message type.</typeparam>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="consumer">The consumer.</param>
         /// <param name="messageListener">The message listener.</param>
         /// <returns></returns>
-        RegistrationToken Register<T>(Func<T, Task> messageListener);
+        RegistrationToken Register<T>(object consumer, Func<T, Task> messageListener);
 
         /// <summary>
         /// Unregisters the message listener.

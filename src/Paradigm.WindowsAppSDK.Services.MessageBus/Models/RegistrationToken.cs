@@ -29,10 +29,19 @@
         /// Initializes a new instance of the <see cref="RegistrationToken"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        public RegistrationToken(Type type)
+        public RegistrationToken(Type type, Type consumerType)
         {
             Type = type;
             Identity = Guid.NewGuid();
+            ConsumerType = consumerType;
         }
+
+        /// <summary>
+        /// Gets the type of the consumer.
+        /// </summary>
+        /// <value>
+        /// The type of the consumer.
+        /// </value>
+        public Type ConsumerType { get; }
     }
 }

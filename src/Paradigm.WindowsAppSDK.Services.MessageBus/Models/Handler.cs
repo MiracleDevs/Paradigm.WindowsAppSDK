@@ -26,10 +26,10 @@
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="messageListener">The message listener.</param>
-        public Handler(Type type, object messageListener)
+        public Handler(Type type, Type consumerType, object messageListener)
         {
             MessageListener = messageListener;
-            Token = new RegistrationToken(type);
+            Token = new RegistrationToken(type, consumerType);
         }
     }
 }
