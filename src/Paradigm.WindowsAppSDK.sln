@@ -37,7 +37,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Tests", "02.Tests", "{A8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Tests", "Paradigm.WindowsAppSDK.Services.Tests\Paradigm.WindowsAppSDK.Services.Tests.csproj", "{6ED42442-C3B6-455A-A1D1-1FE81E76320B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigm.WindowsAppSDK.Services.FileStorage", "Paradigm.WindowsAppSDK.Services.FileStorage\Paradigm.WindowsAppSDK.Services.FileStorage.csproj", "{D92C0E08-3EF3-469E-BD38-BC7CB3D92F3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.FileStorage", "Paradigm.WindowsAppSDK.Services.FileStorage\Paradigm.WindowsAppSDK.Services.FileStorage.csproj", "{D92C0E08-3EF3-469E-BD38-BC7CB3D92F3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigm.WindowsAppSDK.Xaml", "Paradigm.WindowsAppSDK.Xaml\Paradigm.WindowsAppSDK.Xaml.csproj", "{95B841FD-4E4B-473B-8B59-2B0268D55612}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -283,6 +285,22 @@ Global
 		{D92C0E08-3EF3-469E-BD38-BC7CB3D92F3D}.Release|x64.Build.0 = Release|Any CPU
 		{D92C0E08-3EF3-469E-BD38-BC7CB3D92F3D}.Release|x86.ActiveCfg = Release|Any CPU
 		{D92C0E08-3EF3-469E-BD38-BC7CB3D92F3D}.Release|x86.Build.0 = Release|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Debug|arm64.Build.0 = Debug|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Debug|x64.Build.0 = Debug|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Debug|x86.Build.0 = Debug|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Release|arm64.ActiveCfg = Release|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Release|arm64.Build.0 = Release|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Release|x64.ActiveCfg = Release|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Release|x64.Build.0 = Release|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Release|x86.ActiveCfg = Release|Any CPU
+		{95B841FD-4E4B-473B-8B59-2B0268D55612}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -302,6 +320,7 @@ Global
 		{632A5430-3B88-488F-A7A5-3E5AB2711BCF} = {6AEE80FA-A273-4361-8A4F-CD0AF3A6AD5F}
 		{6ED42442-C3B6-455A-A1D1-1FE81E76320B} = {A8089082-E2E2-473E-BE3D-5EF6043C7210}
 		{D92C0E08-3EF3-469E-BD38-BC7CB3D92F3D} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
+		{95B841FD-4E4B-473B-8B59-2B0268D55612} = {6AEE80FA-A273-4361-8A4F-CD0AF3A6AD5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E838D54E-7F9D-446F-9651-F3AF09A8EC84}
