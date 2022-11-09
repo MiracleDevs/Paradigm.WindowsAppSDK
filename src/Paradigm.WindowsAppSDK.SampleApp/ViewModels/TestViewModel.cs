@@ -137,18 +137,17 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
         protected virtual async Task ReadFolderContentAsync(string path, bool useInstallationFolder)
         {
-            var fileNames = await FileStorageService.GetFilesFromFolderAsync(path, useInstallationFolder);
-
+            var fileNames = FileStorageService.GetFilesFromFolder(path);
             if (fileNames == null)
                 return;
 
             foreach (var name in fileNames)
             {
                 var filePath = Path.Combine(path, name);
-                var fileProperties = await FileStorageService.ReadFilePropertiesAsync(filePath, Enumerable.Empty<string>(), useInstallationFolder);
-                LogService.Information($"{filePath} properties count is {fileProperties.Count}");
-                var fileContent = await FileStorageService.ReadContentFromApplicationUriAsync(FileStorageService.GetLocalFileUri(filePath, true, useInstallationFolder));
-                LogService.Information($"{filePath} content length is {fileContent.Length}");
+                //var fileProperties = await FileStorageService.ReadFilePropertiesAsync(filePath, Enumerable.Empty<string>(), useInstallationFolder);
+                //LogService.Information($"{filePath} properties count is {fileProperties.Count}");
+                //var fileContent = await FileStorageService.ReadContentFromApplicationUriAsync(FileStorageService.GetLocalFileUri(filePath, true, useInstallationFolder));
+                //LogService.Information($"{filePath} content length is {fileContent.Length}");
             }
 
             StorageFiles = fileNames;
@@ -166,8 +165,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             LogService.Debug($"Sending message {message.GetType()}");
             await this.MessageBusService.SendAsync(message);
         }
-
-
 
         #endregion
     }

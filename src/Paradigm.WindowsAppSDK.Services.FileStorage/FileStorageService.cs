@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Storage;
-
-namespace Paradigm.WindowsAppSDK.Services.FileStorage
+﻿namespace Paradigm.WindowsAppSDK.Services.FileStorage
 {
     /// <summary>
     /// Implements the file storage service to give access to the lower level storage api.
@@ -14,16 +6,23 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
     /// <seealso cref="IFileStorageService" />
     public class FileStorageService : IFileStorageService
     {
-        private const string InstallationRootFolderName = "Assets";
         #region Properties
 
         /// <summary>
-        /// Gets the local folder.
+        /// Gets the local folder path.
         /// </summary>
         /// <value>
-        /// The local folder.
+        /// The local folder path.
         /// </value>
-        private StorageFolder LocalFolder { get; }
+        private string? LocalFolderPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the installation folder path.
+        /// </summary>
+        /// <value>
+        /// The installation folder path.
+        /// </value>
+        private string? InstallationFolderPath { get; set; }
 
         #endregion
 
@@ -34,7 +33,6 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// </summary>
         public FileStorageService()
         {
-            this.LocalFolder = ApplicationData.Current.LocalFolder;
         }
 
         #endregion
@@ -42,42 +40,74 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         #region Public Methods
 
         /// <summary>
-        /// Reads content from application URI.
+        /// Initializes the instance.
+        /// </summary>
+        /// <param name="localFolderPath">The local folder path.</param>
+        /// <param name="installationFolderPath">The installation folder path.</param>
+        public void Initialize(string localFolderPath, string installationFolderPath)
+        {
+            this.LocalFolderPath = localFolderPath;
+            this.InstallationFolderPath = installationFolderPath;
+        }
+
+        /// <summary>
+        /// Reads the text from installation folder asynchronous.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns></returns>
-        public async Task<string> ReadContentFromApplicationUriAsync(string path)
+        /// <exception cref="System.ArgumentNullException">InstallationFolderPath</exception>
+        public async Task<string> ReadTextFromInstallationFolderAsync(string path)
         {
-            return await ReadContentFromApplicationUriAsync(this.GetLocalFileUri(path));
+            if (string.IsNullOrEmpty(InstallationFolderPath))
+                throw new ArgumentNullException(nameof(InstallationFolderPath));
+
+            return await File.ReadAllTextAsync(Path.Combine(InstallationFolderPath, path));
         }
 
         /// <summary>
-        /// Reads the content from application URI asynchronous.
-        /// </summary>
-        /// <param name="uri">The URI.</param>
-        /// <returns></returns>
-        public async Task<string> ReadContentFromApplicationUriAsync(Uri uri)
-        {
-            var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
-
-            return await File.ReadAllTextAsync(file.Path);
-        }
-
-        /// <summary>
-        /// Reads the bytes from application URI.
+        /// Reads the text from installation folder.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns></returns>
-        public async Task<byte[]> ReadBytesFromApplicationUriAsync(string path)
+        /// <exception cref="System.ArgumentNullException">InstallationFolderPath</exception>
+        public string ReadTextFromInstallationFolder(string path)
         {
-            var uri = this.GetLocalFileUri(path);
-            var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+            if (string.IsNullOrEmpty(InstallationFolderPath))
+                throw new ArgumentNullException(nameof(InstallationFolderPath));
 
-            return (await FileIO.ReadBufferAsync(file)).ToArray();
+            return File.ReadAllText(Path.Combine(InstallationFolderPath, path));
         }
 
         /// <summary>
-        /// Reads a text file from the installed location.
+        /// Reads the bytes from installation folder asynchronous.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">InstallationFolderPath</exception>
+        public async Task<byte[]> ReadBytesFromInstallationFolderAsync(string path)
+        {
+            if (string.IsNullOrEmpty(InstallationFolderPath))
+                throw new ArgumentNullException(nameof(InstallationFolderPath));
+
+            return await File.ReadAllBytesAsync(Path.Combine(InstallationFolderPath, path));
+        }
+
+        /// <summary>
+        /// Reads the bytes from installation folder.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">InstallationFolderPath</exception>
+        public byte[] ReadBytesFromInstallationFolder(string path)
+        {
+            if (string.IsNullOrEmpty(InstallationFolderPath))
+                throw new ArgumentNullException(nameof(InstallationFolderPath));
+
+            return File.ReadAllBytes(Path.Combine(InstallationFolderPath, path));
+        }
+
+        /// <summary>
+        /// Reads a text file asynchronous.
         /// </summary>
         /// <param name="path">The URI.</param>
         /// <returns>
@@ -85,36 +115,25 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// </returns>
         public async Task<string> ReadLocalTextAsync(string path)
         {
-            return await FileIO.ReadTextAsync(await this.LocalFolder.GetFileAsync(path));
+            if (string.IsNullOrEmpty(LocalFolderPath))
+                throw new ArgumentNullException(nameof(LocalFolderPath));
+
+            return await File.ReadAllTextAsync(Path.Combine(LocalFolderPath, path));
         }
 
         /// <summary>
-        /// Gets the name of the local file from a relative path.
+        /// Reads a text file.
         /// </summary>
-        /// <param name="path">The relative path.</param>
+        /// <param name="path">The URI.</param>
         /// <returns>
-        /// The absolute local filename.
+        /// The text content.
         /// </returns>
-        public async Task<string> GetLocalFileNameAsync(string path)
+        public string ReadLocalText(string path)
         {
-            return (await this.LocalFolder.GetFileAsync(path)).Path;
-        }
+            if (string.IsNullOrEmpty(LocalFolderPath))
+                throw new ArgumentNullException(nameof(LocalFolderPath));
 
-        /// <summary>
-        /// Gets the local file URI.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <param name="validateEmptyPath">if set to <c>true</c> [validate empty].</param>
-        /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
-        /// <returns></returns>
-        public Uri GetLocalFileUri(string path, bool validateEmptyPath = false, bool useInstallationFolder = true)
-        {
-            if (validateEmptyPath && string.IsNullOrWhiteSpace(path))
-                return default;
-
-            var baseUri = useInstallationFolder ? $"ms-appx:///{InstallationRootFolderName}" : "ms-appdata:///local";
-
-            return new Uri($"{baseUri}/{path}", UriKind.Absolute);
+            return File.ReadAllText(Path.Combine(LocalFolderPath, path));
         }
 
         /// <summary>
@@ -124,8 +143,19 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// <returns></returns>
         public bool FileExists(string fileName)
         {
-            var filePath = Path.IsPathRooted(fileName) ? fileName : Path.Combine(this.LocalFolder.Path, fileName);
+            var filePath = GetFilePath(fileName);
             return File.Exists(filePath);
+        }
+
+        /// <summary>
+        /// Saves the file asynchronous.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="content">The content.</param>
+        public async Task SaveFileAsync(string fileName, string content)
+        {
+            var filePath = GetFilePath(fileName);
+            await File.WriteAllTextAsync(filePath, content);
         }
 
         /// <summary>
@@ -133,14 +163,10 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="content">The content.</param>
-        /// <returns></returns>
-        public async Task SaveFileAsync(string fileName, string content)
+        public void SaveFile(string fileName, string content)
         {
-            var file = this.FileExists(fileName)
-                ? await this.LocalFolder.GetFileAsync(fileName)
-                : await this.LocalFolder.CreateFileAsync(fileName);
-
-            await FileIO.WriteTextAsync(file, content);
+            var filePath = GetFilePath(fileName);
+            File.WriteAllText(filePath, content);
         }
 
         /// <summary>
@@ -151,12 +177,14 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// <returns>
         /// The new absolute path.
         /// </returns>
-        public async Task<string> CopyFileAsync(string fileName, string newName)
+        public string CopyFile(string fileName, string newName)
         {
-            var file = await this.LocalFolder.GetFileAsync(Path.GetFileName(fileName));
-            var newFile = await file.CopyAsync(this.LocalFolder, newName);
+            var sourceFile = GetFilePath(fileName);
+            var destFile = GetFilePath(newName);
+            
+            File.Copy(sourceFile, destFile, true);
 
-            return newFile.Path;
+            return destFile;
         }
 
         /// <summary>
@@ -166,12 +194,11 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// <returns></returns>
         public void DeleteFile(string fileName)
         {
-            var filePath = Path.IsPathRooted(fileName) ? fileName : Path.Combine(this.LocalFolder.Path, fileName);
-            File.Delete(filePath);
+            File.Delete(GetFilePath(fileName));
         }
 
         /// <summary>
-        /// Reads the file contents as a base64 string.
+        /// Reads the file contents as a base64 string asynchronous.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>
@@ -184,7 +211,20 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         }
 
         /// <summary>
-        /// Reads the file contents as byte array.
+        /// Reads the file contents as a base64 string.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>
+        /// File content
+        /// </returns>
+        public string ReadAsBase64(string fileName)
+        {
+            var bytes = this.ReadAsByteArray(fileName);
+            return Convert.ToBase64String(bytes);
+        }
+
+        /// <summary>
+        /// Reads the file contents as byte array asynchronous.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>
@@ -192,17 +232,25 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// </returns>
         public async Task<byte[]> ReadAsByteArrayAsync(string fileName)
         {
-            fileName = Path.IsPathRooted(fileName) ? Path.GetFileName(fileName) : fileName;
-
             if (!this.FileExists(fileName))
-            {
                 return default;
-            }
 
-            var file = await this.LocalFolder.GetFileAsync(fileName);
-            var buffer = await FileIO.ReadBufferAsync(file);
+            return await File.ReadAllBytesAsync(GetFilePath(fileName));
+        }
 
-            return buffer.ToArray();
+        /// <summary>
+        /// Reads the file contents as byte array.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>
+        /// File content
+        /// </returns>
+        public byte[] ReadAsByteArray(string fileName)
+        {
+            if (!this.FileExists(fileName))
+                return default;
+
+            return File.ReadAllBytes(GetFilePath(fileName));
         }
 
         /// <summary>
@@ -210,17 +258,23 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <returns></returns>
-        public async Task<Stream> GetStreamForReadAsync(string fileName)
+        public FileStream GetStreamForRead(string fileName)
         {
-            fileName = Path.IsPathRooted(fileName) ? Path.GetFileName(fileName) : fileName;
-
             if (!this.FileExists(fileName))
-            {
                 return default;
-            }
 
-            var file = await this.LocalFolder.GetFileAsync(fileName);
-            return await file.OpenStreamForReadAsync();
+            return File.OpenRead(GetFilePath(fileName));
+        }
+
+        /// <summary>
+        /// Saves the base64 file asynchronous.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="fileContent">Content of the file.</param>
+        /// <returns></returns>
+        public async Task<string> SaveBase64FileAsync(string fileName, string fileContent)
+        {
+            return await this.SaveByteArrayFileAsync(fileName, Convert.FromBase64String(fileContent));
         }
 
         /// <summary>
@@ -228,12 +282,24 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="fileContent">Content of the file.</param>
-        /// <returns>
-        /// The absolute path.
-        /// </returns>
-        public async Task<string> SaveBase64FileAsync(string fileName, string fileContent)
+        /// <returns></returns>
+        public string SaveBase64File(string fileName, string fileContent)
         {
-            return await this.SaveByteArrayFileAsync(fileName, Convert.FromBase64String(fileContent));
+            return this.SaveByteArrayFile(fileName, Convert.FromBase64String(fileContent));
+        }
+
+        /// <summary>
+        /// Saves the byte array file asynchronous.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="fileContent">Content of the file.</param>
+        /// <returns></returns>
+        public async Task<string> SaveByteArrayFileAsync(string fileName, byte[] fileContent)
+        {
+            var filePath = GetFilePath(fileName);
+            await File.WriteAllBytesAsync(filePath, fileContent);
+            
+            return filePath;
         }
 
         /// <summary>
@@ -241,41 +307,27 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="fileContent">Content of the file.</param>
-        /// <returns>
-        /// The absolute path.
-        /// </returns>
-        public async Task<string> SaveByteArrayFileAsync(string fileName, byte[] fileContent)
+        /// <returns></returns>
+        public string SaveByteArrayFile(string fileName, byte[] fileContent)
         {
-            fileName = Path.IsPathRooted(fileName) ? Path.GetFileName(fileName) : fileName;
+            var filePath = GetFilePath(fileName);
+            File.WriteAllBytes(filePath, fileContent);
 
-            var file = this.FileExists(fileName)
-                ? await this.LocalFolder.GetFileAsync(fileName)
-                : await this.LocalFolder.CreateFileAsync(fileName);
-
-            await FileIO.WriteBytesAsync(file, fileContent);
-            return file.Path;
+            return filePath;
         }
 
         /// <summary>
         /// Gets the files from folder.
         /// </summary>
         /// <param name="folderPath">The folder path.</param>
-        /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
-        /// <returns></returns>
-        public async Task<List<string>> GetFilesFromFolderAsync(string folderPath, bool useInstallationFolder = false)
+        /// <returns>
+        /// The files names list
+        /// </returns>
+        public List<string> GetFilesFromFolder(string folderPath)
         {
             try
             {
-                var folder = useInstallationFolder
-                    ? await StorageFolder.GetFolderFromPathAsync(
-                        Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path,
-                        InstallationRootFolderName,
-                        folderPath
-                        ))
-                    : await this.LocalFolder.GetFolderAsync(folderPath);
-
-                var files = await folder.GetFilesAsync();
-                return files.Select(x => x.Name).ToList();
+                return Directory.GetFiles(folderPath).Select(x => Path.GetFileName(x)).ToList();
             }
             catch
             {
@@ -283,20 +335,21 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
             }
         }
 
-        /// <summary>
-        /// Reads the file properties.
-        /// Properties reference documentation: https://docs.microsoft.com/en-us/windows/win32/properties/props
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <param name="propertiesToRetrieve">The properties to retrieve.</param>
-        /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
-        /// <returns></returns>
-        public async Task<Dictionary<string, object>> ReadFilePropertiesAsync(string path, IEnumerable<string> propertiesToRetrieve, bool useInstallationFolder = false)
-        {
-            var uri = this.GetLocalFileUri(path, useInstallationFolder: useInstallationFolder);
-            var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+        #endregion
 
-            return (await file.Properties.RetrievePropertiesAsync(propertiesToRetrieve)).ToDictionary(x => x.Key, x => x.Value);
+        #region Private Methods
+
+        /// <summary>
+        /// Gets the file path.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns></returns>
+        private string GetFilePath(string fileName)
+        {
+            if (string.IsNullOrEmpty(LocalFolderPath))
+                throw new ArgumentNullException(nameof(LocalFolderPath));
+
+            return Path.IsPathRooted(fileName) ? fileName : Path.Combine(LocalFolderPath, fileName);
         }
 
         #endregion
