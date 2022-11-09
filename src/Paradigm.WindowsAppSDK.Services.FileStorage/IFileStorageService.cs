@@ -3,54 +3,60 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+
 /// <summary>
 /// Provides an interface for a file storage service.
 /// </summary>
 public interface IFileStorageService : IService
 {
     /// <summary>
-    /// Reads content from application URI.
+    /// Initializes the instance.
+    /// </summary>
+    /// <param name="localFolderPath">The local folder path.</param>
+    /// <param name="installationFolderPath">The installation folder path.</param>
+    void Initialize(string localFolderPath, string installationFolderPath);
+
+    /// <summary>
+    /// Reads the text from installation folder asynchronous.
     /// </summary>
     /// <param name="path">The path.</param>
     /// <returns></returns>
-    Task<string> ReadContentFromApplicationUriAsync(string path);
+    Task<string> ReadTextFromInstallationFolderAsync(string path);
 
     /// <summary>
-    /// Reads the content from application URI asynchronous.
-    /// </summary>
-    /// <param name="uri">The URI.</param>
-    /// <returns></returns>
-    Task<string> ReadContentFromApplicationUriAsync(Uri uri);
-
-    /// <summary>
-    /// Reads the bytes from application URI.
+    /// Reads the text from installation folder.
     /// </summary>
     /// <param name="path">The path.</param>
     /// <returns></returns>
-    Task<byte[]> ReadBytesFromApplicationUriAsync(string path);
+    string ReadTextFromInstallationFolder(string path);
 
     /// <summary>
-    /// Reads a text file.
+    /// Reads the bytes from installation folder asynchronous.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    /// <returns></returns>
+    Task<byte[]> ReadBytesFromInstallationFolderAsync(string path);
+
+    /// <summary>
+    /// Reads the bytes from installation folder.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    /// <returns></returns>
+    byte[] ReadBytesFromInstallationFolder(string path);
+
+    /// <summary>
+    /// Reads a text file asynchronous.
     /// </summary>
     /// <param name="path">The URI.</param>
     /// <returns>The text content.</returns>
     Task<string> ReadLocalTextAsync(string path);
 
     /// <summary>
-    /// Gets the name of the local file from a relative path.
+    /// Reads a text file.
     /// </summary>
-    /// <param name="path">The relative path.</param>
-    /// <returns>The absolute local filename.</returns>
-    Task<string> GetLocalFileNameAsync(string path);
-
-    /// <summary>
-    /// Gets the local file URI.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="validateEmptyPath">if set to <c>true</c> [validate empty].</param>
-    /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
-    /// <returns></returns>
-    Uri GetLocalFileUri(string path, bool validateEmptyPath = false, bool useInstallationFolder = true);
+    /// <param name="path">The URI.</param>
+    /// <returns>The text content.</returns>
+    string ReadLocalText(string path);
 
     /// <summary>
     /// Checks if the file exists.
@@ -60,7 +66,7 @@ public interface IFileStorageService : IService
     bool FileExists(string fileName);
 
     /// <summary>
-    /// Saves the file.
+    /// Saves the file asynchronous.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <param name="content">The content.</param>
@@ -68,12 +74,19 @@ public interface IFileStorageService : IService
     Task SaveFileAsync(string fileName, string content);
 
     /// <summary>
+    /// Saves the file.
+    /// </summary>
+    /// <param name="fileName">Name of the file.</param>
+    /// <param name="content">The content.</param>
+    void SaveFile(string fileName, string content);
+
+    /// <summary>
     /// Copies the file.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <param name="newName">The new name.</param>
     /// <returns>The new absolute path.</returns>
-    Task<string> CopyFileAsync(string fileName, string newName);
+    string CopyFile(string fileName, string newName);
 
     /// <summary>
     /// Deletes the file.
@@ -83,57 +96,76 @@ public interface IFileStorageService : IService
     void DeleteFile(string fileName);
 
     /// <summary>
-    /// Reads the file contents as a base64 string.
+    /// Reads the file contents as a base64 string asynchronous.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <returns>File content</returns>
     Task<string> ReadAsBase64Async(string fileName);
 
     /// <summary>
-    /// Reads the file contents as byte array.
+    /// Reads the file contents as a base64 string.
+    /// </summary>
+    /// <param name="fileName">Name of the file.</param>
+    /// <returns>File content</returns>
+    string ReadAsBase64(string fileName);
+
+    /// <summary>
+    /// Reads the file contents as byte array asynchronous.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <returns>File content</returns>
     Task<byte[]> ReadAsByteArrayAsync(string fileName);
 
     /// <summary>
+    /// Reads the file contents as byte array.
+    /// </summary>
+    /// <param name="fileName">Name of the file.</param>
+    /// <returns>File content</returns>
+    byte[] ReadAsByteArray(string fileName);
+
+    /// <summary>
     /// Gets the stream for read.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <returns></returns>
-    Task<Stream> GetStreamForReadAsync(string fileName);
+    FileStream GetStreamForRead(string fileName);
+
+    /// <summary>
+    /// Saves the base64 file asynchronous.
+    /// </summary>
+    /// <param name="fileName">Name of the file.</param>
+    /// <param name="fileContent">Content of the file.</param>
+    /// <returns></returns>
+    Task<string> SaveBase64FileAsync(string fileName, string fileContent);
 
     /// <summary>
     /// Saves the base64 file.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <param name="fileContent">Content of the file.</param>
-    /// <returns>The absolute path.</returns>
-    Task<string> SaveBase64FileAsync(string fileName, string fileContent);
+    /// <returns></returns>
+    string SaveBase64File(string fileName, string fileContent);
+
+    /// <summary>
+    /// Saves the byte array file asynchronous.
+    /// </summary>
+    /// <param name="fileName">Name of the file.</param>
+    /// <param name="fileContent">Content of the file.</param>
+    /// <returns></returns>
+    Task<string> SaveByteArrayFileAsync(string fileName, byte[] fileContent);
 
     /// <summary>
     /// Saves the byte array file.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <param name="fileContent">Content of the file.</param>
-    /// <returns>The absolute path.</returns>
-    Task<string> SaveByteArrayFileAsync(string fileName, byte[] fileContent);
+    /// <returns></returns>
+    string SaveByteArrayFile(string fileName, byte[] fileContent);
 
     /// <summary>
     /// Gets the files from folder.
     /// </summary>
     /// <param name="folderPath">The folder path.</param>
-    /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
-    /// <returns></returns>
-    Task<List<string>> GetFilesFromFolderAsync(string folderPath, bool useInstallationFolder = false);
-
-    /// <summary>
-    /// Reads the file properties.
-    /// Properties reference documentation: https://docs.microsoft.com/en-us/windows/win32/properties/props
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="propertiesToRetrieve">The properties to retrieve.</param>
-    /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
-    /// <returns></returns>
-    Task<Dictionary<string, object>> ReadFilePropertiesAsync(string path, IEnumerable<string> propertiesToRetrieve, bool useInstallationFolder = false);
+    /// <returns>The files names list</returns>
+    List<string> GetFilesFromFolder(string folderPath);
 }
