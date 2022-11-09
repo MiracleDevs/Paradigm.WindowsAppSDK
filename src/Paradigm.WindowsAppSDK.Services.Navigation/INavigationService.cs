@@ -39,9 +39,9 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <summary>
         /// Registers a navigable element and its paired view.
         /// </summary>
-        /// <typeparam name="TPage">The type of the page.</typeparam>
+        /// <typeparam name="TNavigableView">The type of the page.</typeparam>
         /// <typeparam name="TNavigable">The type of the navigable.</typeparam>
-        void Register<TPage, TNavigable>() where TPage : INavigableView where TNavigable : INavigable;
+        void Register<TNavigableView, TNavigable>() where TNavigableView : INavigableView where TNavigable : INavigable;
 
         /// <summary>
         /// Goes back to the previous navigable.

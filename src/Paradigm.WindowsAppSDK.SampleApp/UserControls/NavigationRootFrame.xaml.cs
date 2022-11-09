@@ -10,10 +10,10 @@ using System.Linq;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.UserControls
 {
-    public sealed partial class CustomFrame : UserControl, INavigationFrame
+    public sealed partial class NavigationRootFrame : UserControl, INavigationFrame
     {
 
-        public CustomFrame()
+        public NavigationRootFrame()
         {
             this.InitializeComponent();
 
@@ -25,38 +25,38 @@ namespace Paradigm.WindowsAppSDK.SampleApp.UserControls
             this.Navigated(sender, new NavigationFrameEventArgs(e.Content as INavigableView));
         }
 
-        bool INavigationFrame.CanGoBack => this.RootFrame.CanGoBack;
+        public bool CanGoBack => this.RootFrame.CanGoBack;
 
-        bool INavigationFrame.CanGoForward => this.RootFrame.CanGoForward;
+        public bool CanGoForward => this.RootFrame.CanGoForward;
 
         public Action<object, NavigationFrameEventArgs> Navigated { get; set; }
 
-        void INavigationFrame.ClearBackStack()
+        public void ClearBackStack()
         {
             this.RootFrame.BackStack.Clear();
         }
 
-        void INavigationFrame.GoBack()
+        public void GoBack()
         {
             this.RootFrame.GoBack();
         }
 
-        void INavigationFrame.GoForward()
+        public void GoForward()
         {
             this.RootFrame.GoForward();
         }
 
-        Type INavigationFrame.LastForwardStackSourcePageType()
+        public Type LastForwardStackSourcePageType()
         {
             return this.RootFrame.ForwardStack.Last().SourcePageType;
         }
 
-        Type INavigationFrame.LastBackStackSourcePageType()
+        public Type LastBackStackSourcePageType()
         {
             return this.RootFrame.BackStack.Last().SourcePageType;
         }
 
-        void INavigationFrame.Navigate(Type sourcePageType, object value)
+        public void Navigate(Type sourcePageType, object value)
         {
             this.RootFrame.Navigate(sourcePageType, value, new SuppressNavigationTransitionInfo());
         }

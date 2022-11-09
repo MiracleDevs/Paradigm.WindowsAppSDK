@@ -16,7 +16,7 @@
     <None Remove="Assets\Configuration\config.json" />
     <None Remove="Assets\Test\testData - 1.json" />
     <None Remove="Assets\Test\testData - 2 .json" />
-    <None Remove="UserControls\CustomFrame.xaml" />
+    <None Remove="UserControls\NavigationRootFrame.xaml" />
     <None Remove="Views\Pages\LocalStateTestPage.xaml" />
     <None Remove="Views\Pages\MainPage.xaml" />
     <None Remove="Views\Pages\TestPage.xaml" />
@@ -83,7 +83,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="UserControls\CustomFrame.xaml">
+    <Page Update="UserControls\NavigationRootFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

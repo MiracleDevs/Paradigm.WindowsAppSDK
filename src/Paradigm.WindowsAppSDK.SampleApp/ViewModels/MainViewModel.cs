@@ -1,5 +1,4 @@
 ﻿using Paradigm.WindowsAppSDK.SampleApp.Messages;
-using Paradigm.WindowsAppSDK.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
 

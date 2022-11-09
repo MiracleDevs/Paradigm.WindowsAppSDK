@@ -13,17 +13,5 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         void ClearBackStack();
         Type LastBackStackSourcePageType();
         Type LastForwardStackSourcePageType();
-    }
-
-    public class NavigationFrameEventArgs: EventArgs
-
-    {
-        public NavigationFrameEventArgs(INavigableView content)
-        {
-            this.Content = content;
-        }
-
-
-        public INavigableView Content { get; private set; }
-    }
+    }  
 }

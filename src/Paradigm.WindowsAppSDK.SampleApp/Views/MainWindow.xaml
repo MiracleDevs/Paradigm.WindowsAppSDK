@@ -7,5 +7,5 @@
     xmlns:local="using:Paradigm.WindowsAppSDK.SampleApp.UserControls"
     mc:Ignorable="d">
 
-    <local:CustomFrame x:Name="NavigationFrame"/>
+    <local:NavigationRootFrame x:Name="NavigationFrame"/>
 </Window>

@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.LegacyConfiguration\Paradigm.WindowsAppSDK.Services.LegacyConfiguration.csproj" />
+    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Navigation\Paradigm.WindowsAppSDK.Services.Navigation.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Telemetry\Paradigm.WindowsAppSDK.Services.Telemetry.csproj" />
   </ItemGroup>
 
