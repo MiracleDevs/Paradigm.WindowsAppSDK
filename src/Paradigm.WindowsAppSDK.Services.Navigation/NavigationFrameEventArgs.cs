@@ -1,9 +1,6 @@
-﻿using System;
-
-namespace Paradigm.WindowsAppSDK.Services.Navigation
+﻿namespace Paradigm.WindowsAppSDK.Services.Navigation
 {
     public class NavigationFrameEventArgs : EventArgs
-
     {
         public NavigationFrameEventArgs(INavigableView content)
         {
