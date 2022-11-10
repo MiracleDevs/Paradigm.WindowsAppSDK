@@ -37,7 +37,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <value>
         /// The frame.
         /// </value>
-        private INavigationFrame Frame { get; set; }
+        private INavigationFrame? Frame { get; set; }
 
         /// <summary>
         /// Gets or sets the candidate view.
@@ -45,7 +45,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <value>
         /// The candidate view.
         /// </value>
-        private INavigableView CandidateView { get; set; }
+        private INavigableView? CandidateView { get; set; }
 
         /// <summary>
         /// Gets the current navigable.
@@ -53,7 +53,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <value>
         /// The current navigable.
         /// </value>
-        public INavigable CurrentNavigable { get; private set; }
+        public INavigable? CurrentNavigable { get; private set; }
 
         /// <summary>
         /// Gets the current navigable view.
@@ -61,7 +61,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <value>
         /// The current navigable view.
         /// </value>
-        public INavigableView CurrentNavigableView { get; private set; }
+        public INavigableView? CurrentNavigableView { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether this instance can go back.
@@ -69,7 +69,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <value>
         ///   <c>true</c> if this instance can go back; otherwise, <c>false</c>.
         /// </value>
-        public bool CanGoBack => Frame.CanGoBack;
+        public bool CanGoBack => Frame?.CanGoBack ?? false;
 
         /// <summary>
         /// Gets a value indicating whether this instance can go forward.
@@ -77,7 +77,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <value>
         ///   <c>true</c> if this instance can go forward; otherwise, <c>false</c>.
         /// </value>
-        public bool CanGoForward => Frame.CanGoForward;
+        public bool CanGoForward => Frame?.CanGoForward ?? false;
 
         #endregion
 
@@ -128,7 +128,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <exception cref="Exception">The navigable view '{navigableView.Name}' is not registered.</exception>
         public async Task<bool> GoBackAsync()
         {
-            if (!this.CanGoBack || this.CurrentNavigable == null || this.CurrentNavigableView == null)
+            if (!this.CanGoBack || this.Frame == null || this.CurrentNavigable == null || this.CurrentNavigableView == null)
                 return false;
 
             var navigableView = this.Frame.LastBackStackSourcePageType();
@@ -146,7 +146,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <exception cref="Exception">The navigable view '{navigableView.Name}' is not registered.</exception>
         public async Task<bool> GoForwardAsync()
         {
-            if (!this.CanGoForward || this.CurrentNavigable == null || this.CurrentNavigableView == null)
+            if (!this.CanGoForward || this.Frame == null || this.CurrentNavigable == null || this.CurrentNavigableView == null)
                 return false;
 
             var navigableView = this.Frame.LastForwardStackSourcePageType();
@@ -213,7 +213,8 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
                 if (!await this.CurrentNavigable.CanNavigateTo(navigable) || !await navigable.CanNavigateFrom(this.CurrentNavigable))
                     return false;
 
-                await this.CurrentNavigableView?.DisposeAsync();
+                if (this.CurrentNavigableView != null)
+                    await this.CurrentNavigableView.DisposeAsync();
             }
 
             // 4. if we get to this point, the navigable elements allowed the transition, so we can try to navigate using the uwp navigator manager.

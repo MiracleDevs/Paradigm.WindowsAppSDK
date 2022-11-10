@@ -26,7 +26,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <value>
         /// The current navigable.
         /// </value>
-        INavigable CurrentNavigable { get; }
+        INavigable? CurrentNavigable { get; }
 
         /// <summary>
         /// Initializes the instance.
