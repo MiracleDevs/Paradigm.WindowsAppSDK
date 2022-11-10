@@ -322,17 +322,24 @@
         /// <param name="folderPath">The folder path.</param>
         /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
         /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">LocalFolderPath</exception>
-        public List<string> GetFilesFromFolder(string folderPath, bool useInstallationFolder)
+        /// <exception cref="System.ArgumentNullException">
+        /// LocalFolderPath
+        /// or
+        /// InstallationFolderPath
+        /// </exception>
+        public List<string>? GetFilesFromFolder(string folderPath, bool useInstallationFolder)
         {
             
             if (string.IsNullOrEmpty(LocalFolderPath) && !useInstallationFolder)
                 throw new ArgumentNullException(nameof(LocalFolderPath));
 
             if (string.IsNullOrEmpty(InstallationFolderPath) && useInstallationFolder)
-                throw new ArgumentNullException(nameof(LocalFolderPath));
+                throw new ArgumentNullException(nameof(InstallationFolderPath));
 
             var parentFolderPath = useInstallationFolder ? this.InstallationFolderPath : LocalFolderPath;
+            
+            if (string.IsNullOrEmpty(parentFolderPath))
+                throw new ArgumentNullException(nameof(parentFolderPath));
 
             try
             {

@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/src/Paradigm.WindowsAppSDK.Services.Tests/coverage.json
+/src/Paradigm.WindowsAppSDK.Services.Tests/lcov.info
