@@ -40,6 +40,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.FileStorage\Paradigm.WindowsAppSDK.Services.FileStorage.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.LegacyConfiguration\Paradigm.WindowsAppSDK.Services.LegacyConfiguration.csproj" />
+    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.LocalSettings\Paradigm.WindowsAppSDK.Services.LocalSettings.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Telemetry\Paradigm.WindowsAppSDK.Services.Telemetry.csproj" />
   </ItemGroup>
 

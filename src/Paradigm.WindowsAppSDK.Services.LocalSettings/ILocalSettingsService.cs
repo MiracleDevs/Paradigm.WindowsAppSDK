@@ -5,11 +5,17 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
     public interface ILocalSettingsService : IService
     {
         /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <param name="settingsContainer">The settings container.</param>
+        void Initialize(IDictionary<string, object> settingsContainer);
+
+        /// <summary>
         /// Gets the stored settings.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        T GetStoredSettings<T>();
+        T? GetStoredSettings<T>();
 
         /// <summary>
         /// Stores the settings.
