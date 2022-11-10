@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using Windows.Storage;
 
 namespace Paradigm.WindowsAppSDK.Services.LocalSettings
 {
@@ -8,12 +7,32 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
         private const string SettingsKey = "local-settings";
 
         /// <summary>
+        /// Gets or sets the settings container.
+        /// </summary>
+        /// <value>
+        /// The settings container.
+        /// </value>
+        private IDictionary<string, object>? SettingsContainer { get; set; }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <param name="settingsContainer">The settings container.</param>
+        public void Initialize(IDictionary<string, object> settingsContainer)
+        {
+            SettingsContainer = settingsContainer;
+        }
+
+        /// <summary>
         /// Gets the stored settings.
         /// </summary>
         /// <returns></returns>
-        public T GetStoredSettings<T>()
+        public T? GetStoredSettings<T>()
         {
-            var storedSettings = ApplicationData.Current.LocalSettings.Values[SettingsKey]?.ToString();
+            if (SettingsContainer == null)
+                throw new ArgumentNullException(nameof(SettingsContainer));
+
+            var storedSettings = SettingsContainer.ContainsKey(SettingsKey) ? SettingsContainer[SettingsKey].ToString() : default;
             return !string.IsNullOrWhiteSpace(storedSettings) ? JsonSerializer.Deserialize<T>(storedSettings) : default;
         }
 
@@ -23,10 +42,13 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
         /// <param name="settings">The settings.</param>
         public void StoreSettings<T>(T settings)
         {
+            if (SettingsContainer == null)
+                throw new ArgumentNullException(nameof(SettingsContainer));
+
             if (settings == null)
                 return;
 
-            ApplicationData.Current.LocalSettings.Values[SettingsKey] = JsonSerializer.Serialize(settings);
+            SettingsContainer[SettingsKey] = JsonSerializer.Serialize(settings);
         }
 
         /// <summary>
@@ -34,7 +56,10 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
         /// </summary>
         public void ResetToDefaultSettings()
         {
-            ApplicationData.Current.LocalSettings.Values.Clear();
+            if (SettingsContainer == null)
+                throw new ArgumentNullException(nameof(SettingsContainer));
+
+            SettingsContainer.Clear();
         }
     }
 }
