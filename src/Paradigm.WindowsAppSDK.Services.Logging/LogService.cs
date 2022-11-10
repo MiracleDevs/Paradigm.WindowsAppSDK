@@ -1,38 +1,45 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Logging.Enums;
 using System;
+using System.ComponentModel;
 using System.IO;
-using System.Threading.Tasks;
-using Windows.Storage;
 
 namespace Paradigm.WindowsAppSDK.Services.Logging
 {
     public class LogService : ILogService
     {
+        #region Consts
+
+        private const string DefaultLogFileName = "log.txt";
+
+        private const int DefaultLogFileMaxSize = 1024 * 1024 * 20; //20MB
+
+        #endregion
+
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the log folder path.
+        /// </summary>
+        /// <value>
+        /// The log folder path.
+        /// </value>
+        private string LogFolderPath { get; set; }
 
         /// <summary>
         /// The log file name
         /// </summary>
-        private const string LogFileName = "log.txt";
+        private string LogFileName { get; set; }
 
         /// <summary>
         /// The maximum log file size
         /// </summary>
-        private const int MaxLogFileSize = 1024 * 1024 * 20;
+        private int MaxLogFileSize { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum type of the log.
         /// </summary>
         /// <value>The minimum type of the log.</value>
         private LogTypes MinimumLogType { get; set; }
-
-        /// <summary>
-        /// Gets the local folder.
-        /// </summary>
-        /// <value>
-        /// The local folder.
-        /// </value>
-        private StorageFolder LocalFolder { get; }
 
         #endregion
 
@@ -43,7 +50,7 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// </summary>
         public LogService()
         {
-            LocalFolder = ApplicationData.Current.TemporaryFolder;
+
         }
 
         #endregion
@@ -51,23 +58,34 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         #region Public Methods
 
         /// <summary>
-        /// Initializes the service.
+        /// Initializes the specified log type.
         /// </summary>
         /// <param name="logType">Type of the log.</param>
-        public async Task InitializeAsync(int logType)
+        /// <param name="logFolderPath">The log folder path.</param>
+        /// <param name="logFileMaxSize">Maximum size of the log file.</param>
+        /// <param name="logFileName">Name of the log file.</param>
+        /// <exception cref="System.ArgumentNullException">logFolderPath</exception>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">logType</exception>
+        public void Initialize(LogTypes logType, string logFolderPath, int? logFileMaxSize = null, string logFileName = null)
         {
-            var fileName = GetFileName();
+            if (string.IsNullOrWhiteSpace(logFolderPath))
+                throw new ArgumentNullException(nameof(logFolderPath));
+
+            LogFileName = string.IsNullOrWhiteSpace(logFileName) ? DefaultLogFileName : logFileName;
+            
+            this.MaxLogFileSize = logFileMaxSize.GetValueOrDefault(DefaultLogFileMaxSize);
+
+            LogFolderPath = logFolderPath;
+
+            SetMinimumLogType(logType);
 
             // checks if the log file exists, and if its larger than 20mb then deletes it to start again.
-            if (File.Exists(fileName))
-            {
-                var file = await GetFileAsync();
-                var properties = await file.GetBasicPropertiesAsync();
+            var fileInfo = new FileInfo(GetFilePath());
 
-                if (properties.Size > MaxLogFileSize)
-                    await file.DeleteAsync();
+            if (fileInfo.Exists && fileInfo.Length > MaxLogFileSize)
+            {
+                fileInfo.Delete();
             }
-            this.MinimumLogType = (LogTypes)logType;
         }
 
         /// <summary>
@@ -136,14 +154,18 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// <param name="message">The message.</param>
         private void LogText(string type, string message, LogTypes logType)
         {
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             try
             {
                 if (logType < this.MinimumLogType)
                     return;
-
+                
                 var result = $"[{DateTime.Now:O}][{type}] - {message}{Environment.NewLine}";
                 AppendText(result);
-                System.Diagnostics.Debug.WriteLine(result);
             }
             catch (Exception e)
             {
@@ -157,34 +179,25 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// <param name="content">The content.</param>
         private void AppendText(string content)
         {
-            File.AppendAllText(GetFileName(), content);
+            File.AppendAllText(GetFilePath(), content);
         }
 
         /// <summary>
         /// Gets the name of the file.
         /// </summary>
         /// <returns></returns>
-        private string GetFileName()
+        private string GetFilePath()
         {
-            return Path.IsPathRooted(LogFileName) ? LogFileName : Path.Combine(LocalFolder.Path, LogFileName);
-        }
-
-        /// <summary>
-        /// Gets the file.
-        /// </summary>
-        /// <returns></returns>
-        private async Task<StorageFile> GetFileAsync()
-        {
-            return await LocalFolder.GetFileAsync(LogFileName);
+            return Path.IsPathRooted(LogFileName) ? LogFileName : Path.Combine(LogFolderPath, LogFileName);
         }
 
         /// <summary>
         /// Sets the minimum type of the log.
         /// </summary>
         /// <param name="logType">Type of the log.</param>
-        public void SetMinimumLogType(int logType)
+        public void SetMinimumLogType(LogTypes logType)
         {
-            this.MinimumLogType = (LogTypes)logType;
+            this.MinimumLogType = logType;
         }
 
         #endregion

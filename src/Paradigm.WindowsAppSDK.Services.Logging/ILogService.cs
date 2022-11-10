@@ -1,23 +1,26 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
+using Paradigm.WindowsAppSDK.Services.Logging.Enums;
 using System;
-using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.Services.Logging
 {
     public interface ILogService : IService
     {
+
         /// <summary>
-        /// Initializes the service.
+        /// Initializes the specified log type.
         /// </summary>
         /// <param name="logType">Type of the log.</param>
-        /// <returns></returns>
-        Task InitializeAsync(int logType);
+        /// <param name="logFolderPath">The log folder path.</param>
+        /// <param name="logFileMaxSize">Maximum size of the log file.</param>
+        /// <param name="logFileName">Name of the log file.</param>
+        void Initialize(LogTypes logType, string logFolderPath, int? logFileMaxSize = null, string logFileName = null);
 
         /// <summary>
         /// Sets the minimum type of the log.
         /// </summary>
         /// <param name="logType">Type of the log.</param>
-        void SetMinimumLogType(int logType);
+        void SetMinimumLogType(LogTypes logType);
 
         /// <summary>
         /// Traces the specified message.

@@ -168,5 +168,5 @@ public interface IFileStorageService : IService
     /// <param name="folderPath">The folder path.</param>
     /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
     /// <returns></returns>
-    List<string> GetFilesFromFolder(string folderPath, bool useInstallationFolder);
+    List<string>? GetFilesFromFolder(string folderPath, bool useInstallationFolder);
 }

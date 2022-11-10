@@ -2,8 +2,11 @@
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
 using Paradigm.WindowsAppSDK.Services.LegacyConfiguration;
 using Paradigm.WindowsAppSDK.Services.LocalSettings;
+using Paradigm.WindowsAppSDK.Services.Logging;
+using Paradigm.WindowsAppSDK.Services.Logging.Enums;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
+using Windows.Storage;
 
 namespace Paradigm.WindowsAppSDK.SampleApp
 {
@@ -31,12 +34,16 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
+            var logService = ServiceLocator.Instance.GetRequiredService<ILogService>();
+
+            logService.Initialize(System.Diagnostics.Debugger.IsAttached ? LogTypes.Trace : LogTypes.Info, ApplicationData.Current.TemporaryFolder.Path);
+
             m_window = new MainWindow();
 
             var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
             var fileStorageService = ServiceLocator.Instance.GetRequiredService<IFileStorageService>();
-            
-            fileStorageService.Initialize(Windows.Storage.ApplicationData.Current.LocalFolder.Path,
+
+            fileStorageService.Initialize(ApplicationData.Current.LocalFolder.Path,
                                           $"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\Assets");
             
             navigationService.Initialize(m_window.Content as INavigationFrame);
@@ -45,7 +52,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
                 .Initialize(fileStorageService.ReadTextFromInstallationFolder("Configuration\\config.json"));
 
             ServiceLocator.Instance.GetRequiredService<ILocalSettingsService>()
-                .Initialize(Windows.Storage.ApplicationData.Current.LocalSettings.Values);
+                .Initialize(ApplicationData.Current.LocalSettings.Values);
 
             await navigationService.NavigateToAsync<MainViewModel>();
 
