@@ -137,7 +137,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
         protected virtual async Task ReadFolderContentAsync(string path, bool useInstallationFolder)
         {
-            var fileNames = FileStorageService.GetFilesFromFolder(path);
+            var fileNames = FileStorageService.GetFilesFromFolder(path, useInstallationFolder);
             if (fileNames == null)
                 return;
 

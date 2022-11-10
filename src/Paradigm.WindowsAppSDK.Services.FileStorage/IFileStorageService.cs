@@ -166,6 +166,7 @@ public interface IFileStorageService : IService
     /// Gets the files from folder.
     /// </summary>
     /// <param name="folderPath">The folder path.</param>
-    /// <returns>The files names list</returns>
-    List<string> GetFilesFromFolder(string folderPath);
+    /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
+    /// <returns></returns>
+    List<string> GetFilesFromFolder(string folderPath, bool useInstallationFolder);
 }
