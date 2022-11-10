@@ -39,7 +39,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             fileStorageService.Initialize(Windows.Storage.ApplicationData.Current.LocalFolder.Path,
                                           $"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\Assets");
             
-            navigationService.Initialize(m_window.Content as Microsoft.UI.Xaml.Controls.Frame);
+            navigationService.Initialize(m_window.Content as INavigationFrame);
             
             ServiceLocator.Instance.GetRequiredService<ILegacyConfigurationService>()
                 .Initialize(fileStorageService.ReadTextFromInstallationFolder("Configuration\\config.json"));

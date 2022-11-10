@@ -1,4 +1,5 @@
 ﻿using Paradigm.WindowsAppSDK.SampleApp.Messages;
+using Paradigm.WindowsAppSDK.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -30,7 +31,21 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public LocalStateTestViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-        
+
+        #endregion
+
+        #region Public methods
+
+        public override Task<bool> CanNavigateFrom(INavigable navigable)
+        {
+            return Task.FromResult(navigable is MainViewModel);
+        }
+
+        public override Task<bool> CanNavigateTo(INavigable navigable)
+        {
+            return Task.FromResult(navigable is MainViewModel);
+        }
+
         #endregion
 
         #region Private methods

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.SampleApp.Messages;
+using Paradigm.WindowsAppSDK.Services.Interfaces;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
 using System;
 using System.Collections.Generic;
@@ -115,6 +116,16 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 
         }
 
+        public override Task<bool> CanNavigateFrom(INavigable navigable)
+        {
+            return Task.FromResult(navigable is MainViewModel);
+        }
+
+        public override Task<bool> CanNavigateTo(INavigable navigable)
+        {
+            return Task.FromResult(navigable is MainViewModel);
+        }
+
         #endregion
 
         #region Private Methods
@@ -126,7 +137,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
         protected virtual async Task ReadFolderContentAsync(string path, bool useInstallationFolder)
         {
-            var fileNames = FileStorageService.GetFilesFromFolder(path);
+            var fileNames = FileStorageService.GetFilesFromFolder(path, useInstallationFolder);
             if (fileNames == null)
                 return;
 

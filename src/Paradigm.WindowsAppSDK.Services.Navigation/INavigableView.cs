@@ -1,5 +1,4 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
-using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.Services.Navigation
 {

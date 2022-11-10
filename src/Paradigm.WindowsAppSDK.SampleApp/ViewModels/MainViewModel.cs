@@ -34,5 +34,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             if (await Navigation.NavigateToAsync<LocalStateTestViewModel>())
                 LogService.Information("Executed local state test navigation");
         }
+
     }
 }

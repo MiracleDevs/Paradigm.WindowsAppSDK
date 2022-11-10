@@ -1,8 +1,4 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Paradigm.WindowsAppSDK.Services.Interfaces;
-using System;
-using System.Threading.Tasks;
+﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
 
 namespace Paradigm.WindowsAppSDK.Services.Navigation
 {
@@ -30,20 +26,20 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <value>
         /// The current navigable.
         /// </value>
-        INavigable CurrentNavigable { get; }
+        INavigable? CurrentNavigable { get; }
 
         /// <summary>
         /// Initializes the instance.
         /// </summary>
         /// <param name="frame">The frame.</param>
-        void Initialize(Frame frame);
+        void Initialize(INavigationFrame frame);
 
         /// <summary>
         /// Registers a navigable element and its paired view.
         /// </summary>
-        /// <typeparam name="TPage">The type of the page.</typeparam>
+        /// <typeparam name="TNavigableView">The type of the page.</typeparam>
         /// <typeparam name="TNavigable">The type of the navigable.</typeparam>
-        void Register<TPage, TNavigable>() where TPage : Page where TNavigable : INavigable;
+        void Register<TNavigableView, TNavigable>() where TNavigableView : INavigableView where TNavigable : INavigable;
 
         /// <summary>
         /// Goes back to the previous navigable.

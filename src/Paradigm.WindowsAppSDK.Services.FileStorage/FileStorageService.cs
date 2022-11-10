@@ -320,14 +320,24 @@
         /// Gets the files from folder.
         /// </summary>
         /// <param name="folderPath">The folder path.</param>
-        /// <returns>
-        /// The files names list
-        /// </returns>
-        public List<string> GetFilesFromFolder(string folderPath)
+        /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">LocalFolderPath</exception>
+        public List<string> GetFilesFromFolder(string folderPath, bool useInstallationFolder)
         {
+            
+            if (string.IsNullOrEmpty(LocalFolderPath) && !useInstallationFolder)
+                throw new ArgumentNullException(nameof(LocalFolderPath));
+
+            if (string.IsNullOrEmpty(InstallationFolderPath) && useInstallationFolder)
+                throw new ArgumentNullException(nameof(LocalFolderPath));
+
+            var parentFolderPath = useInstallationFolder ? this.InstallationFolderPath : LocalFolderPath;
+
             try
             {
-                return Directory.GetFiles(folderPath).Select(x => Path.GetFileName(x)).ToList();
+            
+                return Directory.GetFiles(Path.Combine(parentFolderPath, folderPath)).Select(x => Path.GetFileName(x)).ToList();
             }
             catch
             {
