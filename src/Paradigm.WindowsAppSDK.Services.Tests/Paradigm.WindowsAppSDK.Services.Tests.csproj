@@ -9,11 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="FileStorage\test - Copy.txt" />
     <None Remove="FileStorage\test.txt" />
     <None Remove="LegacyConfiguration\test.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="FileStorage\LocalState\local-state-test.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="FileStorage\test.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

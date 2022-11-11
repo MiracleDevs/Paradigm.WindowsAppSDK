@@ -342,8 +342,7 @@
                 throw new ArgumentNullException(nameof(parentFolderPath));
 
             try
-            {
-            
+            { 
                 return Directory.GetFiles(Path.Combine(parentFolderPath, folderPath)).Select(x => Path.GetFileName(x)).ToList();
             }
             catch
