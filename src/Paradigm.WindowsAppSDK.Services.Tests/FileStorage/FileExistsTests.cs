@@ -35,7 +35,7 @@
             var path = "local-state-test.txt";
 
             //act
-            this.Sut.Initialize(localFolderPath: null, this.InstallationFolderPath);
+            this.Sut.Initialize(localFolderPath: string.Empty, this.InstallationFolderPath);
 
             //assert
             Assert.Throws<ArgumentNullException>(() => this.Sut.FileExists(path));

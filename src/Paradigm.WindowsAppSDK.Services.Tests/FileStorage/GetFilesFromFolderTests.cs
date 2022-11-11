@@ -39,7 +39,7 @@
             var path = string.Empty;
 
             //act
-            this.Sut.Initialize(localFolderPath: null, this.InstallationFolderPath);
+            this.Sut.Initialize(localFolderPath: string.Empty, this.InstallationFolderPath);
 
             //assert
             Assert.Throws<ArgumentNullException>(() => this.Sut.GetFilesFromFolder(path, false));
@@ -52,7 +52,7 @@
             var path = string.Empty;
 
             //act
-            this.Sut.Initialize(this.LocalFolderPath, installationFolderPath: null);
+            this.Sut.Initialize(this.LocalFolderPath, installationFolderPath: string.Empty);
 
             //assert
             Assert.Throws<ArgumentNullException>(() => this.Sut.GetFilesFromFolder(path, true));
