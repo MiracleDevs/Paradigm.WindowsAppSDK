@@ -46,6 +46,7 @@
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.LegacyConfiguration\Paradigm.WindowsAppSDK.Services.LegacyConfiguration.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Localization\Paradigm.WindowsAppSDK.Services.Localization.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Logging\Paradigm.WindowsAppSDK.Services.Logging.csproj" />
+    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.MessageBus\Paradigm.WindowsAppSDK.Services.MessageBus.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Navigation\Paradigm.WindowsAppSDK.Services.Navigation.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.LocalSettings\Paradigm.WindowsAppSDK.Services.LocalSettings.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Telemetry\Paradigm.WindowsAppSDK.Services.Telemetry.csproj" />
