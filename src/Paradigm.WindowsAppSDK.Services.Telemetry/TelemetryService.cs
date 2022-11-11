@@ -21,7 +21,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <value>
         /// The telemetries client.
         /// </value>
-        protected TelemetryClient? TelemetriesClient { get; private set; }
+        protected virtual TelemetryClient? TelemetriesClient { get; set; }
 
         /// <summary>
         /// Gets the extra properties.
@@ -196,14 +196,10 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             }
         }
 
-        #endregion
-
-        #region Private Methods
-
         /// <summary>
         /// Initializes the client.
         /// </summary>
-        private void InitializeClient()
+        protected virtual void InitializeClient()
         {
             if (Settings == null)
                 return;
@@ -212,6 +208,10 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             configuration.ConnectionString = Settings.ConnectionString;
             TelemetriesClient = new TelemetryClient(configuration);
         }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Debounces the specified event name.

@@ -22,7 +22,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
         }
 
 
-        [TestCase]
+        [Test]
         public async Task ShouldRegisterMessage()
         {
             //arrange
@@ -51,7 +51,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             });
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldUnRegisterMessagesAndIgnoreMessageProcessing()
         {
             //arrange
@@ -80,7 +80,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             });
         }
 
-        [TestCase]
+        [Test]
         public void ShouldNotThrowExceptionIfUnRegisterMessageIsCalledTwice()
         {
             //arrange
@@ -102,7 +102,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             Assert.That(items, Is.Empty);
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldNotHandleMessageIfItWasPreviouslyUnregistered()
         {
             //arrange

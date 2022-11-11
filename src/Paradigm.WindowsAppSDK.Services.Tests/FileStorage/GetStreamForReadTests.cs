@@ -2,7 +2,7 @@
 {
     public class GetStreamForReadTests : FileStorageTestsBase
     {
-        [TestCase]
+        [Test]
         public void GetStreamForRead()
         {
             //arrange
@@ -16,7 +16,7 @@
             Assert.That(stream.Length, Is.GreaterThan(0));
         }
 
-        [TestCase]
+        [Test]
         public void GetEmptyStreamForReadWhenFileIsNotFound()
         {
             //arrange

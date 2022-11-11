@@ -2,7 +2,7 @@
 {
     public class GetFilesFromFolderTests : FileStorageTestsBase
     {
-        [TestCase]
+        [Test]
         public void ShouldReadFilesFromInstallationFolder()
         {
             //arrange
@@ -17,7 +17,7 @@
             Assert.That(files.First(), Is.EqualTo(filePath));
         }
 
-        [TestCase]
+        [Test]
         public void ShouldReadFilesFromLocalFolder()
         {
             //arrange
@@ -32,7 +32,7 @@
             Assert.That(files.Any(f => f == filePath), Is.True);
         }
 
-        [TestCase]
+        [Test]
         public void ShouldThrowExceptionIfLocalFolderPathIsNull()
         {
             //arrange
@@ -45,7 +45,7 @@
             Assert.Throws<ArgumentNullException>(() => this.Sut.GetFilesFromFolder(path, false));
         }
 
-        [TestCase]
+        [Test]
         public void ShouldThrowExceptionIfInstallationFolderPathIsNull()
         {
             //arrange

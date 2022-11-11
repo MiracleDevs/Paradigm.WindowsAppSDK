@@ -22,7 +22,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             this.ServiceProvider.Setup(provider => provider.GetService(typeof(NavigationTestViewModel2))).Returns(new NavigationTestViewModel2());
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldNavigateToMainViewModelAsync()
         {
             //arrange 
@@ -45,7 +45,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             Assert.That(this.Sut.CanGoForward, Is.True);
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldNavigateToTestViewModelAsync()
         {
             //arrange 
@@ -68,7 +68,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             Assert.That(this.Sut.CanGoForward, Is.False);
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldNavigateToTestViewModel2Async()
         {
             //arrange 
@@ -97,7 +97,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
         }
 
 
-        [TestCase]
+        [Test]
         public void ShouldNotCanGoBackIfNoNavigationWasPerformed()
         {
             //arrange 
@@ -114,7 +114,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             Assert.That(canGoBack, Is.False);
         }
 
-        [TestCase]
+        [Test]
         public void ShouldCanGoForwardIfNoNavigationWasPerformed()
         {
             //arrange 

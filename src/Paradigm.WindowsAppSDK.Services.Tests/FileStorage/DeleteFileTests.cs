@@ -2,7 +2,7 @@
 {
     public class DeleteFileTests : FileStorageTestsBase
     {
-        [TestCase]
+        [Test]
         public void ShouldDeleteFile()
         {
             //arrange

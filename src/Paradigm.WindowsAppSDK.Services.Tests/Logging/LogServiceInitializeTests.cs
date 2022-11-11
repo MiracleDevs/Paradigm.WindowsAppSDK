@@ -46,7 +46,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
             }
         }
 
-        [TestCase]
+        [Test]
         public virtual void ShoulThrowExceptionIfFolderIsNullOrWhiteSpace()
         {
             //arrange
@@ -54,7 +54,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
             Assert.Throws<ArgumentNullException>(() => this.Sut.Initialize(LogTypes.Info, logFolderPath : null, this.LogFileMaxSize, LogFileName));
         }        
 
-        [TestCase]
+        [Test]
         public virtual void ShoulDeletePreviousLogFileIfExists()
         {
             //arrange

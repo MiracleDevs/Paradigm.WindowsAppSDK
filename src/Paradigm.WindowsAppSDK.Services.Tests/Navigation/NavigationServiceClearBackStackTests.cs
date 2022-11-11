@@ -6,7 +6,7 @@
         {
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldClearBackStackAsync()
         {
             //arrange 

@@ -6,7 +6,7 @@
         {
         }
 
-        [TestCase]
+        [Test]
         public void ShouldInitializeNavigationService()
         {
             //arrange

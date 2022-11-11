@@ -6,7 +6,7 @@
         {
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldGoBackAsync()
         {
             //arrange 
@@ -31,7 +31,7 @@
         }
 
 
-        [TestCase]
+        [Test]
         public async Task ShouldNotGoBackAsync()
         {
             //arrange 

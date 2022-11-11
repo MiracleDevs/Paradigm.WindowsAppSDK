@@ -6,7 +6,7 @@
         {
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldGoForwardAsync()
         {
             //arrange 
@@ -29,7 +29,7 @@
             Assert.That(this.Sut.CanGoBack, Is.True);
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldNotGoForwardAsync()
         {
             //arrange 

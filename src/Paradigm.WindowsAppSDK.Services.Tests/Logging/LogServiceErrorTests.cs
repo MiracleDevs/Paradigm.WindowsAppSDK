@@ -14,7 +14,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
 
         protected override void Log(string message) => this.Sut.Error(message);
 
-        [TestCase]
+        [Test]
         public override void ShoulNotLogMessage()
         {
             //arrange
@@ -31,7 +31,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
             Assert.That(exists, Is.True);
         }
 
-        [TestCase]
+        [Test]
         public void ShoulLogMessageWithException()
         {
             //arrange

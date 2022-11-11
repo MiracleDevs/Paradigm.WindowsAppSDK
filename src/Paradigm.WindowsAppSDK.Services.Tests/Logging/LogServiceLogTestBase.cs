@@ -54,7 +54,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
             return fileName;
         }
 
-        [TestCase]
+        [Test]
         public virtual void ShoulLogMessage()
         {
             //arrange
@@ -79,7 +79,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
 
         protected abstract void Log(string message);
 
-        [TestCase]
+        [Test]
         public virtual void ShoulNotLogMessage()
         {
             //arrange
@@ -96,21 +96,21 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
             Assert.That(exists, Is.False);
         }
 
-        [TestCase]
+        [Test]
         public virtual void ShouldThrowExceptionIfMessageIsNull()
         {
             //act && assert
             Assert.Throws<ArgumentNullException>(() => Log(message: null));
         }
 
-        [TestCase]
+        [Test]
         public virtual void ShouldThrowExceptionIfMessageIsEmpty()
         {
             //act && assert
             Assert.Throws<ArgumentNullException>(() => Log(message: string.Empty));
         }
 
-        [TestCase]
+        [Test]
         public virtual void ShouldThrowExceptionIfMessageIsWhiteSpace()
         {
             //act && assert

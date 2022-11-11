@@ -15,7 +15,7 @@
             Assert.That(this.Sut.FileExists(path), Is.EqualTo(expected));
         }
 
-        [TestCase]
+        [Test]
         public void ShouldExistTextFileInitializeWithRootedPathInLocalState()
         {
             //arrange
@@ -28,7 +28,7 @@
             Assert.That(this.Sut.FileExists(path), Is.EqualTo(true));
         }
 
-        [TestCase]
+        [Test]
         public void ShouldThrowArgumentNullExceptionIfLocalFolderPathIsUnspecified()
         {
             //arrange

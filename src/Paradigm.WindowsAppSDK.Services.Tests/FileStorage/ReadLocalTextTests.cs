@@ -2,7 +2,7 @@
 {
     public class ReadLocalTextTests : FileStorageTestsBase
     {
-        [TestCase]
+        [Test]
         public void ShouldReadLocalTextFromFile()
         {
             //arrange
@@ -16,7 +16,7 @@
             Assert.That(content, Is.Not.Empty);
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldReadLocalTextFromFileAsync()
         {
             //arrange
@@ -30,7 +30,7 @@
             Assert.That(content, Is.Not.Empty);
         }
 
-        [TestCase]
+        [Test]
         public void ShouldThrowExceptionIfLocalFolderPathIsNull()
         {
             //arrange
@@ -41,7 +41,7 @@
             Assert.Throws<ArgumentNullException>(() => Sut.ReadLocalText(path));
         }
 
-        [TestCase]
+        [Test]
         public void ShouldThrowExceptionIfLocalFolderPathIsNullAsync()
         {
             //arrange

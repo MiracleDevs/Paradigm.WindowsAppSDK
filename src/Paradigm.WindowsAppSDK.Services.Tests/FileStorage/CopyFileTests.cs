@@ -18,7 +18,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
             }
         }
 
-        [TestCase]
+        [Test]
         public void ShouldCopyTextFile()
         {
             //arrange

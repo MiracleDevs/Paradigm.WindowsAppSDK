@@ -2,7 +2,7 @@
 {
     public class ReadTextFromInstallationFolderTests : FileStorageTestsBase
     {
-        [TestCase]
+        [Test]
         public void ShouldReadContentFromFile()
         {
             //arrange
@@ -15,7 +15,7 @@
             Assert.That(content, Is.Not.Empty);
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldReadContentFromFileAsync()
         {
             //arrange
@@ -28,7 +28,7 @@
             Assert.That(content, Is.Not.Empty);
         }
 
-        [TestCase]
+        [Test]
         public void ShouldThrowExceptionIInstallationFolderPathIsEmpty()
         {
             //arrange
@@ -40,7 +40,7 @@
             Assert.Throws<ArgumentNullException>(() => this.Sut.ReadTextFromInstallationFolder(path));
         }
 
-        [TestCase]
+        [Test]
         public void ShouldThrowExceptionIInstallationFolderPathIsEmptyAsync()
         {
             //arrange

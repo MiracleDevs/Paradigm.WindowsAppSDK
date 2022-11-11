@@ -2,7 +2,7 @@
 {
     public class SaveBase64FileTests : FileStorageTestsBase
     {
-        [TestCase]
+        [Test]
         public void ShouldSaveBase64File()
         {
             //arrange
@@ -19,7 +19,7 @@
             Assert.That(base64FilePath, Contains.Substring(base64FileName));
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldSaveBase64FileAsync()
         {
             //arrange

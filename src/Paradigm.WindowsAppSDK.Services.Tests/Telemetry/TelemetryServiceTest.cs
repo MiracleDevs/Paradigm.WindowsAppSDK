@@ -1,4 +1,5 @@
-﻿using Paradigm.WindowsAppSDK.Services.Telemetry;
+﻿using NUnit.Framework;
+using Paradigm.WindowsAppSDK.Services.Telemetry;
 
 namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
 {
@@ -26,7 +27,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             Assert.IsTrue(TestService.Settings.DebounceEnabled);
             Assert.IsTrue(TestService.Settings.RenamePropertiesEnabled);
             Assert.IsNull(TestService.Settings.AllowedCustomProps);
-            Assert.IsNotNull(TestService.TelemetriesClient);
             Assert.IsNotNull(TestService.ExtraProperties);
             Assert.That(TestService.ExtraProperties.Count, Is.EqualTo(0));
         }
@@ -44,7 +44,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             Assert.That(TestService.Settings.DebounceEnabled, Is.EqualTo(debounceEnabled));
             Assert.That(TestService.Settings.RenamePropertiesEnabled, Is.EqualTo(renamePropertiesEnabled));
             Assert.That(TestService.Settings.AllowedCustomProps, Is.EqualTo(allowedCustomProps));
-            Assert.IsNotNull(TestService.TelemetriesClient);
+            new ArgumentNullException(nameof(TestService.TelemetryChannel));
             Assert.IsNotNull(TestService.ExtraProperties);
             Assert.That(TestService.ExtraProperties.Count, Is.EqualTo(0));
         }
@@ -187,6 +187,51 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             Assert.That(properties.Count, Is.EqualTo(2));
             Assert.That(properties.ElementAt(0).Key, Is.EqualTo("prop1"));
             Assert.That(properties.ElementAt(1).Key, Is.EqualTo("prop2"));
+        }
+
+        [TestCase(true, 1500)]
+        [TestCase(false, 500)]
+        public async Task ShouldTrackEvent(bool debounce, int delay)
+        {
+            //arrange
+            var eventCount = 10;
+            var expectedCount = debounce ? 1 : eventCount;
+
+            TestService.Initialize(new TelemetrySettings(TestConnectionString, debounce, false, null));
+            
+            var eventName = "test-event";
+
+            var properties = new Dictionary<string, string>
+            {
+                { "prop1", "1" },
+                { "prop2", "2" }
+            };
+
+            var events = Enumerable.Repeat(eventName, eventCount).ToList();
+
+            //act
+            events.ForEach(e => TestService.TrackEvent(eventName, properties));
+
+            //Assert
+            await Task.Delay(delay);
+
+            Assert.That(((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries, Has.Count.EqualTo(expectedCount));
+        }
+
+        [TestCase(500)]
+        public async Task ShouldTrackException(int delay)
+        {
+            //arrange
+            TestService.Initialize(new TelemetrySettings(TestConnectionString, false, false, null));
+
+            //act
+            ArgumentNullException ex = new(nameof(TestService.TelemetryChannel));
+            TestService.TrackException(ex);
+
+            //Assert
+            await Task.Delay(delay);
+
+            Assert.That(((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries, Has.Count.EqualTo(1));
         }
     }
 }

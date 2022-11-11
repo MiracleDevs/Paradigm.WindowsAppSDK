@@ -2,7 +2,7 @@
 {
     public class ReadAsBase64Tests : FileStorageTestsBase
     {
-        [TestCase]
+        [Test]
         public void ShouldReadAsBase64FromTextFile()
         {
             //arrange
@@ -16,7 +16,7 @@
             Assert.That(content, Is.Not.Empty);
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldReadAsBase64FromTextFileAsync()
         {
             //arrange
@@ -30,7 +30,7 @@
             Assert.That(content, Is.Not.Empty);
         }
 
-        [TestCase]
+        [Test]
         public void ShouldReturnEmtptyBase64StringIfFileDoesNotExists()
         {
             //arrange
@@ -43,7 +43,7 @@
             Assert.That(content, Is.Null);
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldReturnEmtptyBase64StringIfFileDoesNotExistsAsync()
         {
             //arrange

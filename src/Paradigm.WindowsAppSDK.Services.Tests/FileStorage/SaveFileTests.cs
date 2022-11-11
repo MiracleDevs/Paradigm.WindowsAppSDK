@@ -2,7 +2,7 @@
 {
     public class SaveFileTests : FileStorageTestsBase
     {
-        [TestCase]
+        [Test]
         public async Task ShouldSaveTextFile()
         {
             //arrange
@@ -19,7 +19,7 @@
             Assert.That(fileContent, Is.EqualTo(content));
         }
 
-        [TestCase]
+        [Test]
         public async Task ShouldSaveTextFileAsync()
         {
             //arrange
