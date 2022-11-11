@@ -29,5 +29,31 @@
             Assert.That(content, Is.Not.Null);
             Assert.That(content, Is.Not.Empty);
         }
+
+        [TestCase]
+        public void ShouldReturnEmtptyBase64StringIfFileDoesNotExists()
+        {
+            //arrange
+            var path = "not-found-local-state-test.txt";
+
+            //act
+            var content = this.Sut.ReadAsBase64(path);
+
+            //assert
+            Assert.That(content, Is.Null);
+        }
+
+        [TestCase]
+        public async Task ShouldReturnEmtptyBase64StringIfFileDoesNotExistsAsync()
+        {
+            //arrange
+            var path = "not-found-local-state-test.txt";
+
+            //act
+            var content = await this.Sut.ReadAsBase64Async(path);
+
+            //assert
+            Assert.That(content, Is.Null);
+        }
     }
 }

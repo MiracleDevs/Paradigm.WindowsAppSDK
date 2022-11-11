@@ -1,4 +1,6 @@
-﻿namespace Paradigm.WindowsAppSDK.Services.FileStorage
+﻿using System.Diagnostics.Metrics;
+
+namespace Paradigm.WindowsAppSDK.Services.FileStorage
 {
     /// <summary>
     /// Implements the file storage service to give access to the lower level storage api.
@@ -204,10 +206,10 @@
         /// <returns>
         /// File content
         /// </returns>
-        public async Task<string> ReadAsBase64Async(string fileName)
+        public async Task<string?> ReadAsBase64Async(string fileName)
         {
             var bytes = await this.ReadAsByteArrayAsync(fileName);
-            return Convert.ToBase64String(bytes);
+            return bytes == null ? await Task.FromResult((string?)null) : Convert.ToBase64String(bytes);
         }
 
         /// <summary>
@@ -217,10 +219,10 @@
         /// <returns>
         /// File content
         /// </returns>
-        public string ReadAsBase64(string fileName)
+        public string? ReadAsBase64(string fileName)
         {
             var bytes = this.ReadAsByteArray(fileName);
-            return Convert.ToBase64String(bytes);
+            return bytes == null ? null : Convert.ToBase64String(bytes);
         }
 
         /// <summary>
@@ -329,13 +331,6 @@
         /// </exception>
         public List<string>? GetFilesFromFolder(string folderPath, bool useInstallationFolder)
         {
-            
-            if (string.IsNullOrEmpty(LocalFolderPath) && !useInstallationFolder)
-                throw new ArgumentNullException(nameof(LocalFolderPath));
-
-            if (string.IsNullOrEmpty(InstallationFolderPath) && useInstallationFolder)
-                throw new ArgumentNullException(nameof(InstallationFolderPath));
-
             var parentFolderPath = useInstallationFolder ? this.InstallationFolderPath : LocalFolderPath;
             
             if (string.IsNullOrEmpty(parentFolderPath))

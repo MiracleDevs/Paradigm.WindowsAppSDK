@@ -100,14 +100,14 @@ public interface IFileStorageService : IService
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <returns>File content</returns>
-    Task<string> ReadAsBase64Async(string fileName);
+    Task<string?> ReadAsBase64Async(string fileName);
 
     /// <summary>
     /// Reads the file contents as a base64 string.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <returns>File content</returns>
-    string ReadAsBase64(string fileName);
+    string? ReadAsBase64(string fileName);
 
     /// <summary>
     /// Reads the file contents as byte array asynchronous.

@@ -29,5 +29,27 @@
             Assert.That(content, Is.Not.Null);
             Assert.That(content, Is.Not.Empty);
         }
+
+        [TestCase]
+        public void ShouldThrowExceptionIfLocalFolderPathIsNull()
+        {
+            //arrange
+            var path = "local-state-test.txt";
+
+            //act && assert
+            this.Sut.Initialize(localFolderPath: string.Empty, this.InstallationFolderPath);
+            Assert.Throws<ArgumentNullException>(() => Sut.ReadLocalText(path));
+        }
+
+        [TestCase]
+        public void ShouldThrowExceptionIfLocalFolderPathIsNullAsync()
+        {
+            //arrange
+            var path = "local-state-test.txt";
+
+            //act && assert
+            this.Sut.Initialize(localFolderPath: string.Empty, InstallationFolderPath);
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await Sut.ReadLocalTextAsync(path));
+        }
     }
 }

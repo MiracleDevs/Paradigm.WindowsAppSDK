@@ -27,6 +27,29 @@
             //assert
             Assert.That(content, Is.Not.Empty);
         }
-    }
 
+        [TestCase]
+        public void ShouldThrowExceptionIInstallationFolderPathIsEmpty()
+        {
+            //arrange
+            var path = "test.txt";
+
+            this.Sut.Initialize(this.LocalFolderPath, installationFolderPath: string.Empty);
+
+            //act && assert
+            Assert.Throws<ArgumentNullException>(() => this.Sut.ReadTextFromInstallationFolder(path));
+        }
+
+        [TestCase]
+        public void ShouldThrowExceptionIInstallationFolderPathIsEmptyAsync()
+        {
+            //arrange
+            var path = "test.txt";
+
+            this.Sut.Initialize(this.LocalFolderPath, installationFolderPath: string.Empty);
+
+            //act && assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await this.Sut.ReadTextFromInstallationFolderAsync(path));
+        }
+    }
 }
