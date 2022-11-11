@@ -29,7 +29,7 @@
 
             //assert
             Assert.That(files, Is.Not.Empty);
-            Assert.That(files.First(), Is.EqualTo(filePath));
+            Assert.That(files.Any(f => f == filePath), Is.True);
         }
 
         [TestCase]
