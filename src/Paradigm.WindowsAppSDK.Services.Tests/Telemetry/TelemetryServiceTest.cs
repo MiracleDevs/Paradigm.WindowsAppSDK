@@ -189,7 +189,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             Assert.That(properties.ElementAt(1).Key, Is.EqualTo("prop2"));
         }
 
-        [TestCase(true, 1500)]
+        [TestCase(true, 1000)]
         [TestCase(false, 500)]
         public async Task ShouldTrackEvent(bool debounce, int delay)
         {
@@ -218,14 +218,15 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             Assert.That(((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries, Has.Count.EqualTo(expectedCount));
         }
 
-        [TestCase(500)]
-        public async Task ShouldTrackException(int delay)
+        [TestCase(true,1000)]
+        [TestCase(false, 500)]
+        public async Task ShouldTrackException(bool debounce, int delay)
         {
             //arrange
-            TestService.Initialize(new TelemetrySettings(TestConnectionString, false, false, null));
+            TestService.Initialize(new TelemetrySettings(TestConnectionString, debounceEnabled: debounce, false, null));
+            ArgumentNullException ex = new(nameof(TestService.TelemetryChannel));
 
             //act
-            ArgumentNullException ex = new(nameof(TestService.TelemetryChannel));
             TestService.TrackException(ex);
 
             //Assert
