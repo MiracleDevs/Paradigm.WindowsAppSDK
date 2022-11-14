@@ -2,14 +2,14 @@ name: Paradigm WindowsAppSDK
 
 on:
   push:
-    branches: [ main ]
+    branches: [ publish-setup ]
   pull_request:
-    branches: [ main ]
+    branches: [ publish-setup ]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
