@@ -34,5 +34,8 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.1`
+- Added Paradigm.WindowsAppSDK libraries descriptions.
+
 Version `1.0.0`
 - Uploaded first version of the Paradigm.WindowsAppSDK.
