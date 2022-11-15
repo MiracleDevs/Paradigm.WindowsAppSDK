@@ -43,8 +43,11 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
             var fileStorageService = ServiceLocator.Instance.GetRequiredService<IFileStorageService>();
 
-            fileStorageService.Initialize(ApplicationData.Current.LocalFolder.Path,
-                                          $"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\Assets");
+            fileStorageService.Initialize(new Services.FileStorage.FileStorageSettings
+            {
+                LocalFolderPath = ApplicationData.Current.LocalFolder.Path,
+                InstallationFolderPath = $"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\Assets"
+            });
             
             navigationService.Initialize(m_window.Content as INavigationFrame);
             

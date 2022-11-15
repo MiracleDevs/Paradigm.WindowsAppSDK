@@ -13,6 +13,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/MiracleDevs/Paradigm.WindowsAppSDK.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <Description>Provides methods to save application logging into a local text file.</Description>
   </PropertyGroup>
 
   <ItemGroup>

@@ -14,6 +14,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/MiracleDevs/Paradigm.WindowsAppSDK.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <Description>Provides methods to load and consume legacy configuration JSON files.</Description>
   </PropertyGroup>
 
   <ItemGroup>

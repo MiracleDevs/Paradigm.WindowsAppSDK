@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-
-namespace Paradigm.WindowsAppSDK.Services.FileStorage
+﻿namespace Paradigm.WindowsAppSDK.Services.FileStorage
 {
     /// <summary>
     /// Implements the file storage service to give access to the lower level storage api.
@@ -11,20 +9,28 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         #region Properties
 
         /// <summary>
+        /// Gets or sets the settings.
+        /// </summary>
+        /// <value>
+        /// The settings.
+        /// </value>
+        private FileStorageSettings? Settings { get; set; }
+
+        /// <summary>
         /// Gets the local folder path.
         /// </summary>
         /// <value>
         /// The local folder path.
         /// </value>
-        private string? LocalFolderPath { get; set; }
+        private string? LocalFolderPath => Settings?.LocalFolderPath;
 
         /// <summary>
-        /// Gets or sets the installation folder path.
+        /// Gets the installation folder path.
         /// </summary>
         /// <value>
         /// The installation folder path.
         /// </value>
-        private string? InstallationFolderPath { get; set; }
+        private string? InstallationFolderPath => Settings?.InstallationFolderPath;
 
         #endregion
 
@@ -44,12 +50,10 @@ namespace Paradigm.WindowsAppSDK.Services.FileStorage
         /// <summary>
         /// Initializes the instance.
         /// </summary>
-        /// <param name="localFolderPath">The local folder path.</param>
-        /// <param name="installationFolderPath">The installation folder path.</param>
-        public void Initialize(string localFolderPath, string installationFolderPath)
+        /// <param name="settings">The settings.</param>
+        public void Initialize(FileStorageSettings settings)
         {
-            this.LocalFolderPath = localFolderPath;
-            this.InstallationFolderPath = installationFolderPath;
+            this.Settings = settings;
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
+﻿using Paradigm.WindowsAppSDK.Services.FileStorage;
+
+namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
 {
     public class FileExistsTests : FileStorageTestsBase
     {
@@ -6,10 +8,12 @@
         [TestCase("not-found.txt", false)]
         public void ShouldExistTextFileInitializeWithLocalState(string path, bool expected)
         {
-            //arrange
-
             //act
-            this.Sut.Initialize(this.LocalFolderPath, this.InstallationFolderPath);
+            this.Sut.Initialize(new FileStorageSettings
+            {
+                LocalFolderPath = this.LocalFolderPath,
+                InstallationFolderPath = this.InstallationFolderPath
+            });
 
             //assert
             Assert.That(this.Sut.FileExists(path), Is.EqualTo(expected));
@@ -22,7 +26,11 @@
             var path = Path.Combine(this.LocalFolderPath, "local-state-test.txt");
 
             //act
-            this.Sut.Initialize(this.LocalFolderPath, this.InstallationFolderPath);
+            this.Sut.Initialize(new FileStorageSettings
+            {
+                LocalFolderPath = this.LocalFolderPath,
+                InstallationFolderPath = this.InstallationFolderPath
+            });
 
             //assert
             Assert.That(this.Sut.FileExists(path), Is.EqualTo(true));
@@ -35,7 +43,11 @@
             var path = "local-state-test.txt";
 
             //act
-            this.Sut.Initialize(localFolderPath: string.Empty, this.InstallationFolderPath);
+            this.Sut.Initialize(new FileStorageSettings
+            {
+                LocalFolderPath = string.Empty,
+                InstallationFolderPath = this.InstallationFolderPath
+            });
 
             //assert
             Assert.Throws<ArgumentNullException>(() => this.Sut.FileExists(path));

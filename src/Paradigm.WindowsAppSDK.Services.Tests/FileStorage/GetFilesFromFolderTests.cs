@@ -1,4 +1,6 @@
-﻿namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
+﻿using Paradigm.WindowsAppSDK.Services.FileStorage;
+
+namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
 {
     public class GetFilesFromFolderTests : FileStorageTestsBase
     {
@@ -39,7 +41,11 @@
             var path = string.Empty;
 
             //act
-            this.Sut.Initialize(localFolderPath: string.Empty, this.InstallationFolderPath);
+            this.Sut.Initialize(new FileStorageSettings
+            {
+                LocalFolderPath = string.Empty,
+                InstallationFolderPath = this.InstallationFolderPath
+            });
 
             //assert
             Assert.Throws<ArgumentNullException>(() => this.Sut.GetFilesFromFolder(path, false));
@@ -52,7 +58,11 @@
             var path = string.Empty;
 
             //act
-            this.Sut.Initialize(this.LocalFolderPath, installationFolderPath: string.Empty);
+            this.Sut.Initialize(new FileStorageSettings
+            {
+                LocalFolderPath = this.LocalFolderPath,
+                InstallationFolderPath = string.Empty
+            });
 
             //assert
             Assert.Throws<ArgumentNullException>(() => this.Sut.GetFilesFromFolder(path, true));

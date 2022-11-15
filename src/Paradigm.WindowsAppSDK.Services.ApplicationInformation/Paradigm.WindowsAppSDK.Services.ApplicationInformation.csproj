@@ -17,6 +17,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/MiracleDevs/Paradigm.WindowsAppSDK.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <Description>Provides application and OS information from the RetailInfo object.</Description>
   </PropertyGroup>
 
   <ItemGroup>

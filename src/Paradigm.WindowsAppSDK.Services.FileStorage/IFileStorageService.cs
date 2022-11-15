@@ -1,8 +1,5 @@
-﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
+﻿using Paradigm.WindowsAppSDK.Services.FileStorage;
+using Paradigm.WindowsAppSDK.Services.Interfaces;
 
 /// <summary>
 /// Provides an interface for a file storage service.
@@ -12,9 +9,8 @@ public interface IFileStorageService : IService
     /// <summary>
     /// Initializes the instance.
     /// </summary>
-    /// <param name="localFolderPath">The local folder path.</param>
-    /// <param name="installationFolderPath">The installation folder path.</param>
-    void Initialize(string localFolderPath, string installationFolderPath);
+    /// <param name="settings">The settings.</param>
+    void Initialize(FileStorageSettings settings);
 
     /// <summary>
     /// Reads the text from installation folder asynchronous.
