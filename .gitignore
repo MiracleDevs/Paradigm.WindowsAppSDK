@@ -350,3 +350,6 @@ MigrationBackup/
 .ionide/
 /src/Paradigm.WindowsAppSDK.Services.Tests/coverage.json
 /src/Paradigm.WindowsAppSDK.Services.Tests/lcov.info
+
+.nuget
+nuget.exe

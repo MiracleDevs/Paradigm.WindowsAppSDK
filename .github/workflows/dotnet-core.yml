@@ -2,9 +2,9 @@ name: Paradigm WindowsAppSDK
 
 on:
   push:
-    branches: [ publish-setup ]
+    branches: [ main ]
   pull_request:
-    branches: [ publish-setup ]
+    branches: [ main ]
 
 jobs:
   build:

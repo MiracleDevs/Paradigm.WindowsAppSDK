@@ -15,7 +15,7 @@ block "$index - Build Solution"
 #------------------------------------------------
 # BUILD SOLUTION
 #------------------------------------------------
-execute "dotnet restore ../src/ -v q"
-execute "dotnet build ../src/ -c Release -v q"
+execute "dotnet restore ../src/Paradigm.WindowsAppSDK.sln -v q"
+execute "dotnet build ../src/Paradigm.WindowsAppSDK.sln -c Release -v q"
 
 buildSuccessfully
