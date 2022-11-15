@@ -1,4 +1,6 @@
-﻿namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
+﻿using Paradigm.WindowsAppSDK.Services.FileStorage;
+
+namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
 {
     public class ReadTextFromInstallationFolderTests : FileStorageTestsBase
     {
@@ -34,7 +36,11 @@
             //arrange
             var path = "test.txt";
 
-            this.Sut.Initialize(this.LocalFolderPath, installationFolderPath: string.Empty);
+            this.Sut.Initialize(new FileStorageSettings
+            {
+                LocalFolderPath = this.LocalFolderPath,
+                InstallationFolderPath = string.Empty
+            });
 
             //act && assert
             Assert.Throws<ArgumentNullException>(() => this.Sut.ReadTextFromInstallationFolder(path));
@@ -46,7 +52,11 @@
             //arrange
             var path = "test.txt";
 
-            this.Sut.Initialize(this.LocalFolderPath, installationFolderPath: string.Empty);
+            this.Sut.Initialize(new FileStorageSettings
+            {
+                LocalFolderPath = this.LocalFolderPath,
+                InstallationFolderPath = string.Empty
+            });
 
             //act && assert
             Assert.ThrowsAsync<ArgumentNullException>(async () => await this.Sut.ReadTextFromInstallationFolderAsync(path));

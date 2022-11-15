@@ -1,4 +1,6 @@
-﻿namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
+﻿using Paradigm.WindowsAppSDK.Services.FileStorage;
+
+namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
 {
     public class ReadLocalTextTests : FileStorageTestsBase
     {
@@ -37,7 +39,11 @@
             var path = "local-state-test.txt";
 
             //act && assert
-            this.Sut.Initialize(localFolderPath: string.Empty, this.InstallationFolderPath);
+            this.Sut.Initialize(new FileStorageSettings
+            {
+                LocalFolderPath = string.Empty,
+                InstallationFolderPath = this.InstallationFolderPath
+            });
             Assert.Throws<ArgumentNullException>(() => Sut.ReadLocalText(path));
         }
 
@@ -48,7 +54,11 @@
             var path = "local-state-test.txt";
 
             //act && assert
-            this.Sut.Initialize(localFolderPath: string.Empty, InstallationFolderPath);
+            this.Sut.Initialize(new FileStorageSettings
+            {
+                LocalFolderPath = string.Empty,
+                InstallationFolderPath = this.InstallationFolderPath
+            });
             Assert.ThrowsAsync<ArgumentNullException>(async () => await Sut.ReadLocalTextAsync(path));
         }
     }
