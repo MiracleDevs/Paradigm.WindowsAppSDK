@@ -27,7 +27,7 @@
         /// <value>
         /// The navigated action.
         /// </value>
-        Action<object, NavigationFrameEventArgs> Navigated { get; set; }
+        Action<object, NavigationFrameEventArgs> OnNavigated { get; set; }
 
         /// <summary>
         /// Navigates the specified source page type.

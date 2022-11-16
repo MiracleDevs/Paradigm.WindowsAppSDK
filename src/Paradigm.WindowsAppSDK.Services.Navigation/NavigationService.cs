@@ -105,7 +105,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         public void Initialize(INavigationFrame frame)
         {
             this.Frame = frame;
-            this.Frame.Navigated += this.OnNavigated;
+            this.Frame.OnNavigated += this.OnNavigated;
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using Paradigm.WindowsAppSDK.Services.Navigation;
@@ -7,25 +7,9 @@ using System.Linq;
 
 namespace Paradigm.WindowsAppSDK.Xaml.UserControls
 {
-    public sealed partial class NavigationRootFrame : UserControl, INavigationFrame
+    public sealed class NavigationRootFrame : Frame, INavigationFrame
     {
         #region Properties
-
-        /// <summary>
-        /// Gets a value indicating whether this instance can go back.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance can go back; otherwise, <c>false</c>.
-        /// </value>
-        public bool CanGoBack => this.RootFrame.CanGoBack;
-
-        /// <summary>
-        /// Gets a value indicating whether this instance can go forward.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance can go forward; otherwise, <c>false</c>.
-        /// </value>
-        public bool CanGoForward => this.RootFrame.CanGoForward;
 
         /// <summary>
         /// Gets or sets the navigated action.
@@ -33,7 +17,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.UserControls
         /// <value>
         /// The navigated action.
         /// </value>
-        public Action<object, NavigationFrameEventArgs> Navigated { get; set; }
+        public Action<object, NavigationFrameEventArgs> OnNavigated { get; set; }
 
         #endregion
 
@@ -44,8 +28,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.UserControls
         /// </summary>
         public NavigationRootFrame()
         {
-            this.InitializeComponent();
-            this.RootFrame.Navigated += OnFrameNavigated;
+            this.Navigated += OnFrameNavigated;
         }
 
         #endregion
@@ -57,7 +40,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.UserControls
         /// </summary>
         public void Dispose()
         {
-            this.RootFrame.Navigated -= OnFrameNavigated;
+            this.Navigated -= OnFrameNavigated;
         }
 
         #endregion
@@ -69,25 +52,9 @@ namespace Paradigm.WindowsAppSDK.Xaml.UserControls
         /// </summary>
         /// <param name="sourcePageType">Type of the source page.</param>
         /// <param name="value">The value.</param>
-        public void Navigate(Type sourcePageType, object value)
+        public new void Navigate(Type sourcePageType, object value)
         {
-            this.RootFrame.Navigate(sourcePageType, value, new SuppressNavigationTransitionInfo());
-        }
-
-        /// <summary>
-        /// Goes the forward.
-        /// </summary>
-        public void GoForward()
-        {
-            this.RootFrame.GoForward();
-        }
-
-        /// <summary>
-        /// Goes back.
-        /// </summary>
-        public void GoBack()
-        {
-            this.RootFrame.GoBack();
+            this.Navigate(sourcePageType, value, new SuppressNavigationTransitionInfo());
         }
 
         /// <summary>
@@ -95,7 +62,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.UserControls
         /// </summary>
         public void ClearBackStack()
         {
-            this.RootFrame.BackStack.Clear();
+            this.BackStack.Clear();
         }
 
         /// <summary>
@@ -104,7 +71,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.UserControls
         /// <returns></returns>
         public Type LastForwardStackSourcePageType()
         {
-            return this.RootFrame.ForwardStack.Last().SourcePageType;
+            return this.ForwardStack.Last().SourcePageType;
         }
 
         /// <summary>
@@ -113,7 +80,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.UserControls
         /// <returns></returns>
         public Type LastBackStackSourcePageType()
         {
-            return this.RootFrame.BackStack.Last().SourcePageType;
+            return this.BackStack.Last().SourcePageType;
         }
 
         #endregion
@@ -127,7 +94,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.UserControls
         /// <param name="e">The <see cref="NavigationEventArgs"/> instance containing the event data.</param>
         private void OnFrameNavigated(object sender, NavigationEventArgs e)
         {
-            this.Navigated(sender, new NavigationFrameEventArgs(e.Content as INavigableView));
+            this.OnNavigated(sender, new NavigationFrameEventArgs(e.Content as INavigableView));
         }
 
         #endregion
