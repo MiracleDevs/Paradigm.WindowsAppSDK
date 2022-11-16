@@ -1,10 +1,11 @@
 ﻿using Microsoft.UI.Xaml;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
 using Paradigm.WindowsAppSDK.ViewModels;
+using System;
 
 namespace Paradigm.WindowsAppSDK.SampleApp
 {
-    public sealed partial class MainWindow
+    public sealed partial class MainWindow : IDisposable
     {
         #region Properties
 
@@ -29,6 +30,18 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             this.ViewModel = ServiceLocator.Instance.GetRequiredService<MainWindowViewModel>();
 
             this.Closed += MainWindow_Closed;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            NavigationFrame.Dispose();
         }
 
         #endregion

@@ -5,6 +5,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
     public class TestNavigationFrame : INavigationFrame
     {
         private IDictionary<Type, Type> NavigationTypes { get; set; }
+
         private Type ActiveFrameKeyType { get; set; }
 
         public TestNavigationFrame(IDictionary<Type, Type> navigationTypes)
@@ -14,6 +15,10 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             this.ActiveFrameKeyType = navigationTypes.Keys.First();
 
             this.Navigated += new Action<object, NavigationFrameEventArgs>(OnNavigated);
+        }
+
+        public void Dispose()
+        {
         }
 
         private void OnNavigated(object sender, NavigationFrameEventArgs navigationArgs)
@@ -35,7 +40,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             {
                 var count = this.NavigationTypes.Keys.Count;
 
-                return NavigationTypes.Any() && Array.IndexOf(this.NavigationTypes.Keys.ToArray(), this.ActiveFrameKeyType) < count -1;
+                return NavigationTypes.Any() && Array.IndexOf(this.NavigationTypes.Keys.ToArray(), this.ActiveFrameKeyType) < count - 1;
             }
         }
 
@@ -49,7 +54,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
         public void GoBack()
         {
             var index = Array.IndexOf(this.NavigationTypes.Keys.ToArray(), this.ActiveFrameKeyType);
-            
+
             this.Navigate(this.NavigationTypes.Values.ToArray()[index - 1], null);
         }
 

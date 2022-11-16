@@ -7,5 +7,5 @@
     xmlns:controls="using:Paradigm.WindowsAppSDK.Xaml.UserControls"
     mc:Ignorable="d">
 
-    <controls:NavigationRootFrame x:Name="NavigationFrame"/>
+    <controls:NavigationRootFrame x:Name="NavigationFrame" />
 </Window>
