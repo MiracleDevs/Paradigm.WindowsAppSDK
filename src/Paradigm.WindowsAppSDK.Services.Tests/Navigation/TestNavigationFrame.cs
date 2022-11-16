@@ -14,16 +14,11 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
 
             this.ActiveFrameKeyType = navigationTypes.Keys.First();
 
-            this.Navigated += new Action<object, NavigationFrameEventArgs>(OnNavigated);
+            this.OnNavigated += new Action<object, NavigationFrameEventArgs>(OnNavigatedCallback);
         }
 
         public void Dispose()
         {
-        }
-
-        private void OnNavigated(object sender, NavigationFrameEventArgs navigationArgs)
-        {
-            this.ActiveFrameKeyType = this.NavigationTypes.FirstOrDefault(navigationType => navigationType.Value == navigationArgs.Content.GetType()).Key;
         }
 
         public bool CanGoBack
@@ -44,7 +39,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             }
         }
 
-        public Action<object, NavigationFrameEventArgs> Navigated { get; set; }
+        public Action<object, NavigationFrameEventArgs> OnNavigated { get; set; }
 
         public void ClearBackStack()
         {
@@ -77,7 +72,12 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
 
         public void Navigate(Type sourcePageType, object? value)
         {
-            this.Navigated(this, new NavigationFrameEventArgs(Activator.CreateInstance(sourcePageType) as INavigableView));
+            this.OnNavigated(this, new NavigationFrameEventArgs(Activator.CreateInstance(sourcePageType) as INavigableView));
+        }
+
+        private void OnNavigatedCallback(object sender, NavigationFrameEventArgs navigationArgs)
+        {
+            this.ActiveFrameKeyType = this.NavigationTypes.FirstOrDefault(navigationType => navigationType.Value == navigationArgs.Content.GetType()).Key;
         }
     }
 }
