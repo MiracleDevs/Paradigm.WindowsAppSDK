@@ -16,7 +16,6 @@
     <None Remove="Assets\Configuration\config.json" />
     <None Remove="Assets\Test\testData - 1.json" />
     <None Remove="Assets\Test\testData - 2 .json" />
-    <None Remove="UserControls\NavigationRootFrame.xaml" />
     <None Remove="Views\Pages\LocalStateTestPage.xaml" />
     <None Remove="Views\Pages\MainPage.xaml" />
     <None Remove="Views\Pages\TestPage.xaml" />
@@ -56,6 +55,7 @@
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Navigation\Paradigm.WindowsAppSDK.Services.Navigation.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Telemetry\Paradigm.WindowsAppSDK.Services.Telemetry.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.ViewModels\Paradigm.WindowsAppSDK.ViewModels.csproj" />
+    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Xaml\Paradigm.WindowsAppSDK.Xaml.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\StringMessages.Designer.cs">
@@ -80,11 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Pages\MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="UserControls\NavigationRootFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
