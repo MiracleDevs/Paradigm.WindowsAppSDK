@@ -1,7 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
-using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
 using Paradigm.WindowsAppSDK.Services.ApplicationInformation;
-using Paradigm.WindowsAppSDK.Services.LegacyConfiguration;
 using Paradigm.WindowsAppSDK.Services.LocalSettings;
 using Paradigm.WindowsAppSDK.Services.Logging;
 using Paradigm.WindowsAppSDK.Services.Navigation;
@@ -35,9 +33,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             ServiceLocator.Instance.GetRequiredService<ILogService>().Initialize(ApplicationData.Current.TemporaryFolder.Path);
-
-            var fileStorageService = ServiceLocator.Instance.GetRequiredService<IFileStorageService>();
-            fileStorageService.Initialize(new Services.FileStorage.FileStorageSettings
+            ServiceLocator.Instance.GetRequiredService<IFileStorageService>().Initialize(new Services.FileStorage.FileStorageSettings
             {
                 LocalFolderPath = ApplicationData.Current.LocalFolder.Path,
                 InstallationFolderPath = $"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\Assets"
@@ -46,10 +42,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             m_window = new MainWindow();
 
             ServiceLocator.Instance.GetRequiredService<INavigationService>().Initialize(m_window.GetNavigationFrame());
-            
-            ServiceLocator.Instance.GetRequiredService<ILegacyConfigurationService>()
-                .Initialize(fileStorageService.ReadTextFromInstallationFolder("Configuration\\config.json"));
-
             ServiceLocator.Instance.GetRequiredService<ILocalSettingsService>().Initialize(ApplicationData.Current.LocalSettings.Values);
             ServiceLocator.Instance.GetRequiredService<IApplicationInformationService>().Initialize(WinRT.Interop.WindowNative.GetWindowHandle(m_window));
 

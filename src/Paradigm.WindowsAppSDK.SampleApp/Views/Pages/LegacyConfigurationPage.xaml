@@ -1,0 +1,49 @@
+﻿<Page
+    x:Class="Paradigm.WindowsAppSDK.SampleApp.Views.Pages.LegacyConfigurationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center" FontSize="30" Margin="0 10"
+                   Text="LegacyConfigurationService sample"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="stringValue1:" FontWeight="Bold" Margin="0 5" />
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="{x:Bind ViewModel.StringValue1, Mode=OneWay}" VerticalAlignment="Center" />
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="stringValue2:" FontWeight="Bold" Margin="0 5" />
+        <TextBlock Grid.Column="2" Grid.Row="2" Text="{x:Bind ViewModel.StringValue2, Mode=OneWay}" VerticalAlignment="Center" />
+
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="numericValue1:" FontWeight="Bold" Margin="0 5" />
+        <TextBlock Grid.Column="2" Grid.Row="3" Text="{x:Bind ViewModel.NumericValue1, Mode=OneWay}" VerticalAlignment="Center" />
+
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="numericValue2:" FontWeight="Bold" Margin="0 5" />
+        <TextBlock Grid.Column="2" Grid.Row="4" Text="{x:Bind ViewModel.NumericValue2, Mode=OneWay}" VerticalAlignment="Center" />
+
+        <CheckBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Content="booleanValue1" IsThreeState="True" 
+                  IsChecked="{x:Bind ViewModel.BooleanValue1, Mode=OneWay}" />
+
+        <CheckBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3" Content="booleanValue1" IsThreeState="True" 
+                  IsChecked="{x:Bind ViewModel.BooleanValue2, Mode=OneWay}" />
+    </Grid>
+</Page>

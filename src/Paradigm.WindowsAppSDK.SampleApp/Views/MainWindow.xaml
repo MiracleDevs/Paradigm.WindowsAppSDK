@@ -15,14 +15,14 @@
             
             <NavigationViewItemHeader Content="Services"/>
             <NavigationViewItem Content="Application Information" Tag="ApplicationInformation" />
-            <NavigationViewItem Content="File Storage" />
-            <NavigationViewItem Content="Legacy Configuration" />
-            <NavigationViewItem Content="Localization" />
+            <NavigationViewItem Content="File Storage" Tag="FileStorage" />
+            <NavigationViewItem Content="Legacy Configuration" Tag="LegacyConfiguration" />
+            <NavigationViewItem Content="Localization" Tag="Localization" />
             <NavigationViewItem Content="Local Settings" Tag="LocalSettings" />
-            <NavigationViewItem Content="Logging" />
+            <NavigationViewItem Content="Logging" Tag="Logging" />
             <NavigationViewItem Content="Message Bus" Tag="MessageBus" />
-            <NavigationViewItem Content="Navigation" />
-            <NavigationViewItem Content="Telemetry" />
+            <NavigationViewItem Content="Navigation" Tag="Navigation" />
+            <NavigationViewItem Content="Telemetry" Tag="Telemetry" />
 
             <NavigationViewItemHeader Content="MVVM"/>
             <NavigationViewItem Content="ViewModels" />

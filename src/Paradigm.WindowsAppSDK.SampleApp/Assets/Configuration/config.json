@@ -1,6 +1,8 @@
 {
-	"telemetry-key": "test",
-	"telemetry-enabled": true,
-	"telemetry-prod-url": "761f753b-f1e0-4442-91c2-0bea33fdded6",
-	"telemetry-test-url": "761f753b-f1e0-4442-91c2-0bea33fdded6"
+	"stringValue1": "string value 1",
+	"stringValue2": "string value 2",
+	"numericValue1": 500,
+	"numericValue2": 1,
+	"booleanValue1": false,
+	"booleanValue2": true
 }
