@@ -8,12 +8,25 @@
     mc:Ignorable="d"
     Closed="OnClosed">
 
-    <NavigationView>
+    <NavigationView IsSettingsVisible="False" IsPaneToggleButtonVisible="False" IsBackButtonVisible="Collapsed"
+                    SelectionChanged="OnNavigationViewSelectionChanged">
         <NavigationView.MenuItems>
-            <NavigationViewItem Icon="Play" Content="Menu Item1" Tag="SamplePage1" />
-            <NavigationViewItem Icon="Save" Content="Menu Item2" Tag="SamplePage2" />
-            <NavigationViewItem Icon="Refresh" Content="Menu Item3" Tag="SamplePage3" />
-            <NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />
+            <NavigationViewItem Icon="Home" Content="Home" IsSelected="True" Tag="Home" />
+            
+            <NavigationViewItemHeader Content="Services"/>
+            <NavigationViewItem Content="Application Information" Tag="ApplicationInformation" />
+            <NavigationViewItem Content="File Storage" />
+            <NavigationViewItem Content="Legacy Configuration" />
+            <NavigationViewItem Content="Localization" />
+            <NavigationViewItem Content="Local Settings" />
+            <NavigationViewItem Content="Logging" />
+            <NavigationViewItem Content="Message Bus" />
+            <NavigationViewItem Content="Navigation" />
+            <NavigationViewItem Content="Telemetry" />
+
+            <NavigationViewItemHeader Content="MVVM"/>
+            <NavigationViewItem Content="ViewModels" />
+            <NavigationViewItem Content="XAML" />
         </NavigationView.MenuItems>
 
         <controls:NavigationRootFrame x:Name="NavigationFrame" />

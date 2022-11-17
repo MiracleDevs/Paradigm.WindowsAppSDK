@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
+using Paradigm.WindowsAppSDK.Services.ApplicationInformation;
 using Paradigm.WindowsAppSDK.Services.LegacyConfiguration;
 using Paradigm.WindowsAppSDK.Services.LocalSettings;
 using Paradigm.WindowsAppSDK.Services.Logging;
@@ -31,7 +32,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs args)
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             ServiceLocator.Instance.GetRequiredService<ILogService>().Initialize(ApplicationData.Current.TemporaryFolder.Path);
 
@@ -44,15 +45,13 @@ namespace Paradigm.WindowsAppSDK.SampleApp
 
             m_window = new MainWindow();
 
-            var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
-            navigationService.Initialize(m_window.GetNavigationFrame());
+            ServiceLocator.Instance.GetRequiredService<INavigationService>().Initialize(m_window.GetNavigationFrame());
             
             ServiceLocator.Instance.GetRequiredService<ILegacyConfigurationService>()
                 .Initialize(fileStorageService.ReadTextFromInstallationFolder("Configuration\\config.json"));
 
             ServiceLocator.Instance.GetRequiredService<ILocalSettingsService>().Initialize(ApplicationData.Current.LocalSettings.Values);
-
-            await navigationService.NavigateToAsync<MainViewModel>();
+            ServiceLocator.Instance.GetRequiredService<IApplicationInformationService>().Initialize(WinRT.Interop.WindowNative.GetWindowHandle(m_window));
 
             m_window.Activate();
         }

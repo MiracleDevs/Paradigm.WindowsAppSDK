@@ -2,7 +2,6 @@
 using Paradigm.WindowsAppSDK.Services.Logging;
 using Paradigm.WindowsAppSDK.Services.MessageBus;
 using Paradigm.WindowsAppSDK.Services.Navigation;
-using Paradigm.WindowsAppSDK.ViewModels;
 using Paradigm.WindowsAppSDK.ViewModels.Base;
 using System;
 using System.Linq;
@@ -19,7 +18,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         /// <value>
         /// The log service.
         /// </value>
-
         protected ILogService LogService { get; }
 
         /// <summary>
@@ -64,8 +62,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         /// </summary>
         public override void Dispose()
         {
-            base.Dispose();
             UnRegisterServiceBusMessageHandlers();
+            base.Dispose();
         }
 
         #endregion
@@ -75,7 +73,9 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         /// <summary>
         /// Registers the service bus message handlers.
         /// </summary>
-        public abstract void RegisterServiceBusMessageHandlers();
+        public virtual void RegisterServiceBusMessageHandlers()
+        {
+        }
 
         /// <summary>
         /// Uns the register service bus message handlers.

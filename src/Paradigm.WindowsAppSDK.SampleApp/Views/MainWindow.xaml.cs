@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
@@ -55,6 +56,16 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         #endregion
 
         #region Event Handlers
+
+        /// <summary>
+        /// Called when [navigation view selection changed].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs"/> instance containing the event data.</param>
+        private async void OnNavigationViewSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+            await ViewModel.NavigateToPageAsync((args.SelectedItem as NavigationViewItem).Tag?.ToString());
+        }
 
         /// <summary>
         /// Handles the Closed event of the MainWindow control.

@@ -16,8 +16,9 @@
     <None Remove="Assets\Configuration\config.json" />
     <None Remove="Assets\Test\testData - 1.json" />
     <None Remove="Assets\Test\testData - 2 .json" />
+    <None Remove="Views\Pages\ApplicationInformationPage.xaml" />
+    <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\Pages\LocalStateTestPage.xaml" />
-    <None Remove="Views\Pages\MainPage.xaml" />
     <None Remove="Views\Pages\TestPage.xaml" />
   </ItemGroup>
 
@@ -46,8 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Interfaces\Paradigm.WindowsAppSDK.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.ApplicationInformation\Paradigm.WindowsAppSDK.Services.ApplicationInformation.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.FileStorage\Paradigm.WindowsAppSDK.Services.FileStorage.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.LegacyConfiguration\Paradigm.WindowsAppSDK.Services.LegacyConfiguration.csproj" />
+    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Localization\Paradigm.WindowsAppSDK.Services.Localization.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.LocalSettings\Paradigm.WindowsAppSDK.Services.LocalSettings.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Logging\Paradigm.WindowsAppSDK.Services.Logging.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.MessageBus\Paradigm.WindowsAppSDK.Services.MessageBus.csproj" />
@@ -70,6 +73,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\Pages\ApplicationInformationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\Pages\LocalStateTestPage.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
@@ -78,7 +86,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\Pages\MainPage.xaml">
+    <Page Update="Views\Pages\HomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

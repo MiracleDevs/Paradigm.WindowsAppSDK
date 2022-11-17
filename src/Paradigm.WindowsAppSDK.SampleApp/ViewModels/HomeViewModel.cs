@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {
-    public class MainViewModel : Base.SampleAppPageViewModelBase
+    public class HomeViewModel : Base.SampleAppPageViewModelBase
     {
-        public MainViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+        public HomeViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
 
@@ -21,8 +21,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             LogService.Debug($"Processing message : {arg.GetType()}. Id {arg.Guid} with delay : {arg.Delay}");
         }
 
-     
-
         public async Task ExecuteActionAsync()
         {
             if (await Navigation.NavigateToAsync<TestViewModel>())
@@ -34,6 +32,5 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             if (await Navigation.NavigateToAsync<LocalStateTestViewModel>())
                 LogService.Information("Executed local state test navigation");
         }
-
     }
 }

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
 {
-    public sealed partial class MainPage : INavigableView
+    public sealed partial class HomePage : INavigableView
     {
-        private MainViewModel ViewModel { get; set; }
+        private HomeViewModel ViewModel { get; set; }
 
-        public MainPage()
+        public HomePage()
         {
             this.InitializeComponent();
         }
@@ -22,7 +22,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
 
         public async Task InitializeNavigationAsync(INavigable navigable)
         {
-            this.ViewModel = (MainViewModel)navigable;
+            this.ViewModel = (HomeViewModel)navigable;
             await Task.CompletedTask;
         }
     }

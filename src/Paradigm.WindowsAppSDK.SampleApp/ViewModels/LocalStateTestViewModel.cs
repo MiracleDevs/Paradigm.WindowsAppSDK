@@ -38,12 +38,12 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 
         public override Task<bool> CanNavigateFrom(INavigable navigable)
         {
-            return Task.FromResult(navigable is MainViewModel);
+            return Task.FromResult(navigable is HomeViewModel);
         }
 
         public override Task<bool> CanNavigateTo(INavigable navigable)
         {
-            return Task.FromResult(navigable is MainViewModel);
+            return Task.FromResult(navigable is HomeViewModel);
         }
 
         #endregion

@@ -31,7 +31,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
                 typeof(App).Assembly
             };
             
-            var serviceAssemblies = mainAssemblies.SelectMany(asm => asm.GetFilteredReferencedAssemblies(typeof(IService))).Distinct();
+            var serviceAssemblies = mainAssemblies.SelectMany(x => x.GetFilteredReferencedAssemblies(typeof(IService))).Distinct();
 
             serviceCollection.RegisterServices(serviceAssemblies.ToArray());
             serviceCollection.RegisterViewModels(mainAssemblies.ToArray());
@@ -43,7 +43,9 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         private static void RegisterNavigation()
         {
             var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
-            navigationService.Register<MainPage, MainViewModel>();
+            navigationService.Register<HomePage, HomeViewModel>();
+            navigationService.Register<ApplicationInformationPage, ApplicationInformationViewModel>();
+
             navigationService.Register<TestPage, TestViewModel>();
             navigationService.Register<LocalStateTestPage, LocalStateTestViewModel>();
         }

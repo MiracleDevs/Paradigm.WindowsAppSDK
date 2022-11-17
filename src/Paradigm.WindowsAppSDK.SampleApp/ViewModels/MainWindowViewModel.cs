@@ -1,18 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Paradigm.WindowsAppSDK.SampleApp.Messages;
+﻿using Paradigm.WindowsAppSDK.SampleApp.Messages;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
 using Paradigm.WindowsAppSDK.Services.MessageBus;
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <seealso cref="SampleAppPageViewModelBase" />
-    public class MainWindowViewModel: SampleAppPageViewModelBase
+    public class MainWindowViewModel : SampleAppPageViewModelBase
     {
         #region Constructor
 
@@ -20,9 +16,21 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
         /// </summary>
         /// <param name="serviceProvider">The service provider.</param>
-        public MainWindowViewModel(IServiceProvider serviceProvider): base(serviceProvider)
+        public MainWindowViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-         
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Navigates to page.
+        /// </summary>
+        public async Task NavigateToPageAsync(string typeName)
+        {
+            var type = typeof(MainWindowViewModel).Assembly.GetType($"Paradigm.WindowsAppSDK.SampleApp.ViewModels.{typeName}ViewModel");
+            await Navigation.NavigateToAsync(type);
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
+using System;
 using System.Drawing;
 
 namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
@@ -8,6 +9,12 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
     /// </summary>
     public interface IApplicationInformationService : IService
     {
+        /// <summary>
+        /// Initializes the service.
+        /// </summary>
+        /// <param name="windowHandle">The window handle.</param>
+        void Initialize(IntPtr windowHandle);
+
         /// <summary>
         /// Gets the name of the application.
         /// </summary>

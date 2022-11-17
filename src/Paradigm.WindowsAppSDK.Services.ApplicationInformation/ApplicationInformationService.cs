@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml;
+using System;
 using System.Drawing;
 using System.Linq;
 using Windows.ApplicationModel;
@@ -14,6 +16,24 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
     /// <seealso cref="IApplicationInformationService" />
     public class ApplicationInformationService : IApplicationInformationService
     {
+        /// <summary>
+        /// Gets or sets the current window.
+        /// </summary>
+        /// <value>
+        /// The current window.
+        /// </value>
+        private AppWindow CurrentWindow { get; set; }
+
+        /// <summary>
+        /// Initializes the service.
+        /// </summary>
+        /// <param name="windowHandle">The window handle.</param>
+        public void Initialize(IntPtr windowHandle)
+        {
+            var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
+            CurrentWindow = AppWindow.GetFromWindowId(windowId);
+        }
+
         /// <summary>
         /// Gets the name of the application.
         /// </summary>
@@ -59,8 +79,10 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// <returns></returns>
         public Size GetVisibleBounds()
         {
-            var visibleBounds = ApplicationView.GetForCurrentView().VisibleBounds;
-            return new Size(Convert.ToInt32(visibleBounds.Width), Convert.ToInt32(visibleBounds.Height));
+            if (CurrentWindow == null)
+                throw new InvalidOperationException("ApplicationInformation was not initialized");
+
+            return new Size(CurrentWindow.Size.Width, CurrentWindow.Size.Height);
         }
 
         /// <summary>
