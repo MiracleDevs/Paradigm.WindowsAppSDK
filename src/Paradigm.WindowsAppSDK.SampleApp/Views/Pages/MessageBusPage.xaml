@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="Paradigm.WindowsAppSDK.SampleApp.Views.Pages.MessageBusPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" FontSize="30" Margin="0 10"
+                   Text="MessageBusService sample"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Center">
+            <Button Margin="5 0" Content="Toggle messages viewer" Tapped="{x:Bind ViewModel.ToggleMessageViewerAsync}" />
+            <Button Margin="5 0" Content="Send sample message 1" Tapped="{x:Bind ViewModel.SendSample1MessageAsync}" />
+            <Button Margin="5 0" Content="Send sample message 2" Tapped="{x:Bind ViewModel.SendSample2MessageAsync}" />
+        </StackPanel>
+    </Grid>
+</Page>

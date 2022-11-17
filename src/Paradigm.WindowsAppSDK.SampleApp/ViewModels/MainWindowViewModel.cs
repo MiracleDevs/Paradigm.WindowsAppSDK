@@ -2,14 +2,24 @@
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
 using Paradigm.WindowsAppSDK.Services.MessageBus;
 using System;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {
     public class MainWindowViewModel : SampleAppPageViewModelBase
     {
+        #region Properties
+
+        /// <summary>
+        /// Gets the message text.
+        /// </summary>
+        /// <value>
+        /// The message text.
+        /// </value>
+        public string MessageText { get; private set; }
+
+        #endregion
+
         #region Constructor
 
         /// <summary>
@@ -18,6 +28,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <param name="serviceProvider">The service provider.</param>
         public MainWindowViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
+            MessageText = "[messages content will be displayed here]";
         }
 
         #endregion
@@ -33,40 +44,27 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             await Navigation.NavigateToAsync(type);
         }
 
-        #endregion
-
-        #region Private Methods
-
         /// <summary>
         /// Registers the service bus message handlers.
         /// </summary>
         public override void RegisterServiceBusMessageHandlers()
         {
-            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<ContentFolderReadFinishedMessage>(this, this.ServiceProvider, OnContentReadFinishedAsync);
-            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<LocalStateContentFolderReadFinishedMessage>(this, this.ServiceProvider, OnLocalStateContentReadFinishedAsync);
-
-            LogService.Debug($"Registered {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message handlers");
+            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<SampleMessage>(this, ServiceProvider, OnSampleMessageReceivedAsync);
         }
 
-        /// <summary>
-        /// Called when [local state content read finished asynchronous].
-        /// </summary>
-        /// <param name="arg">The argument.</param>
-        private async Task OnLocalStateContentReadFinishedAsync(LocalStateContentFolderReadFinishedMessage arg)
-        {
-            await Task.Delay(arg.Delay);
-            LogService.Debug($"Processing message : {arg.GetType()}. Id {arg.Guid} with delay : {arg.Delay}");
-        }
+        #endregion
 
+        #region Private Methods
 
         /// <summary>
-        /// Called when [content read finished asynchronous].
+        /// Called when [sample message received].
         /// </summary>
-        /// <param name="arg">The argument.</param>
-        private async Task OnContentReadFinishedAsync(ContentFolderReadFinishedMessage arg)
+        /// <param name="message">The message.</param>
+        private async Task OnSampleMessageReceivedAsync(SampleMessage message)
         {
-            await Task.Delay(arg.Delay);
-            LogService.Debug($"Processing message : {arg.GetType()}. Id {arg.Guid} with delay : {arg.Delay}");
+            MessageText = message.Text;
+            OnPropertyChanged(nameof(MessageText));
+            await Task.CompletedTask;
         }
 
         #endregion

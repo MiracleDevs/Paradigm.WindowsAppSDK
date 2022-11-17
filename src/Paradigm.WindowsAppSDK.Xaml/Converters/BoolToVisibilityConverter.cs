@@ -11,7 +11,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
     /// If the value it's true, returns <see cref="Visibility.Visible"/>, <see cref="Visibility.Collapsed"/> otherwise.
     /// </remarks>
     /// <seealso cref="IValueConverter" />
-    internal class BoolToVisibilityConverter : IValueConverter
+    public class BoolToVisibilityConverter : IValueConverter
     {
         /// <summary>
         /// Converts the specified value.

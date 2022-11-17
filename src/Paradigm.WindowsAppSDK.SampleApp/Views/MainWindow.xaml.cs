@@ -1,9 +1,13 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Paradigm.WindowsAppSDK.SampleApp.Messages;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
+using Paradigm.WindowsAppSDK.Services.MessageBus;
+using Paradigm.WindowsAppSDK.Services.MessageBus.Models;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
 using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 
 namespace Paradigm.WindowsAppSDK.SampleApp
@@ -18,7 +22,23 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// <value>
         /// The view model.
         /// </value>
-        public MainWindowViewModel ViewModel { get; private set; }
+        public MainWindowViewModel ViewModel { get; }
+
+        /// <summary>
+        /// Gets the message bus.
+        /// </summary>
+        /// <value>
+        /// The message bus.
+        /// </value>
+        private IMessageBusService MessageBus { get; }
+
+        /// <summary>
+        /// Gets the toggle display messages viewer token.
+        /// </summary>
+        /// <value>
+        /// The toggle display messages viewer token.
+        /// </value>
+        private RegistrationToken ToggleDisplayMessagesViewerToken { get; }
 
         #endregion
 
@@ -30,8 +50,14 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         public MainWindow()
         {
             InitializeComponent();
+
+            if (DesignMode.DesignModeEnabled || DesignMode.DesignMode2Enabled)
+                return;
+
+            MessageBus = ServiceLocator.Instance.GetRequiredService<IMessageBusService>();
             ViewModel = ServiceLocator.Instance.GetRequiredService<MainWindowViewModel>();
             Title = AppInfo.Current.DisplayInfo.DisplayName;
+            ToggleDisplayMessagesViewerToken = MessageBus.Register<ToggleDisplayMessagesViewerMessage>(this, OnToggleDisplayMessagesViewerAsync);
         }
 
         #endregion
@@ -43,6 +69,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// </summary>
         public void Dispose()
         {
+            MessageBus.Unregister(ToggleDisplayMessagesViewerToken);
             ViewModel.Dispose();
             NavigationFrame.Dispose();
         }
@@ -55,6 +82,20 @@ namespace Paradigm.WindowsAppSDK.SampleApp
 
         #endregion
 
+        #region Private Methods
+
+        /// <summary>
+        /// Called when [toggle display messages viewer].
+        /// </summary>
+        /// <param name="message">The message.</param>
+        private async Task OnToggleDisplayMessagesViewerAsync(ToggleDisplayMessagesViewerMessage message)
+        {
+            MessageViewer.Visibility = MessageViewer.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            await Task.CompletedTask;
+        }
+
+        #endregion
+
         #region Event Handlers
 
         /// <summary>
@@ -62,7 +103,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs"/> instance containing the event data.</param>
-        private async void OnNavigationViewSelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        private async void OnNavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             await ViewModel.NavigateToPageAsync((args.SelectedItem as NavigationViewItem).Tag?.ToString());
         }

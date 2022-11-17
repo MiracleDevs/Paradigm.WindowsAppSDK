@@ -8,7 +8,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
     /// Converts Uri values to MediaSource object.
     /// </summary>
     /// <seealso cref="IValueConverter" />
-    internal class UriToMediaSourceConverter : IValueConverter
+    public class UriToMediaSourceConverter : IValueConverter
     {
         /// <summary>
         /// Converts the specified value.

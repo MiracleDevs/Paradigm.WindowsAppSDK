@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:Paradigm.WindowsAppSDK.Xaml.Converters">
+
+    <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+    <converters:BoolToParameterConverter x:Key="BoolToParameterConverter" />
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <converters:BoolToScrollModeConverter x:Key="BoolToScrollModeConverter" />
+    <converters:BoolToZoomModeConverter x:Key="BoolToZoomModeConverter" />
+    <converters:UriToMediaSourceConverter x:Key="UriToMediaSourceConverter" />
+    <converters:UriToImageSourceConverter x:Key="UriToImageSourceConverter" />
+    <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+    <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
+    <converters:ColorToSolidBrushConverter x:Key="ColorToSolidBrushConverter" />
+</ResourceDictionary>

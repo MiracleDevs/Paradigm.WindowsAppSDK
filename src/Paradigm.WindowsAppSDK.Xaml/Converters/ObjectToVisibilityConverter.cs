@@ -12,7 +12,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
     /// </remarks>
     /// </summary>
     /// <seealso cref="IValueConverter" />
-    internal class ObjectToVisibilityConverter : IValueConverter
+    public class ObjectToVisibilityConverter : IValueConverter
     {
         /// <summary>
         /// Converts the specified value.

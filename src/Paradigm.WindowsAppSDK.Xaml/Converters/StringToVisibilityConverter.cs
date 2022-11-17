@@ -11,7 +11,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
     /// If the value is not null or whitespace, returns <see cref="Visibility.Visible"/>, <see cref="Visibility.Collapsed"/> otherwise.
     /// </remarks>
     /// <seealso cref="IValueConverter" />
-    internal class StringToVisibilityConverter : IValueConverter
+    public class StringToVisibilityConverter : IValueConverter
     {
         /// <summary>
         /// Converts the specified value.

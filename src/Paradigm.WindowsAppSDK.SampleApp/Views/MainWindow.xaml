@@ -20,7 +20,7 @@
             <NavigationViewItem Content="Localization" />
             <NavigationViewItem Content="Local Settings" Tag="LocalSettings" />
             <NavigationViewItem Content="Logging" />
-            <NavigationViewItem Content="Message Bus" />
+            <NavigationViewItem Content="Message Bus" Tag="MessageBus" />
             <NavigationViewItem Content="Navigation" />
             <NavigationViewItem Content="Telemetry" />
 
@@ -29,6 +29,17 @@
             <NavigationViewItem Content="XAML" />
         </NavigationView.MenuItems>
 
-        <controls:NavigationRootFrame x:Name="NavigationFrame" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <controls:NavigationRootFrame x:Name="NavigationFrame" Grid.Row="0" />
+
+            <StackPanel x:Name="MessageViewer" Grid.Row="1" Visibility="Collapsed">
+                <TextBlock Margin="10" Text="{x:Bind ViewModel.MessageText, Mode=OneWay}" />
+            </StackPanel>
+        </Grid>
     </NavigationView>
 </Window>

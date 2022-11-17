@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
 {
-    public sealed partial class ApplicationInformationPage : INavigableView
+    public sealed partial class MessageBusPage : INavigableView
     {
         /// <summary>
         /// Gets or sets the view model.
@@ -13,12 +13,12 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// <value>
         /// The view model.
         /// </value>
-        private ApplicationInformationViewModel ViewModel { get; set; }
+        private MessageBusViewModel ViewModel { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationInformationPage"/> class.
+        /// Initializes a new instance of the <see cref="MessageBusPage"/> class.
         /// </summary>
-        public ApplicationInformationPage()
+        public MessageBusPage()
         {
             this.InitializeComponent();
         }
@@ -38,7 +38,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// <param name="navigable">The navigable.</param>
         public async Task InitializeNavigationAsync(INavigable navigable)
         {
-            this.ViewModel = (ApplicationInformationViewModel)navigable;
+            this.ViewModel = (MessageBusViewModel)navigable;
             await Task.CompletedTask;
         }
     }

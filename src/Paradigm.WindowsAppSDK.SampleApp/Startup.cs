@@ -46,6 +46,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             navigationService.Register<HomePage, HomeViewModel>();
             navigationService.Register<ApplicationInformationPage, ApplicationInformationViewModel>();
             navigationService.Register<LocalSettingsPage, LocalSettingsViewModel>();
+            navigationService.Register<MessageBusPage, MessageBusViewModel>();
 
             navigationService.Register<TestPage, TestViewModel>();
             navigationService.Register<LocalStateTestPage, LocalStateTestViewModel>();

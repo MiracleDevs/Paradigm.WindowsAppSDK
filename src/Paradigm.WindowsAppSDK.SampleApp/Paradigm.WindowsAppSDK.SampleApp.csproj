@@ -16,10 +16,12 @@
     <None Remove="Assets\Configuration\config.json" />
     <None Remove="Assets\Test\testData - 1.json" />
     <None Remove="Assets\Test\testData - 2 .json" />
+    <None Remove="Resources\Main.xaml" />
     <None Remove="Views\Pages\ApplicationInformationPage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\Pages\LocalSettingsPage.xaml" />
     <None Remove="Views\Pages\LocalStateTestPage.xaml" />
+    <None Remove="Views\Pages\MessageBusPage.xaml" />
     <None Remove="Views\Pages\TestPage.xaml" />
   </ItemGroup>
 
@@ -74,6 +76,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\Pages\MessageBusPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\Pages\LocalSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -94,6 +101,12 @@
   <ItemGroup>
     <Page Update="Views\Pages\HomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Resources\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory></CopyToOutputDirectory>
     </Page>
   </ItemGroup>
 
