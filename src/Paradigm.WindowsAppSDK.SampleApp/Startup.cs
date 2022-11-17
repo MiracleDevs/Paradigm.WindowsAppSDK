@@ -45,6 +45,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
             navigationService.Register<HomePage, HomeViewModel>();
             navigationService.Register<ApplicationInformationPage, ApplicationInformationViewModel>();
+            navigationService.Register<LocalSettingsPage, LocalSettingsViewModel>();
 
             navigationService.Register<TestPage, TestViewModel>();
             navigationService.Register<LocalStateTestPage, LocalStateTestViewModel>();

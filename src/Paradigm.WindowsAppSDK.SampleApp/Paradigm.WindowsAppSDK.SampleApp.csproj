@@ -18,6 +18,7 @@
     <None Remove="Assets\Test\testData - 2 .json" />
     <None Remove="Views\Pages\ApplicationInformationPage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
+    <None Remove="Views\Pages\LocalSettingsPage.xaml" />
     <None Remove="Views\Pages\LocalStateTestPage.xaml" />
     <None Remove="Views\Pages\TestPage.xaml" />
   </ItemGroup>
@@ -71,6 +72,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StringMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Pages\LocalSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Pages\ApplicationInformationPage.xaml">

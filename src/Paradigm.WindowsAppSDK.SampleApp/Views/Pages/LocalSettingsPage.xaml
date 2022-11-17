@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="Paradigm.WindowsAppSDK.SampleApp.Views.Pages.LocalSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="30" Margin="0 10"
+                   Text="LocalSettingsService sample"/>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Center">
+            <Button Margin="5 0" Content="Reload" Tapped="{x:Bind ViewModel.LoadLocalSettings}" />
+            <Button Margin="5 0" Content="Save" Tapped="{x:Bind ViewModel.SaveLocalSettings}" />
+            <Button Margin="5 0" Content="Reset" Tapped="{x:Bind ViewModel.ResetLocalSettings}" />
+        </StackPanel>
+
+        <TextBox Grid.Row="2" Grid.Column="0" Margin="5 0" PlaceholderText="Enter some value"
+                 Text="{x:Bind ViewModel.CurrentLocalSettings.FirstStringValue, Mode=TwoWay}" />
+
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5 0" PlaceholderText="Enter some value"
+                 Text="{x:Bind ViewModel.CurrentLocalSettings.SecondStringValue, Mode=TwoWay}" />
+
+        <CheckBox Grid.Row="2" Grid.Column="2" Margin="5 0" Content="Three-state CheckBox" IsThreeState="True" 
+                  IsChecked="{x:Bind ViewModel.CurrentLocalSettings.BoolValue, Mode=TwoWay}" />
+    </Grid>
+</Page>

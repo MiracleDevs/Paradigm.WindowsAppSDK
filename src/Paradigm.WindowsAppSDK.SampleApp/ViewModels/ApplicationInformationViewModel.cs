@@ -110,5 +110,17 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         }
 
         #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Refreshes this instance.
+        /// </summary>
+        public void Refresh()
+        {
+            OnAllPropertiesChanged();
+        }
+
+        #endregion
     }
 }

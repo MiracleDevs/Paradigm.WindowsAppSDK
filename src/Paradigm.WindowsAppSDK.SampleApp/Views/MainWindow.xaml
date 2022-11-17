@@ -18,7 +18,7 @@
             <NavigationViewItem Content="File Storage" />
             <NavigationViewItem Content="Legacy Configuration" />
             <NavigationViewItem Content="Localization" />
-            <NavigationViewItem Content="Local Settings" />
+            <NavigationViewItem Content="Local Settings" Tag="LocalSettings" />
             <NavigationViewItem Content="Logging" />
             <NavigationViewItem Content="Message Bus" />
             <NavigationViewItem Content="Navigation" />
