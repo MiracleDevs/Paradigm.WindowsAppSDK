@@ -24,11 +24,10 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
             this.Sut = new LogService();
 
             if (!Directory.Exists(LogFolderPath))
-            {
                 Directory.CreateDirectory(LogFolderPath);
-            }
 
-            this.Sut.Initialize(LogType, LogFolderPath, this.LogFileMaxSize, LogFileName);
+            this.Sut.Initialize(LogFolderPath, this.LogFileMaxSize, LogFileName);
+            this.Sut.SetMinimumLogType(LogType);
         }
 
         [TearDown]

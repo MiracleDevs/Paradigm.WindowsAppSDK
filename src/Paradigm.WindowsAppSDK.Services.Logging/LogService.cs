@@ -1,7 +1,4 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Logging.Enums;
-using System;
-using System.ComponentModel;
-using System.IO;
 
 namespace Paradigm.WindowsAppSDK.Services.Logging
 {
@@ -23,12 +20,12 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// <value>
         /// The log folder path.
         /// </value>
-        private string LogFolderPath { get; set; }
+        private string? LogFolderPath { get; set; }
 
         /// <summary>
         /// The log file name
         /// </summary>
-        private string LogFileName { get; set; }
+        private string? LogFileName { get; set; }
 
         /// <summary>
         /// The maximum log file size
@@ -43,49 +40,37 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
 
         #endregion
 
-        #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LogService"/> class.
-        /// </summary>
-        public LogService()
-        {
-
-        }
-
-        #endregion
-
         #region Public Methods
 
         /// <summary>
-        /// Initializes the specified log type.
+        /// Initializes the service.
         /// </summary>
-        /// <param name="logType">Type of the log.</param>
         /// <param name="logFolderPath">The log folder path.</param>
         /// <param name="logFileMaxSize">Maximum size of the log file.</param>
         /// <param name="logFileName">Name of the log file.</param>
-        /// <exception cref="System.ArgumentNullException">logFolderPath</exception>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">logType</exception>
-        public void Initialize(LogTypes logType, string logFolderPath, int? logFileMaxSize = null, string logFileName = null)
+        /// <exception cref="ArgumentNullException">logFolderPath</exception>
+        public void Initialize(string logFolderPath, int? logFileMaxSize = default, string? logFileName = default)
         {
             if (string.IsNullOrWhiteSpace(logFolderPath))
                 throw new ArgumentNullException(nameof(logFolderPath));
 
-            LogFileName = string.IsNullOrWhiteSpace(logFileName) ? DefaultLogFileName : logFileName;
-            
-            this.MaxLogFileSize = logFileMaxSize.GetValueOrDefault(DefaultLogFileMaxSize);
-
             LogFolderPath = logFolderPath;
-
-            SetMinimumLogType(logType);
+            LogFileName = string.IsNullOrWhiteSpace(logFileName) ? DefaultLogFileName : logFileName;
+            MaxLogFileSize = logFileMaxSize.GetValueOrDefault(DefaultLogFileMaxSize);
 
             // checks if the log file exists, and if its larger than 20mb then deletes it to start again.
             var fileInfo = new FileInfo(GetFilePath());
-
             if (fileInfo.Exists && fileInfo.Length > MaxLogFileSize)
-            {
                 fileInfo.Delete();
-            }
+        }
+
+        /// <summary>
+        /// Sets the minimum type of the log.
+        /// </summary>
+        /// <param name="logType">Type of the log.</param>
+        public void SetMinimumLogType(LogTypes logType)
+        {
+            this.MinimumLogType = logType;
         }
 
         /// <summary>
@@ -128,16 +113,15 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// Errors the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
-        /// <param name="ex">The ex.</param>
-        public void Error(string message, Exception ex = null)
+        public void Error(string message)
         {
             LogText("ERROR", message, LogTypes.Error);
         }
 
         /// <summary>
-        /// Errors the specified ex.
+        /// Errors the specified exception.
         /// </summary>
-        /// <param name="ex">The ex.</param>
+        /// <param name="ex"></param>
         public void Error(Exception ex)
         {
             LogText("ERROR", ex.Message, LogTypes.Error);
@@ -154,10 +138,11 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// <param name="message">The message.</param>
         private void LogText(string type, string message, LogTypes logType)
         {
+            if (string.IsNullOrWhiteSpace(LogFolderPath))
+                throw new ArgumentNullException(nameof(LogFolderPath));
+
             if (string.IsNullOrWhiteSpace(message))
-            {
                 throw new ArgumentNullException(nameof(message));
-            }
 
             try
             {
@@ -188,16 +173,10 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// <returns></returns>
         private string GetFilePath()
         {
-            return Path.IsPathRooted(LogFileName) ? LogFileName : Path.Combine(LogFolderPath, LogFileName);
-        }
+            if (string.IsNullOrWhiteSpace(LogFolderPath) || string.IsNullOrWhiteSpace(LogFileName))
+                return string.Empty;
 
-        /// <summary>
-        /// Sets the minimum type of the log.
-        /// </summary>
-        /// <param name="logType">Type of the log.</param>
-        public void SetMinimumLogType(LogTypes logType)
-        {
-            this.MinimumLogType = logType;
+            return Path.IsPathRooted(LogFileName) ? LogFileName : Path.Combine(LogFolderPath, LogFileName);
         }
 
         #endregion

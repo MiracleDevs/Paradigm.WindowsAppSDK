@@ -34,6 +34,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.3`
+- NavigationRootFrame control refactor.
+
 Version `1.0.2`
 - Added NavigationRootFrame control to Paradigm.WindowsAppSDK.Xaml.
 

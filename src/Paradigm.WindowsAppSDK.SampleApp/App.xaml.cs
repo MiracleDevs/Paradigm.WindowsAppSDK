@@ -3,7 +3,6 @@ using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
 using Paradigm.WindowsAppSDK.Services.LegacyConfiguration;
 using Paradigm.WindowsAppSDK.Services.LocalSettings;
 using Paradigm.WindowsAppSDK.Services.Logging;
-using Paradigm.WindowsAppSDK.Services.Logging.Enums;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
 using Windows.Storage;
@@ -15,7 +14,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
     /// </summary>
     public partial class App : Application
     {
-        private Window m_window;
+        private MainWindow m_window;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -34,28 +33,24 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
-            var logService = ServiceLocator.Instance.GetRequiredService<ILogService>();
+            ServiceLocator.Instance.GetRequiredService<ILogService>().Initialize(ApplicationData.Current.TemporaryFolder.Path);
 
-            logService.Initialize(System.Diagnostics.Debugger.IsAttached ? LogTypes.Trace : LogTypes.Info, ApplicationData.Current.TemporaryFolder.Path);
-
-            m_window = new MainWindow();
-
-            var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
             var fileStorageService = ServiceLocator.Instance.GetRequiredService<IFileStorageService>();
-
             fileStorageService.Initialize(new Services.FileStorage.FileStorageSettings
             {
                 LocalFolderPath = ApplicationData.Current.LocalFolder.Path,
                 InstallationFolderPath = $"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\Assets"
             });
-            
-            navigationService.Initialize(m_window.Content as INavigationFrame);
+
+            m_window = new MainWindow();
+
+            var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
+            navigationService.Initialize(m_window.GetNavigationFrame());
             
             ServiceLocator.Instance.GetRequiredService<ILegacyConfigurationService>()
                 .Initialize(fileStorageService.ReadTextFromInstallationFolder("Configuration\\config.json"));
 
-            ServiceLocator.Instance.GetRequiredService<ILocalSettingsService>()
-                .Initialize(ApplicationData.Current.LocalSettings.Values);
+            ServiceLocator.Instance.GetRequiredService<ILocalSettingsService>().Initialize(ApplicationData.Current.LocalSettings.Values);
 
             await navigationService.NavigateToAsync<MainViewModel>();
 

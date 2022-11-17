@@ -34,7 +34,7 @@
         /// </summary>
         /// <param name="sourcePageType">Type of the source page.</param>
         /// <param name="value">The value.</param>
-        void Navigate(Type sourcePageType, object value);
+        void Navigate(Type sourcePageType, object? value);
 
         /// <summary>
         /// Goes the forward.

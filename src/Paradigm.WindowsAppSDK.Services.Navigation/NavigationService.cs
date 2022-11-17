@@ -102,8 +102,12 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// Initializes the specified frame.
         /// </summary>
         /// <param name="frame">The frame.</param>
+        /// <exception cref="ArgumentNullException">frame</exception>
         public void Initialize(INavigationFrame frame)
         {
+            if (frame == null)
+                throw new ArgumentNullException(nameof(frame));
+
             this.Frame = frame;
             this.Frame.OnNavigated += this.OnNavigated;
         }

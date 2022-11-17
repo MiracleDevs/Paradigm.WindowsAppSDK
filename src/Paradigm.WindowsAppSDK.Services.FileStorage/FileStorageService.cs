@@ -236,7 +236,7 @@
         /// <returns>
         /// File content
         /// </returns>
-        public async Task<byte[]> ReadAsByteArrayAsync(string fileName)
+        public async Task<byte[]?> ReadAsByteArrayAsync(string fileName)
         {
             if (!this.FileExists(fileName))
                 return default;
@@ -251,7 +251,7 @@
         /// <returns>
         /// File content
         /// </returns>
-        public byte[] ReadAsByteArray(string fileName)
+        public byte[]? ReadAsByteArray(string fileName)
         {
             if (!this.FileExists(fileName))
                 return default;
@@ -264,7 +264,7 @@
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <returns></returns>
-        public FileStream GetStreamForRead(string fileName)
+        public FileStream? GetStreamForRead(string fileName)
         {
             if (!this.FileExists(fileName))
                 return default;

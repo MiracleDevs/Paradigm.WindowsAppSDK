@@ -110,21 +110,21 @@ public interface IFileStorageService : IService
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <returns>File content</returns>
-    Task<byte[]> ReadAsByteArrayAsync(string fileName);
+    Task<byte[]?> ReadAsByteArrayAsync(string fileName);
 
     /// <summary>
     /// Reads the file contents as byte array.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <returns>File content</returns>
-    byte[] ReadAsByteArray(string fileName);
+    byte[]? ReadAsByteArray(string fileName);
 
     /// <summary>
     /// Gets the stream for read.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <returns></returns>
-    FileStream GetStreamForRead(string fileName);
+    FileStream? GetStreamForRead(string fileName);
 
     /// <summary>
     /// Saves the base64 file asynchronous.

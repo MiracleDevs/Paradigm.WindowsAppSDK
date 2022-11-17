@@ -1,20 +1,17 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
 using Paradigm.WindowsAppSDK.Services.Logging.Enums;
-using System;
 
 namespace Paradigm.WindowsAppSDK.Services.Logging
 {
     public interface ILogService : IService
     {
-
         /// <summary>
-        /// Initializes the specified log type.
+        /// Initializes the service.
         /// </summary>
-        /// <param name="logType">Type of the log.</param>
         /// <param name="logFolderPath">The log folder path.</param>
         /// <param name="logFileMaxSize">Maximum size of the log file.</param>
         /// <param name="logFileName">Name of the log file.</param>
-        void Initialize(LogTypes logType, string logFolderPath, int? logFileMaxSize = null, string logFileName = null);
+        void Initialize(string logFolderPath, int? logFileMaxSize = default, string? logFileName = default);
 
         /// <summary>
         /// Sets the minimum type of the log.
@@ -50,13 +47,12 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// Errors the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
-        /// <param name="ex">The ex.</param>
-        void Error(string message, Exception ex = default);
+        void Error(string message);
 
         /// <summary>
-        /// Errors the specified ex.
+        /// Errors the specified exception.
         /// </summary>
-        /// <param name="ex">The ex.</param>
-        void Error(Exception ex);
+        /// <param name="exception">The exception.</param>
+        void Error(Exception exception);
     }
 }

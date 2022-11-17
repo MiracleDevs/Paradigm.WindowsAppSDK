@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
+using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
 using System;
 
@@ -43,6 +44,12 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         {
             NavigationFrame.Dispose();
         }
+
+        /// <summary>
+        /// Gets the navigation frame.
+        /// </summary>
+        /// <returns></returns>
+        public INavigationFrame GetNavigationFrame() => NavigationFrame;
 
         #endregion
 

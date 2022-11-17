@@ -51,7 +51,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
         {
             //arrange
             //act & assert
-            Assert.Throws<ArgumentNullException>(() => this.Sut.Initialize(LogTypes.Info, logFolderPath : null, this.LogFileMaxSize, LogFileName));
+            Assert.Throws<ArgumentNullException>(() => this.Sut.Initialize(logFolderPath : null, this.LogFileMaxSize, LogFileName));
         }        
 
         [Test]
@@ -63,14 +63,14 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
             var messages = Enumerable.Repeat(message, LogFileMaxSize.GetValueOrDefault()*10).Select(msg => msg);
 
             //act
-            this.Sut.Initialize(LogTypes.Info, LogFolderPath, this.LogFileMaxSize, LogFileName);
+            this.Sut.Initialize(LogFolderPath, this.LogFileMaxSize, LogFileName);
 
             foreach(var item in messages)
             {
                 this.Sut.Information(item);
             }
             
-            this.Sut.Initialize(LogTypes.Info, LogFolderPath, this.LogFileMaxSize, LogFileName);
+            this.Sut.Initialize(LogFolderPath, this.LogFileMaxSize, LogFileName);
 
             var exists = File.Exists(Path.Combine(LogFolderPath, LogFileName));
 
