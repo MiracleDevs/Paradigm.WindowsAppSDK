@@ -3,6 +3,7 @@ using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
 using System;
+using Windows.ApplicationModel;
 
 namespace Paradigm.WindowsAppSDK.SampleApp
 {
@@ -27,10 +28,9 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// </summary>
         public MainWindow()
         {
-            this.InitializeComponent();
-            this.ViewModel = ServiceLocator.Instance.GetRequiredService<MainWindowViewModel>();
-
-            this.Closed += MainWindow_Closed;
+            InitializeComponent();
+            ViewModel = ServiceLocator.Instance.GetRequiredService<MainWindowViewModel>();
+            Title = AppInfo.Current.DisplayInfo.DisplayName;
         }
 
         #endregion
@@ -42,6 +42,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// </summary>
         public void Dispose()
         {
+            ViewModel.Dispose();
             NavigationFrame.Dispose();
         }
 
@@ -60,9 +61,9 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="args">The <see cref="WindowEventArgs"/> instance containing the event data.</param>
-        private void MainWindow_Closed(object sender, WindowEventArgs args)
+        private void OnClosed(object sender, WindowEventArgs args)
         {
-            this.ViewModel.Dispose();
+            Dispose();
         }
 
         #endregion

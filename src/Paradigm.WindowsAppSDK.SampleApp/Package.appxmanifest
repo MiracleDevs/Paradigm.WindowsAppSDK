@@ -31,13 +31,13 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Paradigm.WindowsAppSDK.SampleApp"
-        Description="Paradigm.WindowsAppSDK.SampleApp"
-        BackgroundColor="transparent"
+        DisplayName="Paradigm.WindowsAppSDK SampleApp"
+        Description="Paradigm.WindowsAppSDK sample application."
+        BackgroundColor="#0B141A"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"  Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="#0B141A"/>
       </uap:VisualElements>
     </Application>
   </Applications>
