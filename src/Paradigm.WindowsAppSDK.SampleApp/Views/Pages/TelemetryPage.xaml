@@ -1,0 +1,31 @@
+﻿<Page
+    x:Class="Paradigm.WindowsAppSDK.SampleApp.Views.Pages.TelemetryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" FontSize="30" Margin="0 10"
+                   Text="TelemetryService sample"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Center">
+            <Button Margin="5 0" Content="Register event 1" Tapped="{x:Bind ViewModel.RegisterEvent1}" />
+            <Button Margin="5 0" Content="Register event 2" Tapped="{x:Bind ViewModel.RegisterEvent2}" />
+            <Button Margin="5 0" Content="Register exception" Tapped="{x:Bind ViewModel.RegisterException}" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="2" Margin="0 10 0 0" HorizontalAlignment="Center"
+                   Visibility="{x:Bind ViewModel.StatusMessage, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}"
+                   Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}" />
+    </Grid>
+</Page>

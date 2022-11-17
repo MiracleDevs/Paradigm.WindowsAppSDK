@@ -79,6 +79,9 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             if (Settings == null || TelemetriesClient == null)
                 throw new InvalidOperationException("Telemetry was not initialized");
 
+            if (properties == null)
+                properties = new Dictionary<string, string>();
+
             if (Settings.DebounceEnabled)
             {
                 Debounce(eventName, () => Task.Run(() =>

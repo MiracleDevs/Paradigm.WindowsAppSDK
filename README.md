@@ -34,6 +34,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.4`
+- LogService and ApplicationInformationService adjustments. Adjusted XAML converters. Fixed warnings.
+
 Version `1.0.3`
 - NavigationRootFrame control refactor.
 
