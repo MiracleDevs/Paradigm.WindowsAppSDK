@@ -11,18 +11,20 @@
     <NavigationView IsSettingsVisible="False" IsPaneToggleButtonVisible="False" IsBackButtonVisible="Collapsed"
                     SelectionChanged="OnNavigationViewSelectionChanged">
         <NavigationView.MenuItems>
+            <Image Source="/Assets/menu.png" MaxHeight="100" Stretch="Uniform" Margin="0 10" />
+
             <NavigationViewItem Icon="Home" Content="Home" IsSelected="True" Tag="Home" />
             
             <NavigationViewItemHeader Content="Services"/>
-            <NavigationViewItem Content="Application Information" Tag="ApplicationInformation" />
-            <NavigationViewItem Content="File Storage" Tag="FileStorage" />
-            <NavigationViewItem Content="Legacy Configuration" Tag="LegacyConfiguration" />
-            <NavigationViewItem Content="Localization" Tag="Localization" />
-            <NavigationViewItem Content="Local Settings" Tag="LocalSettings" />
-            <NavigationViewItem Content="Logging" Tag="Logging" />
-            <NavigationViewItem Content="Message Bus" Tag="MessageBus" />
-            <NavigationViewItem Content="Navigation" Tag="Navigation" />
-            <NavigationViewItem Content="Telemetry" Tag="Telemetry" />
+            <NavigationViewItem Icon="Manage" Content="Application Information" Tag="ApplicationInformation" />
+            <NavigationViewItem Icon="Library" Content="File Storage" Tag="FileStorage" />
+            <NavigationViewItem Icon="List" Content="Legacy Configuration" Tag="LegacyConfiguration" />
+            <NavigationViewItem Icon="Character" Content="Localization" Tag="Localization" />
+            <NavigationViewItem Icon="Setting" Content="Local Settings" Tag="LocalSettings" />
+            <NavigationViewItem Icon="More" Content="Logging" Tag="Logging" />
+            <NavigationViewItem Icon="Message" Content="Message Bus" Tag="MessageBus" />
+            <NavigationViewItem Icon="Page2" Content="Navigation" Tag="Navigation" />
+            <NavigationViewItem Icon="View" Content="Telemetry" Tag="Telemetry" />
 
             <NavigationViewItemHeader Content="MVVM"/>
             <NavigationViewItem Content="ViewModels" />
