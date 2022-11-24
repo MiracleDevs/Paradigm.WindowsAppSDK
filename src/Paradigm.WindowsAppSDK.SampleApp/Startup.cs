@@ -49,6 +49,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             navigationService.Register<MessageBusPage, MessageBusViewModel>();
             navigationService.Register<LegacyConfigurationPage, LegacyConfigurationViewModel>();
             navigationService.Register<TelemetryPage, TelemetryViewModel>();
+            navigationService.Register<FileStoragePage, FileStorageViewModel>();
         }
     }
 }

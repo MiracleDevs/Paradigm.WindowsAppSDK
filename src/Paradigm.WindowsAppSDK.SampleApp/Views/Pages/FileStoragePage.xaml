@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="Paradigm.WindowsAppSDK.SampleApp.Views.Pages.FileStoragePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Paradigm.WindowsAppSDK.SampleApp.Views.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Center">
+            <Button Margin="5 0" Content="Save text to file" Tapped="{x:Bind ViewModel.SaveFile}" />
+            <Button Margin="5 0" Content="Pick file" Tapped="OnPickFileTapped" />
+            <Button Margin="5 0" Content="Load sample file" Tapped="{x:Bind ViewModel.LoadSampleFile}" />
+            <Button Margin="5 0" Content="Clear saved files" />
+        </StackPanel>
+
+        <ListView Grid.Row="1" SelectionMode="Single"
+                  ItemsSource="{x:Bind ViewModel.SavedFiles, Mode=OneWay}"
+                  SelectionChanged="OnSelectionChanged"/>
+
+        <TextBox Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" PlaceholderText="Enter text to save"
+                 Text="{x:Bind ViewModel.Text, Mode=TwoWay}"/>
+    </Grid>
+</Page>

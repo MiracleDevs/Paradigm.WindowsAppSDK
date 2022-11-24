@@ -1,12 +1,10 @@
 ﻿using Microsoft.UI.Windowing;
-using Microsoft.UI.Xaml;
 using System;
 using System.Drawing;
 using System.Linq;
 using Windows.ApplicationModel;
 using Windows.Networking.Connectivity;
 using Windows.System.Profile;
-using Windows.UI.ViewManagement;
 
 namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
 {
@@ -27,10 +25,9 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// <summary>
         /// Initializes the service.
         /// </summary>
-        /// <param name="windowHandle">The window handle.</param>
-        public void Initialize(IntPtr windowHandle)
+        /// <param name="windowId">The window identifier.</param>
+        public void Initialize(Microsoft.UI.WindowId windowId)
         {
-            var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
             CurrentWindow = AppWindow.GetFromWindowId(windowId);
         }
 

@@ -187,7 +187,7 @@
         {
             var sourceFile = GetFilePath(fileName);
             var destFile = GetFilePath(newName);
-            
+
             File.Copy(sourceFile, destFile, true);
 
             return destFile;
@@ -304,7 +304,7 @@
         {
             var filePath = GetFilePath(fileName);
             await File.WriteAllBytesAsync(filePath, fileContent);
-            
+
             return filePath;
         }
 
@@ -336,12 +336,12 @@
         public List<string>? GetFilesFromFolder(string folderPath, bool useInstallationFolder)
         {
             var parentFolderPath = useInstallationFolder ? this.InstallationFolderPath : LocalFolderPath;
-            
+
             if (string.IsNullOrEmpty(parentFolderPath))
                 throw new ArgumentNullException(nameof(parentFolderPath));
 
             try
-            { 
+            {
                 return Directory.GetFiles(Path.Combine(parentFolderPath, folderPath)).Select(x => Path.GetFileName(x)).ToList();
             }
             catch
@@ -364,7 +364,22 @@
             if (string.IsNullOrEmpty(LocalFolderPath))
                 throw new ArgumentNullException(nameof(LocalFolderPath));
 
-            return Path.IsPathRooted(fileName) ? fileName : Path.Combine(LocalFolderPath, fileName);
+            var filePath = Path.IsPathRooted(fileName) ? fileName : Path.Combine(LocalFolderPath, fileName);
+            CreateDirectoryIfNotExists(filePath);
+
+            return filePath;
+        }
+
+        /// <summary>
+        /// Creates the directory if not exists.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        private void CreateDirectoryIfNotExists(string filePath)
+        {
+            var directoryPath = Path.GetDirectoryName(filePath);
+
+            if (!string.IsNullOrEmpty(directoryPath) && !Directory.Exists(directoryPath))
+                Directory.CreateDirectory(directoryPath);
         }
 
         #endregion

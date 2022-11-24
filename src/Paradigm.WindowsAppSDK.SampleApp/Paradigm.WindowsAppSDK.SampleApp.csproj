@@ -14,17 +14,17 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\Configuration\config.json" />
+    <None Remove="Assets\FileStorageSample\sampleText.txt" />
     <None Remove="Assets\Test\testData - 1.json" />
     <None Remove="Assets\Test\testData - 2 .json" />
     <None Remove="Resources\Main.xaml" />
     <None Remove="Views\Pages\ApplicationInformationPage.xaml" />
+    <None Remove="Views\Pages\FileStoragePage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\Pages\LegacyConfigurationPage.xaml" />
     <None Remove="Views\Pages\LocalSettingsPage.xaml" />
-    <None Remove="Views\Pages\LocalStateTestPage.xaml" />
     <None Remove="Views\Pages\MessageBusPage.xaml" />
     <None Remove="Views\Pages\TelemetryPage.xaml" />
-    <None Remove="Views\Pages\TestPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -78,6 +78,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\Pages\FileStoragePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\Pages\TelemetryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,14 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Pages\ApplicationInformationPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\Pages\LocalStateTestPage.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Views\Pages\TestPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

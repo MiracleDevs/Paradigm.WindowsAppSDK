@@ -8,8 +8,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Text="Welcome to the Main page" TextAlignment="Center" />
-        <Button Content="Navigate to another page" Click="{x:Bind ViewModel.ExecuteActionAsync}" />
-        <Button Content="Navigate to another page with local state usage" Click="{x:Bind ViewModel.ExecuteLocalStateActionAsync}" />
+        <TextBlock Text="Paradigm.WindowsAppSDK SampleApp" TextAlignment="Center" FontSize="35" TextWrapping="WrapWholeWords" />
+        <TextBlock HorizontalTextAlignment="Center" HorizontalAlignment="Stretch" FontSize="20" Margin="50 10" TextWrapping="WrapWholeWords"
+            Text="This application developed by MiracleDevs allows you to test the operation of the different services as well as obtain examples of their correct implementation." />
     </StackPanel>
 </Page>

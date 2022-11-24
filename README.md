@@ -34,6 +34,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.5`
+- Adjustments in FileStorageService to create the directory if not exists when save. Added WindowExtensions class to Paradigm.WindowsAppSDK.Xaml.
+
 Version `1.0.4`
 - LogService and ApplicationInformationService adjustments. Adjusted XAML converters. Fixed warnings.
 

@@ -4,6 +4,7 @@ using Paradigm.WindowsAppSDK.Services.LocalSettings;
 using Paradigm.WindowsAppSDK.Services.Logging;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
+using Paradigm.WindowsAppSDK.Xaml.Extensions;
 using Windows.Storage;
 
 namespace Paradigm.WindowsAppSDK.SampleApp
@@ -13,7 +14,13 @@ namespace Paradigm.WindowsAppSDK.SampleApp
     /// </summary>
     public partial class App : Application
     {
-        private MainWindow m_window;
+        /// <summary>
+        /// Gets the main window.
+        /// </summary>
+        /// <value>
+        /// The main window.
+        /// </value>
+        public static MainWindow MainWindow { get; private set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -39,13 +46,13 @@ namespace Paradigm.WindowsAppSDK.SampleApp
                 InstallationFolderPath = $"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\Assets"
             });
 
-            m_window = new MainWindow();
+            MainWindow = new MainWindow();
 
-            ServiceLocator.Instance.GetRequiredService<INavigationService>().Initialize(m_window.GetNavigationFrame());
+            ServiceLocator.Instance.GetRequiredService<INavigationService>().Initialize(MainWindow.GetNavigationFrame());
             ServiceLocator.Instance.GetRequiredService<ILocalSettingsService>().Initialize(ApplicationData.Current.LocalSettings.Values);
-            ServiceLocator.Instance.GetRequiredService<IApplicationInformationService>().Initialize(WinRT.Interop.WindowNative.GetWindowHandle(m_window));
+            ServiceLocator.Instance.GetRequiredService<IApplicationInformationService>().Initialize(MainWindow.GetWindowId());
 
-            m_window.Activate();
+            MainWindow.Activate();
         }
     }
 }

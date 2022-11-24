@@ -23,7 +23,6 @@
             <NavigationViewItem Icon="Setting" Content="Local Settings" Tag="LocalSettings" />
             <NavigationViewItem Icon="More" Content="Logging" Tag="Logging" />
             <NavigationViewItem Icon="Message" Content="Message Bus" Tag="MessageBus" />
-            <NavigationViewItem Icon="Page2" Content="Navigation" Tag="Navigation" />
             <NavigationViewItem Icon="View" Content="Telemetry" Tag="Telemetry" />
 
             <NavigationViewItemHeader Content="MVVM"/>
