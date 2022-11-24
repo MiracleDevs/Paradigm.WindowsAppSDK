@@ -25,9 +25,9 @@
             <NavigationViewItem Icon="Message" Content="Message Bus" Tag="MessageBus" />
             <NavigationViewItem Icon="View" Content="Telemetry" Tag="Telemetry" />
 
-            <NavigationViewItemHeader Content="MVVM"/>
+            <!--<NavigationViewItemHeader Content="MVVM"/>
             <NavigationViewItem Content="ViewModels" />
-            <NavigationViewItem Content="XAML" />
+            <NavigationViewItem Content="XAML" />-->
         </NavigationView.MenuItems>
 
         <Grid>

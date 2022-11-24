@@ -15,6 +15,14 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         #region Properties
 
         /// <summary>
+        /// Gets the log file path.
+        /// </summary>
+        /// <value>
+        /// The log file path.
+        /// </value>
+        public string LogFilePath => GetFilePath();
+
+        /// <summary>
         /// Gets or sets the log folder path.
         /// </summary>
         /// <value>

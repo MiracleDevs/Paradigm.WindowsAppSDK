@@ -6,6 +6,14 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
     public interface ILogService : IService
     {
         /// <summary>
+        /// Gets the log file path.
+        /// </summary>
+        /// <value>
+        /// The log file path.
+        /// </value>
+        string LogFilePath { get; }
+
+        /// <summary>
         /// Initializes the service.
         /// </summary>
         /// <param name="logFolderPath">The log folder path.</param>

@@ -50,6 +50,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             navigationService.Register<LegacyConfigurationPage, LegacyConfigurationViewModel>();
             navigationService.Register<TelemetryPage, TelemetryViewModel>();
             navigationService.Register<FileStoragePage, FileStorageViewModel>();
+            navigationService.Register<LoggingPage, LoggingViewModel>();
         }
     }
 }
