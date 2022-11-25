@@ -22,11 +22,12 @@
             <Button Margin="5 0" Content="Clear saved files" />
         </StackPanel>
 
-        <ListView Grid.Row="1" SelectionMode="Single"
+        <ListView Grid.Row="1" Margin="5" SelectionMode="Single"
                   ItemsSource="{x:Bind ViewModel.SavedFiles, Mode=OneWay}"
                   SelectionChanged="OnSelectionChanged"/>
 
-        <TextBox Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" PlaceholderText="Enter text to save"
+        <TextBox Grid.Row="2" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" 
+                 Header="File content" PlaceholderText="Enter text to save"
                  Text="{x:Bind ViewModel.Text, Mode=TwoWay}"/>
     </Grid>
 </Page>

@@ -51,6 +51,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             navigationService.Register<TelemetryPage, TelemetryViewModel>();
             navigationService.Register<FileStoragePage, FileStorageViewModel>();
             navigationService.Register<LoggingPage, LoggingViewModel>();
+            navigationService.Register<LocalizationPage, LocalizationViewModel>();
         }
     }
 }

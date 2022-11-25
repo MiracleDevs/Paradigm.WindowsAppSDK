@@ -22,6 +22,7 @@
     <None Remove="Views\Pages\FileStoragePage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\Pages\LegacyConfigurationPage.xaml" />
+    <None Remove="Views\Pages\LocalizationPage.xaml" />
     <None Remove="Views\Pages\LocalSettingsPage.xaml" />
     <None Remove="Views\Pages\LoggingPage.xaml" />
     <None Remove="Views\Pages\MessageBusPage.xaml" />
@@ -77,6 +78,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StringMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Pages\LocalizationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Pages\LoggingPage.xaml">
