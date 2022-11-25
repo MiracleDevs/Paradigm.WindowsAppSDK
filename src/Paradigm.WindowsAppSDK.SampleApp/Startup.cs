@@ -5,7 +5,10 @@ using Paradigm.WindowsAppSDK.Services.Interfaces;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
 using Paradigm.WindowsAppSDK.ViewModels.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using Windows.ApplicationModel;
 
 namespace Paradigm.WindowsAppSDK.SampleApp
 {
@@ -18,6 +21,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         {
             ServiceLocator.Instance.Configure(RegisterDependencies);
             RegisterNavigation();
+            RegisterConfigurationFiles();
         }
 
         /// <summary>
@@ -35,6 +39,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
 
             serviceCollection.RegisterServices(serviceAssemblies.ToArray());
             serviceCollection.RegisterViewModels(mainAssemblies.ToArray());
+            serviceCollection.AddSingleton<ConfigurationProvider>();
         }
 
         /// <summary>
@@ -52,6 +57,18 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             navigationService.Register<FileStoragePage, FileStorageViewModel>();
             navigationService.Register<LoggingPage, LoggingViewModel>();
             navigationService.Register<LocalizationPage, LocalizationViewModel>();
+        }
+
+        /// <summary>
+        /// Registers the configuration files.
+        /// </summary>
+        private static void RegisterConfigurationFiles()
+        {
+            var configurationProvider = ServiceLocator.Instance.GetRequiredService<ConfigurationProvider>();
+            configurationProvider.Initialize(Package.Current.InstalledLocation.Path, new List<Tuple<string, bool>>
+            {
+                new("appsettings.json", false)
+            });
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
+using Paradigm.WindowsAppSDK.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -31,7 +32,16 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public TelemetryViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             Service = serviceProvider.GetRequiredService<ITelemetryService>();
-            Service.Initialize(new TelemetrySettings("InstrumentationKey=761f753b-f1e0-4442-91c2-0bea33fdded6;IngestionEndpoint=https://eastus2-3.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus2.livediagnostics.monitor.azure.com/"));
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        public void Initialize()
+        {
+            var connString = GetRequiredService<ConfigurationProvider>().GetConfigurationValue<string>("TelemetryConnectionString");
+
+            Service.Initialize(new TelemetrySettings(connString));
             Service.AddExtraProperty("extraProp1", "extraProp1Value");
             Service.AddExtraProperty("extraProp2", "extraProp2Value");
         }

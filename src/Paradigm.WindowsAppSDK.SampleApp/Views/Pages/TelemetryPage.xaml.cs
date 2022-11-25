@@ -39,6 +39,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         public async Task InitializeNavigationAsync(INavigable navigable)
         {
             this.ViewModel = (TelemetryViewModel)navigable;
+            this.ViewModel.Initialize();
             await Task.CompletedTask;
         }
     }
