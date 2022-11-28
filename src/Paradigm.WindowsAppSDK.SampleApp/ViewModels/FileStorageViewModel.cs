@@ -99,6 +99,19 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             Text = Service.ReadTextFromInstallationFolder("FileStorageSample\\sampleText.txt");
         }
 
+        /// <summary>
+        /// Clears the files.
+        /// </summary>
+        public void ClearFiles()
+        {
+            foreach (var file in SavedFiles)
+            {
+                Service.DeleteFile($"FileStorage\\{file}");
+            }
+
+            SavedFiles.Clear();
+        }
+
         #endregion
 
         #region Private Methods

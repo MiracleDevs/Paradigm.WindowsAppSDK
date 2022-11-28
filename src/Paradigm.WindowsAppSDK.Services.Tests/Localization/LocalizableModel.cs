@@ -11,7 +11,9 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Localization
 
         [Localizable]
         public string? Paragraph { get; set; }
+
         public IList<LocalizableChildModel>? Items { get; internal set; }
+
         public IDictionary<string, LocalizableChildModel>? AllItems { get; internal set; }
     }
 }

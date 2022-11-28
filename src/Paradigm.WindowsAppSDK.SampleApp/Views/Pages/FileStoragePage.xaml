@@ -19,7 +19,7 @@
             <Button Margin="5 0" Content="Save text to file" Tapped="{x:Bind ViewModel.SaveFile}" />
             <Button Margin="5 0" Content="Pick file" Tapped="OnPickFileTapped" />
             <Button Margin="5 0" Content="Load sample file" Tapped="{x:Bind ViewModel.LoadSampleFile}" />
-            <Button Margin="5 0" Content="Clear saved files" />
+            <Button Margin="5 0" Content="Clear saved files" Tapped="{x:Bind ViewModel.ClearFiles}" />
         </StackPanel>
 
         <ListView Grid.Row="1" Margin="5" SelectionMode="Single"

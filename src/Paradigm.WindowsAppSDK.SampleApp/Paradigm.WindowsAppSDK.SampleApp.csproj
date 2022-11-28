@@ -16,8 +16,9 @@
     <None Remove="appsettings.json" />
     <None Remove="Assets\Configuration\config.json" />
     <None Remove="Assets\FileStorageSample\sampleText.txt" />
-    <None Remove="Assets\Test\testData - 1.json" />
-    <None Remove="Assets\Test\testData - 2 .json" />
+    <None Remove="Assets\LocalizationSample\enus.json" />
+    <None Remove="Assets\LocalizationSample\eses.json" />
+    <None Remove="Assets\LocalizationSample\frfr.json" />
     <None Remove="Resources\Main.xaml" />
     <None Remove="Views\Pages\ApplicationInformationPage.xaml" />
     <None Remove="Views\Pages\FileStoragePage.xaml" />
@@ -31,7 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="appsettings.json" />
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
