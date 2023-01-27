@@ -5,6 +5,7 @@ A framework that provides base classes for WindowsAppSDK applications using WinU
 | Library    | Nuget | Install
 |-|-|-|
 | Application Information       | [![NuGet](https://img.shields.io/nuget/v/Paradigm.WindowsAppSDK.Services.ApplicationInformation.svg)](https://www.nuget.org/packages/Paradigm.WindowsAppSDK.Services.ApplicationInformation/)            | `Install-Package Paradigm.WindowsAppSDK.Services.ApplicationInformation` |
+| Dialog       | [![NuGet](https://img.shields.io/nuget/v/Paradigm.WindowsAppSDK.Services.Dialog.svg)](https://www.nuget.org/packages/Paradigm.WindowsAppSDK.Services.Dialog/)            | `Install-Package Paradigm.WindowsAppSDK.Services.Dialog` |
 | File Storage      | [![NuGet](https://img.shields.io/nuget/v/Paradigm.WindowsAppSDK.Services.FileStorage.svg)](https://www.nuget.org/packages/Paradigm.WindowsAppSDK.Services.FileStorage/)      | `Install-Package Paradigm.WindowsAppSDK.Services.FileStorage` |
 | Interfaces | [![NuGet](https://img.shields.io/nuget/v/Paradigm.WindowsAppSDK.Services.Interfaces.svg)](https://www.nuget.org/packages/Paradigm.WindowsAppSDK.Services.Interfaces/) | `Install-Package Paradigm.WindowsAppSDK.Services.Interfaces` |
 | Legacy Configuration | [![NuGet](https://img.shields.io/nuget/v/Paradigm.WindowsAppSDK.Services.LegacyConfiguration.svg)](https://www.nuget.org/packages/Paradigm.WindowsAppSDK.Services.LegacyConfiguration/)  | `Install-Package Paradigm.WindowsAppSDK.Services.LegacyConfiguration` |
@@ -33,6 +34,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 ```
 
 ## Change log
+
+Version `1.0.6`
+- Added new converters and controls to Paradigm.WindowsAppSDK.Xaml.
 
 Version `1.0.5`
 - Adjustments in FileStorageService to create the directory if not exists when save. Added WindowExtensions class to Paradigm.WindowsAppSDK.Xaml.

@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Xaml
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Navigation", "Paradigm.WindowsAppSDK.Services.Navigation\Paradigm.WindowsAppSDK.Services.Navigation.csproj", "{02AEC674-0F79-4C8F-A2E8-A5CF7FD8AD48}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Dialog", "Paradigm.WindowsAppSDK.Services.Dialog\Paradigm.WindowsAppSDK.Services.Dialog.csproj", "{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -255,6 +257,22 @@ Global
 		{02AEC674-0F79-4C8F-A2E8-A5CF7FD8AD48}.Release|x64.Build.0 = Release|Any CPU
 		{02AEC674-0F79-4C8F-A2E8-A5CF7FD8AD48}.Release|x86.ActiveCfg = Release|Any CPU
 		{02AEC674-0F79-4C8F-A2E8-A5CF7FD8AD48}.Release|x86.Build.0 = Release|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Debug|arm64.Build.0 = Debug|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Debug|x64.Build.0 = Debug|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Debug|x86.Build.0 = Debug|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Release|arm64.ActiveCfg = Release|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Release|arm64.Build.0 = Release|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Release|x64.ActiveCfg = Release|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Release|x64.Build.0 = Release|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Release|x86.ActiveCfg = Release|Any CPU
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -273,6 +291,7 @@ Global
 		{2C11CD97-245B-4887-AC77-C81248720BAF} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
 		{95B841FD-4E4B-473B-8B59-2B0268D55612} = {6AEE80FA-A273-4361-8A4F-CD0AF3A6AD5F}
 		{02AEC674-0F79-4C8F-A2E8-A5CF7FD8AD48} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
+		{D2CCD06A-923B-47F0-8B80-81CCA7DDCE85} = {F6F36C4F-3199-4790-9EE1-3D74D3DCC1FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E838D54E-7F9D-446F-9651-F3AF09A8EC84}
