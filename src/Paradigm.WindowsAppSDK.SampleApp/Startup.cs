@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels;
+using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Dialogs;
+using Paradigm.WindowsAppSDK.SampleApp.Views.Dialogs;
 using Paradigm.WindowsAppSDK.SampleApp.Views.Pages;
+using Paradigm.WindowsAppSDK.Services.Dialog;
 using Paradigm.WindowsAppSDK.Services.Interfaces;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
@@ -21,6 +24,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         {
             ServiceLocator.Instance.Configure(RegisterDependencies);
             RegisterNavigation();
+            RegisterDialogs();
             RegisterConfigurationFiles();
         }
 
@@ -57,6 +61,16 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             navigationService.Register<FileStoragePage, FileStorageViewModel>();
             navigationService.Register<LoggingPage, LoggingViewModel>();
             navigationService.Register<LocalizationPage, LocalizationViewModel>();
+            navigationService.Register<DialogPage, DialogViewModel>();
+        }
+
+        /// <summary>
+        /// Registers the dialogs.
+        /// </summary>
+        private static void RegisterDialogs()
+        {
+            var dialogService = ServiceLocator.Instance.GetRequiredService<IDialogService>();
+            dialogService.Register<SampleDialog, SampleDialogViewModel>();
         }
 
         /// <summary>

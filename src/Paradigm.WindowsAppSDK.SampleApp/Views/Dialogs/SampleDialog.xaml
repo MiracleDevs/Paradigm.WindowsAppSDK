@@ -1,0 +1,16 @@
+<UserControl
+    x:Class="Paradigm.WindowsAppSDK.SampleApp.Views.Dialogs.SampleDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ContentDialog x:Name="ContentDialogControl" 
+                   Title="{x:Bind ViewModel.Title, Mode=OneWay}"
+                   PrimaryButtonText="{x:Bind ViewModel.DenyOptionText, Mode=OneWay}"
+                   SecondaryButtonText="{x:Bind ViewModel.ConfirmOptionText, Mode=OneWay}"
+                   CloseButtonText="{x:Bind ViewModel.CancelOptionText, Mode=OneWay}"
+                   IsSecondaryButtonEnabled="{x:Bind ViewModel.CanConfirm, Mode=OneWay}"
+                   Content="{x:Bind ViewModel.Content, Mode=OneWay}"/>
+</UserControl>

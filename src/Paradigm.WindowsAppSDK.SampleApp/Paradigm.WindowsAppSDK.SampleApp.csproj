@@ -20,7 +20,9 @@
     <None Remove="Assets\LocalizationSample\eses.json" />
     <None Remove="Assets\LocalizationSample\frfr.json" />
     <None Remove="Resources\Main.xaml" />
+    <None Remove="Views\Dialogs\SampleDialog.xaml" />
     <None Remove="Views\Pages\ApplicationInformationPage.xaml" />
+    <None Remove="Views\Pages\DialogPage.xaml" />
     <None Remove="Views\Pages\FileStoragePage.xaml" />
     <None Remove="Views\Pages\HomePage.xaml" />
     <None Remove="Views\Pages\LegacyConfigurationPage.xaml" />
@@ -60,6 +62,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Interfaces\Paradigm.WindowsAppSDK.Services.Interfaces.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.ApplicationInformation\Paradigm.WindowsAppSDK.Services.ApplicationInformation.csproj" />
+    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Dialog\Paradigm.WindowsAppSDK.Services.Dialog.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.FileStorage\Paradigm.WindowsAppSDK.Services.FileStorage.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.LegacyConfiguration\Paradigm.WindowsAppSDK.Services.LegacyConfiguration.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Localization\Paradigm.WindowsAppSDK.Services.Localization.csproj" />
@@ -83,6 +86,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StringMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Pages\DialogPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Pages\LocalizationPage.xaml">
@@ -133,6 +141,11 @@
     <Page Update="Resources\Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\SampleDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
 

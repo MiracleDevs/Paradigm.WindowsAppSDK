@@ -22,15 +22,12 @@
             <NavigationViewItem Icon="Character" Content="Localization" Tag="Localization" />
             <NavigationViewItem Icon="Setting" Content="Local Settings" Tag="LocalSettings" />
             <NavigationViewItem Icon="More" Content="Logging" Tag="Logging" />
-            <NavigationViewItem Icon="Message" Content="Message Bus" Tag="MessageBus" />
+            <NavigationViewItem Icon="Switch" Content="Message Bus" Tag="MessageBus" />
             <NavigationViewItem Icon="View" Content="Telemetry" Tag="Telemetry" />
-
-            <!--<NavigationViewItemHeader Content="MVVM"/>
-            <NavigationViewItem Content="ViewModels" />
-            <NavigationViewItem Content="XAML" />-->
+            <NavigationViewItem Icon="Message" Content="Dialogs" Tag="Dialog" />
         </NavigationView.MenuItems>
 
-        <Grid>
+        <Grid x:Name="LayoutGrid" x:FieldModifier="internal">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
