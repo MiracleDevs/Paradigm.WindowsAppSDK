@@ -1,21 +1,11 @@
 ﻿using Microsoft.UI;
 using Microsoft.UI.Xaml;
-using System;
+using WinUIEx;
 
 namespace Paradigm.WindowsAppSDK.Xaml.Extensions
 {
     public static class WindowExtensions
     {
-        /// <summary>
-        /// Gets the window handle.
-        /// </summary>
-        /// <param name="window">The window.</param>
-        /// <returns></returns>
-        public static IntPtr GetWindowHandle(this Window window)
-        {
-            return WinRT.Interop.WindowNative.GetWindowHandle(window);
-        }
-
         /// <summary>
         /// Gets the window identifier.
         /// </summary>
