@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.8`
+- Added new converters and extension methods. Updated Microsoft.WindowsAppSDK version.
+
 Version `1.0.7`
 - Fixed bug in ObjectToVisibilityConverter (Paradigm.WindowsAppSDK.Xaml).
 
