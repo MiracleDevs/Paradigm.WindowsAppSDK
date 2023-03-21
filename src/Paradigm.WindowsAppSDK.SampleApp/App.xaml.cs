@@ -43,7 +43,9 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             ServiceLocator.Instance.GetRequiredService<IFileStorageService>().Initialize(new Services.FileStorage.FileStorageSettings
             {
                 LocalFolderPath = ApplicationData.Current.LocalFolder.Path,
-                InstallationFolderPath = $"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\Assets"
+                InstallationFolderPath = $"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\Assets",
+                LocalBaseUri = "ms-appdata:///local",
+                InstallationBaseUri = "ms-appx:///Assets"
             });
 
             MainWindow = new MainWindow();

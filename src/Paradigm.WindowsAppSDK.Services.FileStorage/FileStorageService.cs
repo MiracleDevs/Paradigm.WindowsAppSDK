@@ -32,6 +32,22 @@
         /// </value>
         private string? InstallationFolderPath => Settings?.InstallationFolderPath;
 
+        /// <summary>
+        /// Gets the local base URI.
+        /// </summary>
+        /// <value>
+        /// The local base URI.
+        /// </value>
+        private string? LocalBaseUri => Settings?.LocalBaseUri;
+
+        /// <summary>
+        /// Gets the installation base URI.
+        /// </summary>
+        /// <value>
+        /// The installation base URI.
+        /// </value>
+        private string? InstallationBaseUri => Settings?.InstallationBaseUri;
+
         #endregion
 
         #region Constructor
@@ -348,6 +364,29 @@
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Gets the local file URI.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="validateEmptyPath">if set to <c>true</c> [validate empty path].</param>
+        /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
+        /// <returns></returns>
+        public Uri? GetLocalFileUri(string path, bool validateEmptyPath = false, bool useInstallationFolder = true)
+        {
+            if (string.IsNullOrEmpty(LocalBaseUri))
+                throw new ArgumentNullException(nameof(LocalBaseUri));
+
+            if (string.IsNullOrEmpty(InstallationBaseUri))
+                throw new ArgumentNullException(nameof(InstallationBaseUri));
+
+            if (validateEmptyPath && string.IsNullOrWhiteSpace(path))
+                return default;
+
+            var baseUri = useInstallationFolder ? InstallationBaseUri : LocalBaseUri;
+
+            return new Uri($"{baseUri}/{path}", UriKind.Absolute);
         }
 
         #endregion

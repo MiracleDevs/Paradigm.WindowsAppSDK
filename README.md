@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.9`
+- Added GetLocalFileUri method in FileStorageService
+
 Version `1.0.8`
 - Added new converters and extension methods. Updated Microsoft.WindowsAppSDK version.
 

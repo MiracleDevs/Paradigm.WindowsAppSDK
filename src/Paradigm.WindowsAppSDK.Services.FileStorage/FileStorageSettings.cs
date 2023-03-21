@@ -17,5 +17,21 @@
         /// The installation folder path.
         /// </value>
         public string? InstallationFolderPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the local base URI.
+        /// </summary>
+        /// <value>
+        /// The local base URI.
+        /// </value>
+        public string? LocalBaseUri { get; set; }
+
+        /// <summary>
+        /// Gets or sets the installation base URI.
+        /// </summary>
+        /// <value>
+        /// The installation base URI.
+        /// </value>
+        public string? InstallationBaseUri { get; set; }
     }
 }

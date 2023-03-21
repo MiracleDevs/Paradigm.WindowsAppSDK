@@ -165,4 +165,13 @@ public interface IFileStorageService : IService
     /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
     /// <returns></returns>
     List<string>? GetFilesFromFolder(string folderPath, bool useInstallationFolder);
+
+    /// <summary>
+    /// Gets the local file URI.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    /// <param name="validateEmptyPath">if set to <c>true</c> [validate empty path].</param>
+    /// <param name="useInstallationFolder">if set to <c>true</c> [use installation folder].</param>
+    /// <returns></returns>
+    Uri? GetLocalFileUri(string path, bool validateEmptyPath = false, bool useInstallationFolder = true);
 }
