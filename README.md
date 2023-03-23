@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.10`
+- Modified MessageBusRegistrationsHandler to include a ServiceProvider instance.
+
 Version `1.0.9`
 - Added GetLocalFileUri method in FileStorageService
 
