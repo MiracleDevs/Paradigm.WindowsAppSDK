@@ -32,6 +32,14 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// </value>
         private IDictionary<Tuple<Type, Type>, RegistrationToken> MessageBusConsumerRegistrations { get; set; }
 
+        /// <summary>
+        /// Gets or sets the service provider.
+        /// </summary>
+        /// <value>
+        /// The service provider.
+        /// </value>
+        private IServiceProvider? ServiceProvider { get; set; }
+
         #endregion
 
         #region Constructor
@@ -47,6 +55,31 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         #endregion
 
         #region Public methods
+
+        /// <summary>
+        /// Adds the service provider.
+        /// </summary>
+        /// <param name="serviceProvider">The service provider.</param>
+        public void AddServiceProvider(IServiceProvider serviceProvider)
+        {
+            ServiceProvider = serviceProvider;
+        }
+
+        /// <summary>
+        /// Registers the message handler.
+        /// </summary>
+        /// <typeparam name="TMessage">The type of the message.</typeparam>
+        /// <param name="consumer">The consumer.</param>
+        /// <param name="messageListener">The message listener.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">ServiceProvider</exception>
+        public RegistrationToken RegisterMessageHandler<TMessage>(object consumer, Func<TMessage, Task> messageListener)
+        {
+            if (ServiceProvider == null) 
+                throw new ArgumentNullException(nameof(ServiceProvider));
+
+            return RegisterMessageHandler(consumer, ServiceProvider, messageListener);
+        }
 
         /// <summary>
         /// Registers the message handler.
@@ -81,11 +114,38 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// </summary>
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <param name="consumer">The consumer.</param>
+        /// <exception cref="ArgumentNullException">ServiceProvider</exception>
+        public void UnregisterMessageHandler<TMessage>(object consumer)
+        {
+            if (ServiceProvider == null)
+                throw new ArgumentNullException(nameof(ServiceProvider));
+
+            UnregisterMessageHandler<TMessage>(consumer, ServiceProvider);
+        }
+
+        /// <summary>
+        /// Unregisters the message handler.
+        /// </summary>
+        /// <typeparam name="TMessage">The type of the message.</typeparam>
+        /// <param name="consumer">The consumer.</param>
         /// <param name="serviceProvider">The service provider.</param>
         public void UnregisterMessageHandler<TMessage>(object consumer, IServiceProvider serviceProvider)
         {
             var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
             UnregisterMessage(consumer, messageBusService, typeof(TMessage));
+        }
+
+        /// <summary>
+        /// Unregisters the message handlers.
+        /// </summary>
+        /// <param name="consumer">The consumer.</param>
+        /// <exception cref="ArgumentNullException">ServiceProvider</exception>
+        public void UnregisterMessageHandlers(object consumer)
+        {
+            if (ServiceProvider == null)
+                throw new ArgumentNullException(nameof(ServiceProvider));
+
+            UnregisterMessageHandlers(consumer, ServiceProvider);
         }
 
         /// <summary>

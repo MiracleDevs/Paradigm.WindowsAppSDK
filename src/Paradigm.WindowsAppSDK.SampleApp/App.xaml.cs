@@ -2,6 +2,7 @@
 using Paradigm.WindowsAppSDK.Services.ApplicationInformation;
 using Paradigm.WindowsAppSDK.Services.LocalSettings;
 using Paradigm.WindowsAppSDK.Services.Logging;
+using Paradigm.WindowsAppSDK.Services.MessageBus;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.ViewModels;
 using Paradigm.WindowsAppSDK.Xaml.Extensions;
@@ -47,6 +48,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp
                 LocalBaseUri = "ms-appdata:///local",
                 InstallationBaseUri = "ms-appx:///Assets"
             });
+
+            MessageBusRegistrationsHandler.Instance.AddServiceProvider(ServiceLocator.Instance.ServiceProvider);
 
             MainWindow = new MainWindow();
 

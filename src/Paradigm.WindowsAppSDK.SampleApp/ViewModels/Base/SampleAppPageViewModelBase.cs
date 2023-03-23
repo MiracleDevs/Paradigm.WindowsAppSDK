@@ -83,7 +83,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base
         public virtual void UnRegisterServiceBusMessageHandlers()
         {
             LogService.Debug($"Unregistering {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message registrations from {this.GetType().FullName}");
-            MessageBusRegistrationsHandler.Instance.UnregisterMessageHandlers(this, this.ServiceProvider);
+            MessageBusRegistrationsHandler.Instance.UnregisterMessageHandlers(this);
             LogService.Debug($"Found {MessageBusRegistrationsHandler.Instance.GetRegisteredMessageHandlers(this).Count()} message registrations from {this.GetType().FullName}");
         }
 

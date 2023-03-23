@@ -49,7 +49,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </summary>
         public override void RegisterServiceBusMessageHandlers()
         {
-            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<SampleMessage>(this, ServiceProvider, OnSampleMessageReceivedAsync);
+            MessageBusRegistrationsHandler.Instance.RegisterMessageHandler<SampleMessage>(this, OnSampleMessageReceivedAsync);
         }
 
         #endregion
