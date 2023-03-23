@@ -22,14 +22,15 @@
         public object MessageListener { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Handler"/> class.
+        /// Initializes a new instance of the <see cref="Handler" /> class.
         /// </summary>
         /// <param name="type">The type.</param>
+        /// <param name="consumer">The consumer.</param>
         /// <param name="messageListener">The message listener.</param>
-        public Handler(Type type, Type consumerType, object messageListener)
+        public Handler(Type type, object consumer, object messageListener)
         {
             MessageListener = messageListener;
-            Token = new RegistrationToken(type, consumerType);
+            Token = new RegistrationToken(type, consumer);
         }
     }
 }

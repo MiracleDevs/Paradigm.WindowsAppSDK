@@ -9,6 +9,8 @@
     /// </remarks>
     public class RegistrationToken
     {
+        #region Properties
+
         /// <summary>
         /// Gets the type.
         /// </summary>
@@ -26,22 +28,29 @@
         public Guid Identity { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RegistrationToken"/> class.
+        /// Gets the consumer hash.
+        /// </summary>
+        /// <value>
+        /// The consumer hash.
+        /// </value>
+        public int ConsumerHash { get; }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RegistrationToken" /> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        public RegistrationToken(Type type, Type consumerType)
+        /// <param name="consumer">The consumer.</param>
+        public RegistrationToken(Type type, object consumer)
         {
             Type = type;
             Identity = Guid.NewGuid();
-            ConsumerType = consumerType;
+            ConsumerHash = consumer.GetHashCode();
         }
 
-        /// <summary>
-        /// Gets the type of the consumer.
-        /// </summary>
-        /// <value>
-        /// The type of the consumer.
-        /// </value>
-        public Type ConsumerType { get; }
+        #endregion
     }
 }

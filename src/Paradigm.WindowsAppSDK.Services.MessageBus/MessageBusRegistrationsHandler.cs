@@ -30,7 +30,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <value>
         /// The message bus consumer registrations.
         /// </value>
-        private IDictionary<Tuple<Type, Type>, RegistrationToken> MessageBusConsumerRegistrations { get; set; }
+        private IDictionary<Tuple<Type, int>, RegistrationToken> MessageBusConsumerRegistrations { get; set; }
 
         /// <summary>
         /// Gets or sets the service provider.
@@ -49,7 +49,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// </summary>
         private MessageBusRegistrationsHandler()
         {
-            MessageBusConsumerRegistrations = new Dictionary<Tuple<Type, Type>, RegistrationToken>();
+            MessageBusConsumerRegistrations = new Dictionary<Tuple<Type, int>, RegistrationToken>();
         }
 
         #endregion
@@ -94,7 +94,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
             RegistrationToken token;
 
             var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
-            var key = CreateMessageRegistrationKey(typeof(TMessage), consumer.GetType());
+            var key = CreateMessageRegistrationKey(typeof(TMessage), consumer);
 
             if (!MessageBusConsumerRegistrations.ContainsKey(key))
             {
@@ -155,15 +155,15 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <param name="serviceProvider">The service provider.</param>
         public void UnregisterMessageHandlers(object consumer, IServiceProvider serviceProvider)
         {
-            var consumerType = consumer.GetType();
+            var consumerHash = consumer.GetHashCode();
             var messageBusService = serviceProvider.GetRequiredService<IMessageBusService>();
 
-            var registrationTokens = this.MessageBusConsumerRegistrations
-                .Where(messageRegistration => messageRegistration.Key.Item2 == consumerType)
-                .Select(messageRegistration => messageRegistration.Value)
+            var registrationTokens = MessageBusConsumerRegistrations
+                .Where(x => x.Key.Item2 == consumerHash)
+                .Select(x => x.Value)
                 .Distinct();
 
-            foreach (var token in registrationTokens.Where(t => t.ConsumerType == consumerType))
+            foreach (var token in registrationTokens.Where(t => t.ConsumerHash == consumerHash))
             {
                 UnregisterMessage(consumer, messageBusService, token.Type);
             }
@@ -176,9 +176,11 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <returns></returns>
         public IEnumerable<RegistrationToken> GetRegisteredMessageHandlers(object consumer)
         {
+            var consumerHash = consumer.GetHashCode();
+
             return this.MessageBusConsumerRegistrations
-                .Where(messageRegistration => messageRegistration.Key.Item2 == consumer.GetType())
-                .Select(messageRegistration => messageRegistration.Value);
+                .Where(x => x.Key.Item2 == consumerHash)
+                .Select(x => x.Value);
         }
 
         #endregion
@@ -193,7 +195,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <param name="messageType">Type of the message.</param>
         private void UnregisterMessage(object consumer, IMessageBusService messageBusService, Type messageType)
         {
-            var key = CreateMessageRegistrationKey(messageType, consumer.GetType());
+            var key = CreateMessageRegistrationKey(messageType, consumer);
 
             if (!MessageBusConsumerRegistrations.ContainsKey(key))
                 return;
@@ -208,9 +210,9 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <param name="messageType">Type of the message.</param>
         /// <param name="consumerType">Type of the consumer.</param>
         /// <returns></returns>
-        private Tuple<Type, Type> CreateMessageRegistrationKey(Type messageType, Type consumerType)
+        private Tuple<Type, int> CreateMessageRegistrationKey(Type messageType, object consumer)
         {
-            return Tuple.Create(messageType, consumerType);
+            return Tuple.Create(messageType, consumer.GetHashCode());
         }
 
         #endregion

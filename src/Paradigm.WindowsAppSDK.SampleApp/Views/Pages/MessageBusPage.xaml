@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -21,6 +22,11 @@
             <Button Margin="5 0" Content="Toggle messages viewer" Tapped="{x:Bind ViewModel.ToggleMessageViewerAsync}" />
             <Button Margin="5 0" Content="Send sample message 1" Tapped="{x:Bind ViewModel.SendSample1MessageAsync}" />
             <Button Margin="5 0" Content="Send sample message 2" Tapped="{x:Bind ViewModel.SendSample2MessageAsync}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Center">
+            <Button Margin="5 0" Content="Register message" Tapped="{x:Bind ViewModel.Register}" />
+            <Button Margin="5 0" Content="Unregister message" Tapped="{x:Bind ViewModel.Unregister}" />
         </StackPanel>
     </Grid>
 </Page>

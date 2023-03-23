@@ -47,7 +47,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
             if (!this.MessageHandler.ContainsKey(type))
                 this.MessageHandler.Add(type, new List<Handler>());
 
-            var handler = new Handler(type, consumer.GetType(), messageListener);
+            var handler = new Handler(type, consumer, messageListener);
             this.MessageHandler[type].Add(handler);
             return handler.Token;
         }
