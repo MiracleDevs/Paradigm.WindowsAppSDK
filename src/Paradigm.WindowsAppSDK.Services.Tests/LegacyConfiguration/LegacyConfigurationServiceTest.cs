@@ -56,5 +56,20 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
             //assert
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        [TestCase("objectKey", "value2")]
+        [TestCase("invalidKey", null)]
+        public void ShouldReturnObjectValue(string key, string? expected)
+        {
+            //arrange
+            var service = new LegacyConfigurationService();
+            service.Initialize(ConfigurationFileContent);
+
+            //act
+            var result = service.GetObject<ObjectValueModel>(key);
+
+            //assert
+            Assert.That(result?.Prop2, Is.EqualTo(expected));
+        }
     }
 }

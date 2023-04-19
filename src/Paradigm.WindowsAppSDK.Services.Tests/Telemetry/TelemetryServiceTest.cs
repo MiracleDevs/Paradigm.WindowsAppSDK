@@ -6,6 +6,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
     public class TelemetryServiceTest
     {
         private const string TestConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000;IngestionEndpoint=https://eastus2-3.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus2.livediagnostics.monitor.azure.com/";
+        private const string AlternateTestConnectionString = "InstrumentationKey=00000000-0000-0000-0000-111111111111;IngestionEndpoint=https://eastus2-3.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus2.livediagnostics.monitor.azure.com/";
 
         private TestableTelemetryService TestService { get; set; }
 
@@ -233,6 +234,41 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             await Task.Delay(delay);
 
             Assert.That(((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries, Has.Count.EqualTo(1));
+        }
+
+        [TestCase(TestConnectionString)]
+        [TestCase(AlternateTestConnectionString)]
+        public void ShouldTrackEventWithConnectionString(string connectionString)
+        {
+            //arrange
+            TestService.Initialize(new TelemetrySettings(string.Empty, false, false, null));
+
+            var properties = new Dictionary<string, string>
+            {
+                { "prop1", "1" },
+                { "prop2", "2" }
+            };
+
+            //act
+            TestService.TrackEvent(connectionString, "test-event", properties);
+
+            //Assert
+            Assert.That(TestService.ClientConnectionString, Is.EqualTo(connectionString));
+        }
+
+        [TestCase(TestConnectionString)]
+        [TestCase(AlternateTestConnectionString)]
+        public void ShouldTrackExceptionWithConnectionString(string connectionString)
+        {
+            //arrange
+            TestService.Initialize(new TelemetrySettings(string.Empty, false, false, null));
+            ArgumentNullException ex = new(nameof(TestService.TelemetryChannel));
+
+            //act
+            TestService.TrackException(connectionString, ex);
+
+            //Assert
+            Assert.That(TestService.ClientConnectionString, Is.EqualTo(connectionString));
         }
     }
 }

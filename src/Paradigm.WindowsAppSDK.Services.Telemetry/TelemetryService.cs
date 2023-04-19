@@ -106,6 +106,21 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         }
 
         /// <summary>
+        /// Tracks the event.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="eventName">Name of the event.</param>
+        /// <param name="properties">The properties.</param>
+        public void TrackEvent(string connectionString, string eventName, IDictionary<string, string> properties)
+        {
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentNullException(nameof(connectionString));
+            
+            ResetClient(connectionString);
+            TrackEvent(eventName, properties);
+        }
+
+        /// <summary>
         /// Tracks the exception.
         /// </summary>
         /// <param name="ex">The ex.</param>
@@ -135,6 +150,20 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                     TelemetriesClient.Flush();
                 });
             }
+        }
+
+        /// <summary>
+        /// Tracks the exception.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="ex">The ex.</param>
+        public void TrackException(string connectionString, Exception ex)
+        {
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentNullException(nameof(connectionString));
+
+            ResetClient(connectionString);
+            TrackException(ex);
         }
 
         /// <summary>
@@ -200,21 +229,44 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         }
 
         /// <summary>
-        /// Initializes the client.
+        /// Creates the telemetry configuration.
         /// </summary>
-        protected virtual void InitializeClient()
+        /// <returns></returns>
+        protected virtual TelemetryConfiguration CreateTelemetryConfiguration(string connectionString)
         {
-            if (Settings == null)
-                return;
-
             var configuration = TelemetryConfiguration.CreateDefault();
-            configuration.ConnectionString = Settings.ConnectionString;
-            TelemetriesClient = new TelemetryClient(configuration);
+            configuration.ConnectionString = connectionString;
+            return configuration;
         }
 
         #endregion
 
         #region Private Methods
+
+        /// <summary>
+        /// Initializes the client.
+        /// </summary>
+        private void InitializeClient()
+        {
+            if (string.IsNullOrWhiteSpace(Settings?.ConnectionString))
+                return;
+
+            var configuration = CreateTelemetryConfiguration(Settings.ConnectionString);
+            TelemetriesClient = new TelemetryClient(configuration);
+        }
+
+        /// <summary>
+        /// Resets the client.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        private void ResetClient(string connectionString)
+        {
+            if (connectionString.Equals(TelemetriesClient?.TelemetryConfiguration?.ConnectionString))
+                return;
+
+            var configuration = CreateTelemetryConfiguration(connectionString);
+            TelemetriesClient = new TelemetryClient(configuration);
+        }
 
         /// <summary>
         /// Debounces the specified event name.

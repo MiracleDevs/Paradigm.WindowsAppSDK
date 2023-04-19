@@ -31,5 +31,13 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         /// <param name="key">The key.</param>
         /// <returns></returns>
         double? GetDouble(string key);
+
+        /// <summary>
+        /// Gets the object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        T? GetObject<T>(string key) where T : class;
     }
 }

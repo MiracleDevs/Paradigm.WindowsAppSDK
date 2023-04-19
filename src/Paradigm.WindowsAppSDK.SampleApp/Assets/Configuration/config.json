@@ -4,5 +4,12 @@
 	"numericValue1": 500,
 	"numericValue2": 1,
 	"booleanValue1": false,
-	"booleanValue2": true
+	"booleanValue2": true,
+	"objectValue": {
+		"prop1": "object prop1 value",
+		"prop2": "object prop2 value",
+		"prop3": {
+			"prop": "child object value"
+		}
+	}
 }

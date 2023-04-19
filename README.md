@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.11`
+- Fixed bug in MessageBusRegistrationsHandler. Modified TelemetryService to allow different connection strings. Modified LegacyConfigurationService to allow object values.
+
 Version `1.0.10`
 - Modified MessageBusRegistrationsHandler to include a ServiceProvider instance.
 

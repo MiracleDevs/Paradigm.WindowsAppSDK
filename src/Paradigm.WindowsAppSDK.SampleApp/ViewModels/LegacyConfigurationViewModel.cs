@@ -30,6 +30,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 
         public bool? BooleanValue2 => Service.GetBoolean("booleanValue2");
 
+        public string ObjectValue => Service.GetObject<Models.ObjectPropertyModel>("objectValue")?.ToString();
+
         #endregion
 
         #region Constructor

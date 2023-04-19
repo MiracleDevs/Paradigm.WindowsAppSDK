@@ -1,5 +1,9 @@
 {
 	"stringKey": "test",
 	"booleanKey": true,
-	"doubleKey": 100.5
+	"doubleKey": 100.5,
+	"objectKey": {
+		"prop1": "value1",
+		"prop2": "value2"
+	}
 }

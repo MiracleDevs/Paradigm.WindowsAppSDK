@@ -85,6 +85,29 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
             return value != null ? Convert.ToDouble(value) : default(double?);
         }
 
+        /// <summary>
+        /// Gets the object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public T? GetObject<T>(string key) where T : class
+        {
+            try
+            {
+                var value = this.GetValueFromConfigurations(key);
+                if (value == null)
+                    return default;
+
+                var serializedValue = JsonSerializer.Serialize(value);
+                return JsonSerializer.Deserialize<T>(serializedValue);
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
         #endregion
 
         #region Private Methods
