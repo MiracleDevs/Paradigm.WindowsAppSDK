@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.12`
+- Fix in LegacyConfigurationService to allow comments in the JSON files.
+
 Version `1.0.11`
 - Fixed bug in MessageBusRegistrationsHandler. Modified TelemetryService to allow different connection strings. Modified LegacyConfigurationService to allow object values.
 
