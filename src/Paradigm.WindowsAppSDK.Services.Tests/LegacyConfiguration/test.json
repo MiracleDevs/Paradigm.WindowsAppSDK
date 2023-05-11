@@ -4,6 +4,11 @@
 	"doubleKey": 100.5,
 	"objectKey": {
 		"prop1": "value1",
-		"prop2": "value2"
+		"prop2": "value2",
+		"prop3": "Percentage"
 	}
+	/*
+	comment multi line
+
+	*/
 }

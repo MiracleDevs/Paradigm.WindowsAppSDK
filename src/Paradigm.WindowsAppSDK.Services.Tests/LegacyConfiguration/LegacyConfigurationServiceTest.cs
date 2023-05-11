@@ -71,5 +71,19 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
             //assert
             Assert.That(result?.Prop2, Is.EqualTo(expected));
         }
+
+        [TestCase("objectKey",  DisplayConfigEnum.Percentage)]
+        public void ShouldReturnEnumValue(string key, DisplayConfigEnum expected)
+        {
+            //arrange
+            var service = new LegacyConfigurationService();
+            service.Initialize(ConfigurationFileContent);
+
+            //act
+            var result = service.GetObject<ObjectValueModel>(key);
+
+            //assert
+            Assert.That(result?.Prop3, Is.EqualTo(expected));
+        }
     }
 }
