@@ -13,9 +13,11 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Models
         [JsonPropertyName("prop3")]
         public object Prop3 { get; set; }
 
+        [JsonPropertyName("prop4")]
+        public WindowDisplayMeasureType Prop4 { get; set; }
         public override string ToString()
         {
-            return $"prop1 = {Prop1}, prop2 = {Prop2}, prop3 = {Prop3}";
+            return $"prop1 = {Prop1}, prop2 = {Prop2}, prop3 = {Prop3}, prop4 = {Prop4}";
         }
     }
 }

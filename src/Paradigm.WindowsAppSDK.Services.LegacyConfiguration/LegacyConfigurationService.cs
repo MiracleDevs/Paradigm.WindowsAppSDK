@@ -44,6 +44,7 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
             try
             {
                 var deserializerOptions = new JsonSerializerOptions();
+                deserializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
                 deserializerOptions.Converters.Add(new DictionaryStringObjectJsonConverter());
                 this.Configurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, deserializerOptions);
             }

@@ -1,6 +1,11 @@
+/*
+	multi-line
+	comment example
+*/
 {
 	"stringValue1": "string value 1",
 	"stringValue2": "string value 2",
+	//"single-line-comment-example",
 	"numericValue1": 500,
 	"numericValue2": 1,
 	"booleanValue1": false,
@@ -10,6 +15,11 @@
 		"prop2": "object prop2 value",
 		"prop3": {
 			"prop": "child object value"
-		}
+		},
+		"prop4": "Percentage"
 	}
+	/*
+	multi-line
+	comment example
+*/
 }
