@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.13`
+- Modified NavigationService to allow to clear the current content. Updated dependencies.
+
 Version `1.0.12`
 - Fix in LegacyConfigurationService to allow comments in the JSON files.
 

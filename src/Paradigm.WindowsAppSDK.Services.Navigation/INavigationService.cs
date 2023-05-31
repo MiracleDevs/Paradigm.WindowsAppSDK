@@ -29,6 +29,14 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         INavigable? CurrentNavigable { get; }
 
         /// <summary>
+        /// Gets the current navigable view.
+        /// </summary>
+        /// <value>
+        /// The current navigable view.
+        /// </value>
+        INavigableView? CurrentNavigableView { get; }
+
+        /// <summary>
         /// Initializes the instance.
         /// </summary>
         /// <param name="frame">The frame.</param>
@@ -69,5 +77,11 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// Clears the back stack.
         /// </summary>
         void ClearBackStack();
+
+        /// <summary>
+        /// Clears the current content.
+        /// </summary>
+        /// <returns></returns>
+        Task ClearCurrentContentAsync();
     }
 }

@@ -192,6 +192,20 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
             this.Frame?.ClearBackStack();
         }
 
+        /// <summary>
+        /// Clears the current content.
+        /// </summary>
+        public async Task ClearCurrentContentAsync()
+        {
+            if (this.CurrentNavigableView != null)
+            {
+                await this.CurrentNavigableView.DisposeAsync();
+                this.CurrentNavigableView = null;
+            }
+
+            this.CurrentNavigable = null;
+        }
+
         #endregion
 
         #region Private Methods
