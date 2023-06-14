@@ -105,7 +105,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <exception cref="ArgumentNullException">frame</exception>
         public void Initialize(INavigationFrame frame)
         {
-            if (frame == null)
+            if (frame is null)
                 throw new ArgumentNullException(nameof(frame));
 
             this.Frame = frame;
@@ -132,7 +132,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <exception cref="Exception">The navigable view '{navigableView.Name}' is not registered.</exception>
         public async Task<bool> GoBackAsync()
         {
-            if (!this.CanGoBack || this.Frame == null || this.CurrentNavigable == null || this.CurrentNavigableView == null)
+            if (!this.CanGoBack || this.Frame is null || this.CurrentNavigable is null || this.CurrentNavigableView is null)
                 return false;
 
             var navigableView = this.Frame.LastBackStackSourcePageType();
@@ -150,7 +150,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <exception cref="Exception">The navigable view '{navigableView.Name}' is not registered.</exception>
         public async Task<bool> GoForwardAsync()
         {
-            if (!this.CanGoForward || this.Frame == null || this.CurrentNavigable == null || this.CurrentNavigableView == null)
+            if (!this.CanGoForward || this.Frame is null || this.CurrentNavigable is null || this.CurrentNavigableView is null)
                 return false;
 
             var navigableView = this.Frame.LastForwardStackSourcePageType();
@@ -178,7 +178,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <returns></returns>
         public async Task<bool> NavigateToAsync(Type navigableType)
         {
-            if (this.Frame == null)
+            if (this.Frame is null)
                 return false;
 
             return await this.NavigateToNavigableViewAsync(navigableType, x => this.Frame.Navigate(x, null));
@@ -197,7 +197,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// </summary>
         public async Task ClearCurrentContentAsync()
         {
-            if (this.CurrentNavigableView != null)
+            if (this.CurrentNavigableView is not null)
             {
                 await this.CurrentNavigableView.DisposeAsync();
                 this.CurrentNavigableView = null;
@@ -226,12 +226,12 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
             var navigable = (INavigable)this.ServiceProvider.GetRequiredService(navigableType);
 
             // 3. check if the previous and current navigable accept the navigation, and if they can, we dispose the current view.
-            if (this.CurrentNavigable != null)
+            if (this.CurrentNavigable is not null)
             {
                 if (!await this.CurrentNavigable.CanNavigateTo(navigable) || !await navigable.CanNavigateFrom(this.CurrentNavigable))
                     return false;
 
-                if (this.CurrentNavigableView != null)
+                if (this.CurrentNavigableView is not null)
                     await this.CurrentNavigableView.DisposeAsync();
             }
 
@@ -239,7 +239,7 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
             navigation(this.NavigationViews[navigableType]);
 
             // 5. at this point we should have the view. if the view is null then the navigation was cancelled.
-            if (this.CandidateView == null)
+            if (this.CandidateView is null)
                 return false;
 
             // 6. initialize the navigable view setting up the navigable.
