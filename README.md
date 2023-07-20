@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.16`
+- Added Hide method to IDialogView.
+
 Version `1.0.15`
 - Fixed BoolToParameterConverter decimal symbol culture bug.
 

@@ -8,7 +8,7 @@
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.15</Version>
+    <Version>1.0.16</Version>
     <Authors>Miracle Devs</Authors>
     <Company>Miracle Devs</Company>
     <Product>Paradigm WindowsAppSDK</Product>

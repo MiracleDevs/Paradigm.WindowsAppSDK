@@ -22,5 +22,10 @@
         /// </summary>
         /// <returns></returns>
         Task<bool?> ShowAsync();
+
+        /// <summary>
+        /// Hides this instance.
+        /// </summary>
+        void Hide();
     }
 }

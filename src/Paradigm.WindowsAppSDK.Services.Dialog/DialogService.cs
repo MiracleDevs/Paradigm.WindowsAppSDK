@@ -22,14 +22,6 @@ namespace Paradigm.WindowsAppSDK.Services.Dialog
         /// </value>
         private Dictionary<Type, Type> DialogViews { get; }
 
-        /// <summary>
-        /// Gets the dialogs.
-        /// </summary>
-        /// <value>
-        /// The dialogs.
-        /// </value>
-        private Dictionary<Type, Type> Dialogs { get; }
-
         #endregion
 
         #region Constructor
@@ -42,7 +34,6 @@ namespace Paradigm.WindowsAppSDK.Services.Dialog
         {
             ServiceProvider = serviceProvider;
             DialogViews = new();
-            Dialogs = new();
         }
 
         #endregion
@@ -59,7 +50,6 @@ namespace Paradigm.WindowsAppSDK.Services.Dialog
             where TDialog : IDialog
         {
             DialogViews.Add(typeof(TDialog), typeof(TDialogView));
-            Dialogs.Add(typeof(TDialogView), typeof(TDialog));
         }
 
         /// <summary>
