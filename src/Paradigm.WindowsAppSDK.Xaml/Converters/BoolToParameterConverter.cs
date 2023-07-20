@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Markup;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
         private object ConvertParameterToType(object value, Type targetType)
         {
             var converter = TypeDescriptor.GetConverter(targetType);
-            return converter.CanConvertFrom(typeof(string)) ? converter.ConvertFrom(value) : value;
+            return converter.CanConvertFrom(typeof(string)) ? XamlBindingHelper.ConvertValue(targetType, value) : value;
         }
     }
 }

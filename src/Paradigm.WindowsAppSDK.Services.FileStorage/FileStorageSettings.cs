@@ -33,5 +33,13 @@
         /// The installation base URI.
         /// </value>
         public string? InstallationBaseUri { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [create directories].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [create directories]; otherwise, <c>false</c>.
+        /// </value>
+        public bool CreateDirectories { get; set; }
     }
 }

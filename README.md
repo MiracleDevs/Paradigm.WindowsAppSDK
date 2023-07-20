@@ -35,6 +35,12 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.15`
+- Fixed BoolToParameterConverter decimal symbol culture bug.
+
+Version `1.0.14`
+- Modified FileStorageService settings to allow to prevent creating new directories when not exist.
+
 Version `1.0.13`
 - Modified NavigationService to allow to clear the current content. Updated dependencies.
 

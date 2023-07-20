@@ -23,7 +23,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (parameter != null && parameter is string s && s == "negate")
+            if (parameter is not null && parameter is string s && s == "negate")
                 return value is bool b && !b ? Visibility.Visible : Visibility.Collapsed;
 
             return value is bool b1 && b1 ? Visibility.Visible : Visibility.Collapsed;
@@ -40,7 +40,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             if (value is Visibility v)
-                return v == Visibility.Visible && parameter != null ? parameter : null;
+                return v == Visibility.Visible && parameter is not null ? parameter : null;
 
             return value;
         }

@@ -23,7 +23,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (parameter != null && parameter is string s && s == "negate")
+            if (parameter is not null && parameter is string s && s == "negate")
             {
                 return value is bool b && !b ? ScrollMode.Enabled : ScrollMode.Disabled;
             }
@@ -42,7 +42,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             if (value is ScrollMode v)
-                return v == ScrollMode.Enabled && parameter != null ? parameter : null;
+                return v == ScrollMode.Enabled && parameter is not null ? parameter : null;
 
             return value;
         }

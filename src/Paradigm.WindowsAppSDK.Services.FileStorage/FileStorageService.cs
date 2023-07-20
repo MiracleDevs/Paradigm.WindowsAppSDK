@@ -415,6 +415,8 @@
         /// <param name="filePath">The file path.</param>
         private void CreateDirectoryIfNotExists(string filePath)
         {
+            if (Settings is not null && !Settings.CreateDirectories) return;
+
             var directoryPath = Path.GetDirectoryName(filePath);
 
             if (!string.IsNullOrEmpty(directoryPath) && !Directory.Exists(directoryPath))

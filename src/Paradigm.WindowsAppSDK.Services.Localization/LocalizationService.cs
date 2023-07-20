@@ -53,7 +53,7 @@ namespace Paradigm.WindowsAppSDK.Services.Localization
         /// <param name="strings">The strings.</param>
         private void ExtractStrings(object model, string name, Dictionary<string, string> strings)
         {
-            if (model == null)
+            if (model is null)
                 return;
 
             var type = model.GetType().GetTypeInfo();
@@ -81,13 +81,13 @@ namespace Paradigm.WindowsAppSDK.Services.Localization
                 {
                     var propertyName = $"{name}.{property.Name}";
 
-                    if (property.PropertyType == typeof(string) && property.GetCustomAttribute(typeof(LocalizableAttribute)) == null)
+                    if (property.PropertyType == typeof(string) && property.GetCustomAttribute(typeof(LocalizableAttribute)) is null)
                         continue;
 
                     if (property.PropertyType == typeof(char))
                         continue;
 
-                    if (property.GetCustomAttribute(typeof(LocalizableAttribute)) != null)
+                    if (property.GetCustomAttribute(typeof(LocalizableAttribute)) is not null)
                         strings.Add(propertyName, property.GetValue(model) as string);
                     else
                         ExtractStrings(property.GetValue(model), propertyName, strings);
@@ -114,7 +114,7 @@ namespace Paradigm.WindowsAppSDK.Services.Localization
 
                 for (var index = 1; index < keyParts.Length; index++)
                 {
-                    if (childModel == null)
+                    if (childModel is null)
                         continue;
 
                     var keyPart = keyParts[index];
@@ -132,7 +132,7 @@ namespace Paradigm.WindowsAppSDK.Services.Localization
                     else if (keyPart is string && childModel is IDictionary dictionary)
                     {
                         var item = dictionary[keyPart];
-                        if (item == null)
+                        if (item is null)
                             continue;
 
                         if (index == keyParts.Length - 1)
@@ -144,7 +144,7 @@ namespace Paradigm.WindowsAppSDK.Services.Localization
                     {
                         var property = childModel.GetType().GetTypeInfo().GetProperties().FirstOrDefault(x => x.Name == keyPart);
 
-                        if (property == null)
+                        if (property is null)
                             continue;
 
                         if (index == keyParts.Length - 1)

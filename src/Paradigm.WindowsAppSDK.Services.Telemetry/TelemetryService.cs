@@ -62,7 +62,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <param name="settings">The settings.</param>
         public void Initialize(TelemetrySettings settings)
         {
-            if (TelemetriesClient != null)
+            if (TelemetriesClient is not null)
                 return;
 
             Settings = settings;
@@ -76,10 +76,10 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <param name="properties">The properties.</param>
         public void TrackEvent(string eventName, IDictionary<string, string> properties)
         {
-            if (Settings == null || TelemetriesClient == null)
+            if (Settings is null || TelemetriesClient is null)
                 throw new InvalidOperationException("Telemetry was not initialized");
 
-            if (properties == null)
+            if (properties is null)
                 properties = new Dictionary<string, string>();
 
             if (Settings.DebounceEnabled)
@@ -126,7 +126,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <param name="ex">The ex.</param>
         public void TrackException(Exception ex)
         {
-            if (Settings == null || TelemetriesClient == null)
+            if (Settings is null || TelemetriesClient is null)
                 throw new InvalidOperationException("Telemetry was not initialized");
 
             if (Settings.DebounceEnabled)
@@ -203,7 +203,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <param name="properties">The properties.</param>
         protected void RenameProps(IDictionary<string, string> properties)
         {
-            if (Settings == null || !Settings.RenamePropertiesEnabled)
+            if (Settings is null || !Settings.RenamePropertiesEnabled)
                 return;
 
             var i = 0;
