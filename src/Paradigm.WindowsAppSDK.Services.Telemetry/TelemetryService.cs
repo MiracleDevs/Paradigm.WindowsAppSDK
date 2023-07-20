@@ -88,7 +88,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                 {
                     RenameProps(properties);
                     AddExtraPropertiesTo(properties);
-                    AddDebounceCount(eventName, properties);
+                    AddDebounceCount(eventName, properties);                    
                     TelemetriesClient.TrackEvent(eventName, properties);
                     TelemetriesClient.Flush();
                 }), 500);
@@ -224,7 +224,8 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
 
                 i++;
                 properties.Remove(prop);
-                properties.Add($"value{i}", prop.Value);
+
+                properties.TryAdd($"value{i}", prop.Value);
             }
         }
 
@@ -283,7 +284,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                 timer.Elapsed += (s, e) =>
                 {
                     action();
-                    timer.Stop();
+                    timer.Dispose();
                 };
 
                 TimersDictionary.Add(eventName, (timer, 0));
@@ -307,10 +308,13 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         private void AddDebounceCount(string eventName, IDictionary<string, string> properties)
         {
             var debounceTimer = TimersDictionary[eventName];
-            if (debounceTimer.Item2 > 1) properties.Add("count", debounceTimer.Item2.ToString());
+            if (debounceTimer.Item2 > 1)
+            {
+                properties.Add("count", debounceTimer.Item2.ToString());
+                debounceTimer.Item2 = 0;
+            }     
             debounceTimer.Item1.Dispose();
             TimersDictionary.Remove(eventName);
-            System.Diagnostics.Debug.WriteLine($"{eventName}- Count ={debounceTimer.Item2}");
         }
 
         #endregion

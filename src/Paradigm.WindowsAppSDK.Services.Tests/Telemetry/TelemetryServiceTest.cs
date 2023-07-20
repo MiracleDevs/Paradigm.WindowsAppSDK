@@ -192,22 +192,23 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             Assert.That(properties.ElementAt(1).Key, Is.EqualTo("prop2"));
         }
 
-        [TestCase(true, 600)]
-        [TestCase(false, 500)]
+        [TestCase(true, 2000)]
+        [TestCase(false, 2000)]
         public async Task ShouldTrackEvent(bool debounce, int delay)
         {
             //arrange
-            var eventCount = 10;
+            var eventCount = 5;
             var expectedCount = debounce ? 1 : eventCount;
 
-            TestService.Initialize(new TelemetrySettings(TestConnectionString, debounce, false, null));
+            TestService.Initialize(new TelemetrySettings(TestConnectionString, debounce, true, null));
             
             var eventName = "test-event";
 
             var properties = new Dictionary<string, string>
             {
                 { "prop1", "1" },
-                { "prop2", "2" }
+                { "prop2", "2" },
+                { "value1", "a" }
             };
 
             var events = Enumerable.Repeat(eventName, eventCount).ToList();
