@@ -283,7 +283,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                 timer.Elapsed += (s, e) =>
                 {
                     action();
-                    timer.Dispose();
+                    timer.Stop();
                 };
 
                 TimersDictionary.Add(eventName, (timer, 0));
@@ -295,7 +295,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
 
             if (debounceTimer.Item1.Enabled)
                 debounceTimer.Item1.Stop();
-
+            
             debounceTimer.Item1.Start();
         }
 
@@ -308,7 +308,9 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         {
             var debounceTimer = TimersDictionary[eventName];
             if (debounceTimer.Item2 > 1) properties.Add("count", debounceTimer.Item2.ToString());
+            debounceTimer.Item1.Dispose();
             TimersDictionary.Remove(eventName);
+            System.Diagnostics.Debug.WriteLine($"{eventName}- Count ={debounceTimer.Item2}");
         }
 
         #endregion

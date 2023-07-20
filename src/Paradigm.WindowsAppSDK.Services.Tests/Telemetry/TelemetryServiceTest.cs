@@ -1,5 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.ApplicationInsights.DataContracts;
+using NUnit.Framework;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
+using System.Diagnostics.Tracing;
 
 namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
 {
@@ -217,6 +219,86 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             await Task.Delay(delay);
 
             Assert.That(((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries, Has.Count.EqualTo(expectedCount));
+        }
+
+        [Test]
+        public async Task ShouldTrackEventsDebouncing()
+        {
+            //arrange
+            var count = 5;
+            var expectedCount = 1;
+            var eventName = "test-event";
+
+            var properties = new Dictionary<string, string>
+            {
+                { "prop1", "1" },
+                { "prop2", "2" }
+            };
+
+            TestService.Initialize(new TelemetrySettings(TestConnectionString));
+
+            //act
+            Enumerable.Repeat(eventName,count).ToList().ForEach(e => TestService.TrackEvent(e, properties));
+
+            await Task.Delay(1000);
+            var sentTelemetries = ((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries;
+            
+            var telemetry = sentTelemetries
+                .ToList()
+                .ConvertAll(t => t as EventTelemetry)
+                .FirstOrDefault(t => t !=null && t.Properties.Any(p => p.Key =="count"));
+            
+            var countProperty = telemetry?.Properties.FirstOrDefault(p => p.Key == "count");
+
+            //Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(sentTelemetries, Has.Count.EqualTo(expectedCount));
+                Assert.That(countProperty, Is.Not.Null);
+                Assert.That(countProperty?.Value, Is.EqualTo(count.ToString()));
+            });
+            
+        }
+
+        [Test]
+        public async Task ShouldTrackSeparateEvents()
+        {
+            //arrange
+            var count = 5;
+            var expectedCount = 5;
+            var eventName = "test-event";
+
+            var properties = new Dictionary<string, string>
+            {
+                { "prop1", "1" },
+                { "prop2", "2" }
+            };
+
+            TestService.Initialize(new TelemetrySettings(TestConnectionString));
+
+            //act
+            var events = Enumerable.Repeat(eventName, count).ToList();
+            foreach(var e in events)
+            {
+                await Task.Delay(2000);
+                TestService.TrackEvent(e, properties);
+            }
+            
+            await Task.Delay(1000);
+            var sentTelemetries = ((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries;
+
+            var telemetryWithDebounceCount = sentTelemetries
+                .ToList()
+                .ConvertAll(t => t as EventTelemetry)
+                .Any(t => t != null && t.Properties.Any(p => p.Key == "count"));
+
+            //Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(sentTelemetries, Has.Count.EqualTo(expectedCount));
+                Assert.That(telemetryWithDebounceCount, Is.False);
+            });
+
         }
 
         [TestCase(true, 600)]

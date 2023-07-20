@@ -66,6 +66,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public void RegisterEvent2()
         {
             Service.TrackEvent("sample event2", default);
+            Service.TrackEvent("sample event2", default);
 
             UpdateStatusMessage("'sample event2' sent.");
         }
