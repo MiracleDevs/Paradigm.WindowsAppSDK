@@ -20,5 +20,9 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Dialog
         {
             return Task.FromResult<bool?>(true);
         }
+
+        public void Hide()
+        {
+        }
     }
 }
