@@ -71,5 +71,13 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Dialogs
 
             return false;
         }
+
+        /// <summary>
+        /// Hides this instance.
+        /// </summary>
+        public void Hide()
+        {
+            ContentDialogControl.Hide();
+        }
     }
 }
