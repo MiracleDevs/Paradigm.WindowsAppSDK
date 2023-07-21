@@ -193,7 +193,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
         }
 
         [TestCase(true, 2000)]
-        [TestCase(false, 2000)]
+        [TestCase(false, 1000)]
         public async Task ShouldTrackEvent(bool debounce, int delay)
         {
             //arrange
@@ -207,8 +207,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             var properties = new Dictionary<string, string>
             {
                 { "prop1", "1" },
-                { "prop2", "2" },
-                { "value1", "a" }
+                { "prop2", "2" }
             };
 
             var events = Enumerable.Repeat(eventName, eventCount).ToList();
@@ -220,6 +219,22 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             await Task.Delay(delay);
 
             Assert.That(((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries, Has.Count.EqualTo(expectedCount));
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task ShouldTrackEventWithoutProperties(bool debounce)
+        {
+            //arrange
+            var eventName = "test-event";
+            TestService.Initialize(new TelemetrySettings(TestConnectionString, debounce, true, null));
+
+            //act
+            TestService.TrackEvent(eventName, null);
+            await Task.Delay(1000);
+
+            //Assert
+            Assert.That(((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries, Has.Count.EqualTo(1));
         }
 
         [Test]

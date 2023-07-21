@@ -1,5 +1,6 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
+using Paradigm.WindowsAppSDK.Services.Telemetry.Extensions;
 
 namespace Paradigm.WindowsAppSDK.Services.Telemetry
 {
@@ -88,7 +89,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                 {
                     RenameProps(properties);
                     AddExtraPropertiesTo(properties);
-                    AddDebounceCount(eventName, properties);                    
+                    AddDebounceCount(eventName, properties);
                     TelemetriesClient.TrackEvent(eventName, properties);
                     TelemetriesClient.Flush();
                 }), 500);
@@ -97,9 +98,10 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             {
                 Task.Run(() =>
                 {
-                    RenameProps(properties);
-                    AddExtraPropertiesTo(properties);
-                    TelemetriesClient.TrackEvent(eventName, properties);
+                    var props = properties.CloneDictionary();
+                    RenameProps(props);
+                    AddExtraPropertiesTo(props);
+                    TelemetriesClient.TrackEvent(eventName, props);
                     TelemetriesClient.Flush();
                 });
             }
@@ -115,7 +117,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         {
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentNullException(nameof(connectionString));
-            
+
             ResetClient(connectionString);
             TrackEvent(eventName, properties);
         }
@@ -225,7 +227,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                 i++;
                 properties.Remove(prop);
 
-                properties.TryAdd($"value{i}", prop.Value);
+                properties.Add($"value{i}", prop.Value);
             }
         }
 
@@ -296,7 +298,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
 
             if (debounceTimer.Item1.Enabled)
                 debounceTimer.Item1.Stop();
-            
+
             debounceTimer.Item1.Start();
         }
 
@@ -312,7 +314,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             {
                 properties.Add("count", debounceTimer.Item2.ToString());
                 debounceTimer.Item2 = 0;
-            }     
+            }
             debounceTimer.Item1.Dispose();
             TimersDictionary.Remove(eventName);
         }
