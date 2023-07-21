@@ -117,7 +117,6 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         {
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentNullException(nameof(connectionString));
-
             ResetClient(connectionString);
             TrackEvent(eventName, properties);
         }
@@ -226,7 +225,6 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
 
                 i++;
                 properties.Remove(prop);
-
                 properties.Add($"value{i}", prop.Value);
             }
         }
