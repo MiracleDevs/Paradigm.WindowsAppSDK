@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.18`
+- Added support for transitions in NavigationService.
+
 Version `1.0.17`
 - Fixed event properties processing race conditions if debounce is not activated.
 

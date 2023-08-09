@@ -174,14 +174,36 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <summary>
         /// Navigates to a navigable element.
         /// </summary>
+        /// <typeparam name="TNavigable">The type of the navigable.</typeparam>
+        /// <param name="transition">The transition.</param>
+        /// <returns></returns>
+        public async Task<bool> NavigateToAsync<TNavigable>(NavigationTransition transition) where TNavigable : INavigable
+        {
+            return await this.NavigateToAsync(typeof(TNavigable), transition);
+        }
+
+        /// <summary>
+        /// Navigates to a navigable element.
+        /// </summary>
         /// <param name="navigableType">Type of the navigable.</param>
         /// <returns></returns>
         public async Task<bool> NavigateToAsync(Type navigableType)
         {
+            return await this.NavigateToAsync(navigableType, NavigationTransition.None);
+        }
+
+        /// <summary>
+        /// Navigates to a navigable element.
+        /// </summary>
+        /// <param name="navigableType">Type of the navigable.</param>
+        /// <param name="transition">The transition.</param>
+        /// <returns></returns>
+        public async Task<bool> NavigateToAsync(Type navigableType, NavigationTransition transition)
+        {
             if (this.Frame is null)
                 return false;
 
-            return await this.NavigateToNavigableViewAsync(navigableType, x => this.Frame.Navigate(x, null));
+            return await this.NavigateToNavigableViewAsync(navigableType, x => this.Frame.Navigate(x, null, transition));
         }
 
         /// <summary>

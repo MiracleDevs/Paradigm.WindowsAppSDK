@@ -69,9 +69,24 @@ namespace Paradigm.WindowsAppSDK.Services.Navigation
         /// <summary>
         /// Navigates to a navigable element.
         /// </summary>
+        /// <typeparam name="TNavigable">The type of the navigable.</typeparam>
+        /// <param name="transition">The transition.</param>
+        /// <returns></returns>
+        Task<bool> NavigateToAsync<TNavigable>(NavigationTransition transition) where TNavigable : INavigable;
+
+        /// <summary>
+        /// Navigates to a navigable element.
+        /// </summary>
         /// <param name="navigableType">Type of the navigable.</param>
         /// <returns></returns>
         Task<bool> NavigateToAsync(Type navigableType);
+
+        /// <summary>
+        /// Navigates to a navigable element.
+        /// </summary>
+        /// <param name="navigableType">Type of the navigable.</param>
+        /// <returns></returns>
+        Task<bool> NavigateToAsync(Type navigableType, NavigationTransition transition);
 
         /// <summary>
         /// Clears the back stack.

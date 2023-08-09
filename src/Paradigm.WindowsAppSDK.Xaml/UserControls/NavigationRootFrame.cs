@@ -54,7 +54,43 @@ namespace Paradigm.WindowsAppSDK.Xaml.UserControls
         /// <param name="value">The value.</param>
         public new void Navigate(Type sourcePageType, object value)
         {
-            this.Navigate(sourcePageType, value, new SuppressNavigationTransitionInfo());
+            Navigate(sourcePageType, value, NavigationTransition.None);
+        }
+
+        /// <summary>
+        /// Navigates the specified source page type.
+        /// </summary>
+        /// <param name="sourcePageType">Type of the source page.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="transition">The transition.</param>
+        public void Navigate(Type sourcePageType, object value, NavigationTransition transition)
+        {
+            NavigationTransitionInfo navigationTransitionInfo;
+
+            switch (transition)
+            {
+                case NavigationTransition.FromRight:
+                    navigationTransitionInfo = new SlideNavigationTransitionInfo { Effect = SlideNavigationTransitionEffect.FromRight };
+                    break;
+
+                case NavigationTransition.FromLeft:
+                    navigationTransitionInfo = new SlideNavigationTransitionInfo { Effect = SlideNavigationTransitionEffect.FromLeft };
+                    break;
+
+                case NavigationTransition.Entrance:
+                    navigationTransitionInfo = new EntranceNavigationTransitionInfo();
+                    break;
+
+                case NavigationTransition.Drill:
+                    navigationTransitionInfo = new DrillInNavigationTransitionInfo();
+                    break;
+
+                default:
+                    navigationTransitionInfo = new SuppressNavigationTransitionInfo();
+                    break;
+            }
+
+            Navigate(sourcePageType, value, navigationTransitionInfo);
         }
 
         /// <summary>

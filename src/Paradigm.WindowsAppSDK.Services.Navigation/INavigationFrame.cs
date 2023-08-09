@@ -37,6 +37,14 @@
         void Navigate(Type sourcePageType, object? value);
 
         /// <summary>
+        /// Navigates the specified source page type.
+        /// </summary>
+        /// <param name="sourcePageType">Type of the source page.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="transition">The transition.</param>
+        void Navigate(Type sourcePageType, object? value, NavigationTransition transition);
+
+        /// <summary>
         /// Goes the forward.
         /// </summary>
         void GoForward();

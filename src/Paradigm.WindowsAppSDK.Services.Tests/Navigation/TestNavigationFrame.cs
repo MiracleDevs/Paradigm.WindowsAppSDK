@@ -72,6 +72,11 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
 
         public void Navigate(Type sourcePageType, object? value)
         {
+            Navigate(sourcePageType, value, NavigationTransition.None);
+        }
+
+        public void Navigate(Type sourcePageType, object? value, NavigationTransition transition)
+        {
             this.OnNavigated(this, new NavigationFrameEventArgs(Activator.CreateInstance(sourcePageType) as INavigableView));
         }
 

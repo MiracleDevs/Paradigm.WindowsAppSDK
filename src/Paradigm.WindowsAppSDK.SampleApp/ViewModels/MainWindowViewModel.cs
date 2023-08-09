@@ -41,7 +41,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public async Task NavigateToPageAsync(string typeName)
         {
             var type = typeof(MainWindowViewModel).Assembly.GetType($"Paradigm.WindowsAppSDK.SampleApp.ViewModels.{typeName}ViewModel");
-            await Navigation.NavigateToAsync(type);
+            await Navigation.NavigateToAsync(type, Services.Navigation.NavigationTransition.Drill);
         }
 
         /// <summary>
