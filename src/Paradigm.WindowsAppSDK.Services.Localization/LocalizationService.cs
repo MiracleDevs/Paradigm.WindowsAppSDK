@@ -19,10 +19,10 @@ namespace Paradigm.WindowsAppSDK.Services.Localization
         /// <param name="model">The layout.</param>
         /// <param name="prefix"></param>
         /// <returns>A dictionary of key values.</returns>
-        public Dictionary<string, string> ExtractLocalizableStrings<TModel>(TModel model, string prefix)
+        public Dictionary<string, string?> ExtractLocalizableStrings<TModel>(TModel model, string prefix)
         {
-            var strings = new Dictionary<string, string>();
-            this.ExtractStrings(model, prefix, strings);
+            var strings = new Dictionary<string, string?>();
+            ExtractStrings(model, prefix, strings);
 
             return strings;
         }
@@ -37,7 +37,7 @@ namespace Paradigm.WindowsAppSDK.Services.Localization
         /// <returns></returns>
         public TModel ApplyLocalizableStrings<TModel>(TModel model, Dictionary<string, string> strings, string prefix)
         {
-            this.ApplyStrings(model, strings, prefix);
+            ApplyStrings(model, strings, prefix);
             return model;
         }
 
@@ -51,7 +51,7 @@ namespace Paradigm.WindowsAppSDK.Services.Localization
         /// <param name="model">The layout.</param>
         /// <param name="name">The name.</param>
         /// <param name="strings">The strings.</param>
-        private void ExtractStrings(object model, string name, Dictionary<string, string> strings)
+        private void ExtractStrings(object? model, string name, Dictionary<string, string?> strings)
         {
             if (model is null)
                 return;
@@ -101,8 +101,11 @@ namespace Paradigm.WindowsAppSDK.Services.Localization
         /// <param name="model">The layout.</param>
         /// <param name="strings">The strings.</param>
         /// <param name="prefix">The prefix.</param>
-        private void ApplyStrings(object model, Dictionary<string, string> strings, string prefix)
+        private void ApplyStrings(object? model, Dictionary<string, string> strings, string prefix)
         {
+            if (model is null)
+                return;
+
             foreach (var localizableKey in strings.Keys)
             {
                 if (!localizableKey.StartsWith(prefix))

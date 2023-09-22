@@ -51,7 +51,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
         {
             //arrange
             //act & assert
-            Assert.Throws<ArgumentNullException>(() => this.Sut.Initialize(logFolderPath : null, this.LogFileMaxSize, LogFileName));
+            Assert.Throws<ArgumentNullException>(() => this.Sut.Initialize(logFolderPath : string.Empty, this.LogFileMaxSize, LogFileName));
         }        
 
         [Test]

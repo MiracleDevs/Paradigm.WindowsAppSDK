@@ -27,7 +27,9 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration.JsonConverters
 
                 reader.Read();
 
-                dictionary.Add(propertyName, ExtractValue(ref reader, options));
+                var value = ExtractValue(ref reader, options);
+                if (value is not null)
+                    dictionary.Add(propertyName, value);
             }
 
             return dictionary;
@@ -38,7 +40,7 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration.JsonConverters
             JsonSerializer.Serialize(writer, value, options);
         }
 
-        private object ExtractValue(ref Utf8JsonReader reader, JsonSerializerOptions options)
+        private object? ExtractValue(ref Utf8JsonReader reader, JsonSerializerOptions options)
         {
             switch (reader.TokenType)
             {
@@ -61,13 +63,14 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration.JsonConverters
                     return reader.TryGetInt64(out var result) ? result : reader.GetDouble();
 
                 case JsonTokenType.StartObject:
-                    return Read(ref reader, null, options);
+                    return Read(ref reader, typeof(object), options);
 
                 case JsonTokenType.StartArray:
                     var list = new List<object>();
                     while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
                     {
-                        list.Add(ExtractValue(ref reader, options));
+                        var value = ExtractValue(ref reader, options);
+                        if (value is not null) list.Add(value);
                     }
                     return list;
 

@@ -15,7 +15,7 @@ namespace Paradigm.WindowsAppSDK.Services.Localization
         /// <param name="model">The model.</param>
         /// <param name="prefix"></param>
         /// <returns></returns>
-        Dictionary<string, string> ExtractLocalizableStrings<TModel>(TModel model, string prefix);
+        Dictionary<string, string?> ExtractLocalizableStrings<TModel>(TModel model, string prefix);
 
         /// <summary>
         /// Applies the translations.
