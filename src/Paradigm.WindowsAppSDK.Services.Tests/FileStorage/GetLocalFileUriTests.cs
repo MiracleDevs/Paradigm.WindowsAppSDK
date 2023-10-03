@@ -33,7 +33,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
         [TestCase("", false, false)]
         [TestCase(null, true, true)]
         [TestCase(null, false, false)]
-        public void ShouldValidateEmptyPath(string path, bool validateEmptyPath, bool expectedEmpty)
+        public void ShouldValidateEmptyPath(string? path, bool validateEmptyPath, bool expectedEmpty)
         {
             //Arrange
             var settings = new FileStorageSettings

@@ -14,7 +14,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
 
         [TestCase("stringKey", "test")]
         [TestCase("invalidKey", null)]
-        public void ShouldReturnStringValue(string key, string expected)
+        public void ShouldReturnStringValue(string key, string? expected)
         {
             //arrange
             var service = new LegacyConfigurationService();
