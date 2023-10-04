@@ -35,6 +35,12 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.20`
+- Modified LogService to register inner exceptions and stack trace (Paradigm.WindowsAppSDK.Services.Logging).
+
+Version `1.0.19`
+- Updated WindowsAppSDK and WinUIEx packages (Paradigm.WindowsAppSDK.Xaml).
+
 Version `1.0.18`
 - Added support for transitions in NavigationService.
 

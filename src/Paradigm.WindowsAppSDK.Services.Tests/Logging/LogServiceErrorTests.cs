@@ -35,14 +35,14 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
         public void ShoulLogMessageWithException()
         {
             //arrange
-            string message = $"This is an exception message from {this.GetType()}.";
-
-            var exception = new Exception(message);
+            var message = $"This is an exception message from {GetType()}.";
+            var innerMessage = $"This is an inner exception message from {GetType()}.";
+            var exception = new Exception(message, new Exception(innerMessage));
 
             //act
-            this.Sut.SetMinimumLogType(this.LogType);
+            Sut.SetMinimumLogType(LogType);
 
-            this.Sut.Error(exception);
+            Sut.Error(exception);
 
             var exists = File.Exists(Path.Combine(LogFolderPath, LogFileName));
 
@@ -51,7 +51,8 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
             //assert
             Assert.That(exists, Is.True);
             Assert.That(content.Contains(message));
-            Assert.That(content.Contains(this.LogPrefix));
+            Assert.That(content.Contains(innerMessage));
+            Assert.That(content.Contains(LogPrefix));
         }
     }
 }

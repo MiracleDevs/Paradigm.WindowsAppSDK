@@ -99,8 +99,15 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </summary>
         public void LogException()
         {
-            LogService.Error(new ApplicationException(LogMessage));
-            ReloadLogFileText();
+            try
+            {
+                throw new ApplicationException(LogMessage);
+            }
+            catch (Exception ex)
+            {
+                LogService.Error(ex);
+                ReloadLogFileText();
+            }
         }
 
         /// <summary>
@@ -122,8 +129,15 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </summary>
         private void ReloadLogFileText()
         {
-            LogFileText = FileStorageService.ReadLocalText(LogService.LogFilePath);
-            OnPropertyChanged(nameof(LogFileText));
+            try
+            {
+                LogFileText = FileStorageService.ReadLocalText(LogService.LogFilePath);
+                OnPropertyChanged(nameof(LogFileText));
+            }
+            catch (Exception ex)
+            {
+                LogService.Error(ex);
+            }
         }
 
         #endregion

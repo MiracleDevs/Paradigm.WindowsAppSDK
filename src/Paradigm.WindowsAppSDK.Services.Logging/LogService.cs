@@ -132,7 +132,19 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// <param name="ex"></param>
         public void Error(Exception ex)
         {
-            LogText("ERROR", ex.Message, LogTypes.Error);
+            var message = ex.Message;
+            var stackTrace = ex.StackTrace;
+
+            while (ex.InnerException is not null)
+            {
+                ex = ex.InnerException;
+                message = string.Concat(message, Environment.NewLine, ex.Message);
+            }
+
+            if (!string.IsNullOrWhiteSpace(stackTrace))
+                message = string.Concat(message, stackTrace);
+
+            LogText("ERROR", message, LogTypes.Error);
         }
 
         #endregion
