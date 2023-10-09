@@ -46,11 +46,11 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
                 var deserializerOptions = new JsonSerializerOptions();
                 deserializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
                 deserializerOptions.Converters.Add(new DictionaryStringObjectJsonConverter());
-                this.Configurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, deserializerOptions);
+                Configurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, deserializerOptions);
             }
             catch
             {
-                this.Configurations = new Dictionary<string, object>();
+                Configurations = new Dictionary<string, object>();
             }
         }
 
@@ -61,7 +61,7 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         /// <returns></returns>
         public string? GetString(string key)
         {
-            return this.GetValueFromConfigurations(key)?.ToString();
+            return GetValueFromConfigurations(key)?.ToString();
         }
 
         /// <summary>
@@ -71,8 +71,8 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         /// <returns></returns>
         public bool? GetBoolean(string key)
         {
-            var value = this.GetValueFromConfigurations(key);
-            return value != null ? Convert.ToBoolean(value) : default(bool?);
+            var value = GetValueFromConfigurations(key);
+            return value is not null ? Convert.ToBoolean(value) : default(bool?);
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         /// <returns></returns>
         public double? GetDouble(string key)
         {
-            var value = this.GetValueFromConfigurations(key);
-            return value != null ? Convert.ToDouble(value) : default(double?);
+            var value = GetValueFromConfigurations(key);
+            return value is not null ? Convert.ToDouble(value) : default(double?);
         }
 
         /// <summary>
@@ -91,17 +91,21 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key">The key.</param>
+        /// <param name="options">The options.</param>
         /// <returns></returns>
-        public T? GetObject<T>(string key) where T : class
+        public T? GetObject<T>(string key, JsonSerializerOptions? options = null) where T : class
         {
             try
             {
-                var value = this.GetValueFromConfigurations(key);
-                if (value == null)
+                var value = GetValueFromConfigurations(key);
+                if (value is null)
                     return default;
 
                 var serializedValue = JsonSerializer.Serialize(value);
-                return JsonSerializer.Deserialize<T>(serializedValue);
+
+                return !string.IsNullOrWhiteSpace(serializedValue)
+                    ? JsonSerializer.Deserialize<T>(serializedValue, options)
+                    : default;
             }
             catch
             {
@@ -125,7 +129,7 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
             if (string.IsNullOrWhiteSpace(key))
                 throw new ArgumentException(nameof(key));
 
-            if (this.Configurations == null)
+            if (Configurations is null)
                 throw new InvalidOperationException("Configuration was not initialized");
 
             Configurations.TryGetValue(key, out var value);

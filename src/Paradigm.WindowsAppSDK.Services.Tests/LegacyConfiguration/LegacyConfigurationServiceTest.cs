@@ -72,7 +72,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
             Assert.That(result?.Prop2, Is.EqualTo(expected));
         }
 
-        [TestCase("objectKey",  DisplayConfigEnum.Percentage)]
+        [TestCase("objectKey", DisplayConfigEnum.Percentage)]
         public void ShouldReturnEnumValue(string key, DisplayConfigEnum expected)
         {
             //arrange
@@ -84,6 +84,36 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
 
             //assert
             Assert.That(result?.Prop3, Is.EqualTo(expected));
+        }
+
+        [TestCase("arrayKey", 0, DisplayConfigEnum.Percentage)]
+        [TestCase("arrayKey", 2, DisplayConfigEnum.Pixels)]
+        public void ShouldReturnEnumValueFromArray(string key, int index, DisplayConfigEnum expected)
+        {
+            //arrange
+            var service = new LegacyConfigurationService();
+            service.Initialize(ConfigurationFileContent);
+
+            //act
+            var result = service.GetObject<List<ObjectValueModel>>(key);
+
+            //assert
+            Assert.That(result?[index].Prop3, Is.EqualTo(expected));
+        }
+
+        [TestCase("arrayKey", 0, "two")]
+        [TestCase("arrayKey", 2, "yellow")]
+        public void ShouldReturnListValueFromArray(string key, int index, string expected)
+        {
+            //arrange
+            var service = new LegacyConfigurationService();
+            service.Initialize(ConfigurationFileContent);
+
+            //act
+            var result = service.GetObject<List<ObjectValueModel>>(key);
+
+            //assert
+            Assert.That(result?[index].Prop4?[1], Is.EqualTo(expected));
         }
     }
 }

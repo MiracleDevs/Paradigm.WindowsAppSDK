@@ -80,7 +80,7 @@ namespace Paradigm.WindowsAppSDK.Services.Dialog
 
             // 3. instantiate the registered dialog view
             var dialogView = Activator.CreateInstance(DialogViews[dialogType]) as IDialogView;
-            if (dialogView == null)
+            if (dialogView is null)
                 throw new Exception($"The dialog element '{dialogType.Name}' view is null.");
 
             // 4. initialize the dialog view with the dialog element
@@ -116,7 +116,7 @@ namespace Paradigm.WindowsAppSDK.Services.Dialog
 
             // 2. instantiate the registered dialog view
             var dialogView = Activator.CreateInstance(DialogViews[dialogType]) as IDialogView;
-            if (dialogView == null)
+            if (dialogView is null)
                 throw new Exception($"The dialog element '{dialogType.Name}' view is null.");
 
             // 3. initialize the dialog view with the dialog element

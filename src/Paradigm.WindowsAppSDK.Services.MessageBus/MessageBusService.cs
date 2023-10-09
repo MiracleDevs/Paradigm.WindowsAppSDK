@@ -87,7 +87,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
             {
                 var handler = handlers[i];
 
-                if (handler == null)
+                if (handler is null)
                     continue;
 
                 await handler.Invoke(message);

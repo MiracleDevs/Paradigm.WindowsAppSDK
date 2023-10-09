@@ -306,7 +306,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             var telemetryWithDebounceCount = sentTelemetries
                 .ToList()
                 .ConvertAll(t => t as EventTelemetry)
-                .Any(t => t != null && t.Properties.Any(p => p.Key == "count"));
+                .Any(t => t is not null && t.Properties.Any(p => p.Key == "count"));
 
             //Assert
             Assert.Multiple(() =>

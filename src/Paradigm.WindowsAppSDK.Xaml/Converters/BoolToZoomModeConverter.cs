@@ -23,7 +23,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (parameter != null && parameter is string s && s == "negate")
+            if (parameter is not null && parameter is string s && s == "negate")
                 return value is bool b && !b ? ZoomMode.Enabled : ZoomMode.Disabled;
 
             return value is bool b1 && b1 ? ZoomMode.Enabled : ZoomMode.Disabled;
@@ -40,7 +40,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             if (value is ZoomMode v)
-                return v == ZoomMode.Enabled && parameter != null ? parameter : null;
+                return v == ZoomMode.Enabled && parameter is not null ? parameter : null;
 
             return value;
         }

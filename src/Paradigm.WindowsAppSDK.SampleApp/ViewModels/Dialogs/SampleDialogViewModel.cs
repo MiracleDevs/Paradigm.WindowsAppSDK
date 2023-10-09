@@ -45,7 +45,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Dialogs
         /// <param name="arguments">The arguments.</param>
         public virtual async Task InitializeAsync(object? arguments)
         {
-            if (arguments != null && arguments is DialogModel dialogModel)
+            if (arguments is not null && arguments is DialogModel dialogModel)
             {
                 Title = dialogModel.Title;
                 Content = dialogModel.Paragraph;

@@ -22,10 +22,10 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
         {
             var hasItems = false;
 
-            if (value != null && value is IEnumerable)
+            if (value is not null && value is IEnumerable)
                 hasItems = EnumerableCount(value as IEnumerable) > 0;
 
-            var negate = parameter != null && !string.IsNullOrWhiteSpace(parameter.ToString()) && parameter.ToString() == "negate";
+            var negate = parameter is not null && !string.IsNullOrWhiteSpace(parameter.ToString()) && parameter.ToString() == "negate";
 
             return negate ? !hasItems : hasItems;
         }

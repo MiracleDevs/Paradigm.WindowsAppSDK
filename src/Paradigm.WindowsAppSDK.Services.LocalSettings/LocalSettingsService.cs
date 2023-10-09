@@ -29,7 +29,7 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
         /// <returns></returns>
         public T? GetStoredSettings<T>()
         {
-            if (SettingsContainer == null)
+            if (SettingsContainer is null)
                 throw new ArgumentNullException(nameof(SettingsContainer));
 
             var storedSettings = SettingsContainer.ContainsKey(SettingsKey) ? SettingsContainer[SettingsKey].ToString() : default;
@@ -42,10 +42,10 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
         /// <param name="settings">The settings.</param>
         public void StoreSettings<T>(T settings)
         {
-            if (SettingsContainer == null)
+            if (SettingsContainer is null)
                 throw new ArgumentNullException(nameof(SettingsContainer));
 
-            if (settings == null)
+            if (settings is null)
                 return;
 
             SettingsContainer[SettingsKey] = JsonSerializer.Serialize(settings);
@@ -56,7 +56,7 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
         /// </summary>
         public void ResetToDefaultSettings()
         {
-            if (SettingsContainer == null)
+            if (SettingsContainer is null)
                 throw new ArgumentNullException(nameof(SettingsContainer));
 
             SettingsContainer.Clear();

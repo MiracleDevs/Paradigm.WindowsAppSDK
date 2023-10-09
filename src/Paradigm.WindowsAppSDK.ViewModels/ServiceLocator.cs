@@ -78,7 +78,7 @@ namespace Paradigm.WindowsAppSDK.ViewModels
         /// <returns>The service instance.</returns>
         public T? GetService<T>()
         {
-            if (ServiceProvider == null)
+            if (ServiceProvider is null)
                 throw new InvalidOperationException("ServiceProvider was not initialized");
 
             return ServiceProvider.GetService<T>();
@@ -95,7 +95,7 @@ namespace Paradigm.WindowsAppSDK.ViewModels
         /// <returns>The service instance.</returns>
         public T GetRequiredService<T>() where T : notnull
         {
-            if (ServiceProvider == null)
+            if (ServiceProvider is null)
                 throw new InvalidOperationException("ServiceProvider was not initialized");
 
             return ServiceProvider.GetRequiredService<T>();

@@ -31,7 +31,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
 
         protected override TelemetryConfiguration CreateTelemetryConfiguration(string connectionString)
         {
-            if (TelemetryChannel != null) TelemetryChannel.Dispose();
+            if (TelemetryChannel is not null) TelemetryChannel.Dispose();
             TelemetryChannel = new TestableTelemetryChannel();
             var configuration = base.CreateTelemetryConfiguration(connectionString);
             configuration.TelemetryChannel = TelemetryChannel;

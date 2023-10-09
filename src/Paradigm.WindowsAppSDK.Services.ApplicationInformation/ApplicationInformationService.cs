@@ -76,7 +76,7 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// <returns></returns>
         public Size GetVisibleBounds()
         {
-            if (CurrentWindow == null)
+            if (CurrentWindow is null)
                 throw new InvalidOperationException("ApplicationInformation was not initialized");
 
             return new Size(CurrentWindow.Size.Width, CurrentWindow.Size.Height);

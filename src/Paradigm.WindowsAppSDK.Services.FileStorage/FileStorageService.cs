@@ -229,7 +229,7 @@
         public async Task<string?> ReadAsBase64Async(string fileName)
         {
             var bytes = await this.ReadAsByteArrayAsync(fileName);
-            return bytes == null ? await Task.FromResult((string?)null) : Convert.ToBase64String(bytes);
+            return bytes is null ? await Task.FromResult((string?)null) : Convert.ToBase64String(bytes);
         }
 
         /// <summary>
@@ -242,7 +242,7 @@
         public string? ReadAsBase64(string fileName)
         {
             var bytes = this.ReadAsByteArray(fileName);
-            return bytes == null ? null : Convert.ToBase64String(bytes);
+            return bytes is null ? null : Convert.ToBase64String(bytes);
         }
 
         /// <summary>

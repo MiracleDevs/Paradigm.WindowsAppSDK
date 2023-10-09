@@ -33,7 +33,7 @@ namespace Paradigm.WindowsAppSDK.ViewModels
         /// <exception cref="InvalidOperationException">ConfigurationProvider was not initialized</exception>
         public T? GetConfigurationValue<T>(string key)
         {
-            if (_configurationRoot == null)
+            if (_configurationRoot is null)
                 throw new InvalidOperationException("ConfigurationProvider was not initialized");
 
             return _configurationRoot.GetSection(key).Get<T>();
@@ -47,7 +47,7 @@ namespace Paradigm.WindowsAppSDK.ViewModels
         /// <exception cref="InvalidOperationException">ConfigurationProvider was not initialized</exception>
         public T GetConfiguration<T>() where T : new()
         {
-            if (_configurationRoot == null)
+            if (_configurationRoot is null)
                 throw new InvalidOperationException("ConfigurationProvider was not initialized");
 
             var configurationObject = new T();

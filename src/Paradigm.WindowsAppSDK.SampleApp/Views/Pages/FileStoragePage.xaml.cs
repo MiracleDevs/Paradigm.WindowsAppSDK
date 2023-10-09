@@ -61,7 +61,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
             filePicker.FileTypeFilter.Add(".txt");
 
             var file = await filePicker.PickSingleFileAsync();
-            if (file != null)
+            if (file is not null)
                 ViewModel.LoadFile(file.Path);
         }
 

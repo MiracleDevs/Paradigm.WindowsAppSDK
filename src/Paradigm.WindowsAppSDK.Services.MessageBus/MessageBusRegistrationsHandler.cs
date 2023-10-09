@@ -75,7 +75,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <exception cref="ArgumentNullException">ServiceProvider</exception>
         public RegistrationToken RegisterMessageHandler<TMessage>(object consumer, Func<TMessage, Task> messageListener)
         {
-            if (ServiceProvider == null) 
+            if (ServiceProvider is null) 
                 throw new ArgumentNullException(nameof(ServiceProvider));
 
             return RegisterMessageHandler(consumer, ServiceProvider, messageListener);
@@ -117,7 +117,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <exception cref="ArgumentNullException">ServiceProvider</exception>
         public void UnregisterMessageHandler<TMessage>(object consumer)
         {
-            if (ServiceProvider == null)
+            if (ServiceProvider is null)
                 throw new ArgumentNullException(nameof(ServiceProvider));
 
             UnregisterMessageHandler<TMessage>(consumer, ServiceProvider);
@@ -142,7 +142,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <exception cref="ArgumentNullException">ServiceProvider</exception>
         public void UnregisterMessageHandlers(object consumer)
         {
-            if (ServiceProvider == null)
+            if (ServiceProvider is null)
                 throw new ArgumentNullException(nameof(ServiceProvider));
 
             UnregisterMessageHandlers(consumer, ServiceProvider);

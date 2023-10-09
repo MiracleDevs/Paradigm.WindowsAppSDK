@@ -15,7 +15,7 @@ namespace Paradigm.WindowsAppSDK.Xaml.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value == null || value is not DateTimeOffset date)
+            if (value is null || value is not DateTimeOffset date)
                 return default;
 
             //Date formats https://learn.microsoft.com/en-us/dotnet/api/system.datetime.tostring?view=net-7.0

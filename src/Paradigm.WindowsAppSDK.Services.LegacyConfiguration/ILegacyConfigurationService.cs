@@ -1,4 +1,5 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
+using System.Text.Json;
 
 namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
 {
@@ -37,7 +38,8 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key">The key.</param>
+        /// <param name="options">The options.</param>
         /// <returns></returns>
-        T? GetObject<T>(string key) where T : class;
+        T? GetObject<T>(string key, JsonSerializerOptions? options = null) where T : class;
     }
 }

@@ -64,7 +64,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
             App.MainWindow.InitializeTarget(savePicker);
 
             var file = await savePicker.PickSaveFileAsync();
-            if (file == null)
+            if (file is null)
                 return;
 
             CachedFileManager.DeferUpdates(file);
@@ -89,7 +89,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
             App.MainWindow.InitializeTarget(openPicker);
 
             var file = await openPicker.PickSingleFileAsync();
-            if (file == null)
+            if (file is null)
                 return;
 
             ViewModel.LoadLocalizationFile(file.Path);

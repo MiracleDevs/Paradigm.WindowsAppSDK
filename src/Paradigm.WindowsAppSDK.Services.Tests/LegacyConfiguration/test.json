@@ -6,7 +6,26 @@
 		"prop1": "value1",
 		"prop2": "value2",
 		"prop3": "Percentage"
-	}
+	},
+	"arrayKey": [
+		{
+			"prop1": "item1-value1",
+			"prop2": "item1-value2",
+			"prop3": "Percentage",
+			"prop4": [ "one", "two", "three" ]
+		},
+		{
+			"prop1": "item2-value1",
+			"prop2": "item2-value2",
+			"prop3": "Percentage"
+		},
+		{
+			"prop1": "item3-value1",
+			"prop2": "item3-value2",
+			"prop3": "Pixels",
+			"prop4": [ "blue", "yellow" ]
+		}
+	]
 	/*
 	comment multi line
 
