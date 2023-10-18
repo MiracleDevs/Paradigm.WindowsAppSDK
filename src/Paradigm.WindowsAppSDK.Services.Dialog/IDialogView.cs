@@ -8,7 +8,7 @@
         /// <value>
         /// The dialog.
         /// </value>
-        IDialog Dialog { get; }
+        IDialog? Dialog { get; }
 
         /// <summary>
         /// Initializes the dialog view.

@@ -4,7 +4,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Dialog
 {
     internal class TestDialogView : IDialogView
     {
-        public IDialog Dialog { get; private set; }
+        public IDialog? Dialog { get; private set; }
 
         public void Dispose()
         {

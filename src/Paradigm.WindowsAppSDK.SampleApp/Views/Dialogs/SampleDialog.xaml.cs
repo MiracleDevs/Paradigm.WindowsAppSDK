@@ -14,7 +14,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Dialogs
         /// <value>
         /// The dialog.
         /// </value>
-        public IDialog Dialog { get; private set; }
+        public IDialog? Dialog { get; private set; }
 
         /// <summary>
         /// Gets the view model.
@@ -22,7 +22,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Dialogs
         /// <value>
         /// The view model.
         /// </value>
-        private SampleDialogViewModel ViewModel => Dialog as SampleDialogViewModel;
+        private SampleDialogViewModel? ViewModel => Dialog as SampleDialogViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SampleDialog"/> class.
@@ -37,7 +37,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Dialogs
         /// </summary>
         public void Dispose()
         {
-            ViewModel.Dispose();
+            ViewModel?.Dispose();
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Dialogs
             if (result == ContentDialogResult.None)
                 return null;
 
-            if (result == ContentDialogResult.Secondary)
+            if (result == ContentDialogResult.Secondary && Dialog is not null)
             {
                 await Dialog.OnConfirmAsync();
                 return true;
