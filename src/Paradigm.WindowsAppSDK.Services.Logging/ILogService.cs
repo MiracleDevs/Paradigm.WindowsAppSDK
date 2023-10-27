@@ -16,10 +16,8 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// <summary>
         /// Initializes the service.
         /// </summary>
-        /// <param name="logFolderPath">The log folder path.</param>
-        /// <param name="logFileMaxSize">Maximum size of the log file.</param>
-        /// <param name="logFileName">Name of the log file.</param>
-        void Initialize(string logFolderPath, int? logFileMaxSize = default, string? logFileName = default);
+        /// <param name="settings">The settings.</param>
+        void Initialize(LogSettings settings);
 
         /// <summary>
         /// Sets the minimum type of the log.

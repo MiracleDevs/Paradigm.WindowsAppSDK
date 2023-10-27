@@ -1,12 +1,10 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Logging;
-using Paradigm.WindowsAppSDK.Services.Logging.Enums;
-using System.ComponentModel;
 
 namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
 {
     public class LogServiceInitializeTests
     {
-        
+
         protected ILogService Sut { get; private set; }
 
         protected virtual string LogFolderPath => Path.Combine(TestContext.CurrentContext.TestDirectory, "Logs");
@@ -41,7 +39,8 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
                 File.Delete(path);
             }
 
-            if (Directory.Exists(LogFolderPath)) {
+            if (Directory.Exists(LogFolderPath))
+            {
                 Directory.Delete(LogFolderPath, true);
             }
         }
@@ -51,31 +50,60 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
         {
             //arrange
             //act & assert
-            Assert.Throws<ArgumentNullException>(() => this.Sut.Initialize(logFolderPath : string.Empty, this.LogFileMaxSize, LogFileName));
-        }        
+            Assert.Throws<ArgumentNullException>(() => Sut.Initialize(new LogSettings(string.Empty, this.LogFileMaxSize, LogFileName)));
+        }
 
         [Test]
         public virtual void ShoulDeletePreviousLogFileIfExists()
         {
             //arrange
             var message = "This is a test message";
-
-            var messages = Enumerable.Repeat(message, LogFileMaxSize.GetValueOrDefault()*10).Select(msg => msg);
+            var messages = Enumerable.Repeat(message, LogFileMaxSize.GetValueOrDefault() * 10).Select(msg => msg);
+            var settings = new LogSettings(LogFolderPath, LogFileMaxSize, LogFileName);
 
             //act
-            this.Sut.Initialize(LogFolderPath, this.LogFileMaxSize, LogFileName);
+            Sut.Initialize(settings);
 
-            foreach(var item in messages)
+            foreach (var item in messages)
             {
-                this.Sut.Information(item);
+                Sut.Information(item);
             }
-            
-            this.Sut.Initialize(LogFolderPath, this.LogFileMaxSize, LogFileName);
+
+            Sut.Initialize(settings);
 
             var exists = File.Exists(Path.Combine(LogFolderPath, LogFileName));
 
             //assert
             Assert.That(exists, Is.False);
+        }
+
+        [Test]
+        public virtual void ShoulArchivePreviousLogFileIfExists()
+        {
+            //arrange
+            var message = "This is a test message";
+            var messages = Enumerable.Repeat(message, LogFileMaxSize.GetValueOrDefault() * 10).Select(msg => msg);
+            var settings = new LogSettings(LogFolderPath, LogFileMaxSize, LogFileName, true);
+
+            //act
+            Sut.Initialize(settings);
+
+            foreach (var item in messages)
+            {
+                Sut.Information(item);
+            }
+
+            Sut.Initialize(settings);
+
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(LogFileName);
+            var existingLogFilesCount = Directory.GetFiles(LogFolderPath, $"{fileNameWithoutExtension}*").Length;
+            var archivedFileName = $"{fileNameWithoutExtension}_{existingLogFilesCount}.txt";
+            var originalFileExists = File.Exists(Path.Combine(LogFolderPath, LogFileName));
+            var archivedFileExists = File.Exists(Path.Combine(LogFolderPath, archivedFileName));
+
+            //assert
+            Assert.That(originalFileExists, Is.False);
+            Assert.That(archivedFileExists, Is.True);
         }
     }
 }

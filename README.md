@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.22`
+- Modified LogService to allow to archive previous log file.
+
 Version `1.0.21`
 - Modified LegacyConfigurationService to receive JsonSerializerOptions parameter in GetObject method.
 

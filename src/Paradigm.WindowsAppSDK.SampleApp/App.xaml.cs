@@ -40,7 +40,10 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            ServiceLocator.Instance.GetRequiredService<ILogService>().Initialize(ApplicationData.Current.TemporaryFolder.Path);
+            if (ServiceLocator.Instance.ServiceProvider is null)
+                return;
+
+            ServiceLocator.Instance.GetRequiredService<ILogService>().Initialize(new LogSettings(ApplicationData.Current.TemporaryFolder.Path));
             ServiceLocator.Instance.GetRequiredService<IFileStorageService>().Initialize(new Services.FileStorage.FileStorageSettings
             {
                 LocalFolderPath = ApplicationData.Current.LocalFolder.Path,

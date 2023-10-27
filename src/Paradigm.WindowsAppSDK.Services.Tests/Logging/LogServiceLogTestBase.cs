@@ -26,7 +26,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
             if (!Directory.Exists(LogFolderPath))
                 Directory.CreateDirectory(LogFolderPath);
 
-            this.Sut.Initialize(LogFolderPath, this.LogFileMaxSize, LogFileName);
+            this.Sut.Initialize(new LogSettings(LogFolderPath, LogFileMaxSize, LogFileName));
             this.Sut.SetMinimumLogType(LogType);
         }
 
@@ -40,7 +40,8 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
                 File.Delete(path);
             }
 
-            if (Directory.Exists(LogFolderPath)) {
+            if (Directory.Exists(LogFolderPath))
+            {
                 Directory.Delete(LogFolderPath, true);
             }
         }

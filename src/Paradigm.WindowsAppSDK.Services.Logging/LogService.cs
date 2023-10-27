@@ -28,7 +28,7 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// <value>
         /// The log folder path.
         /// </value>
-        private string? LogFolderPath { get; set; }
+        private string? LogFolderPath => Settings?.FolderPath;
 
         /// <summary>
         /// The log file name
@@ -39,6 +39,14 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// The maximum log file size
         /// </summary>
         private int MaxLogFileSize { get; set; }
+
+        /// <summary>
+        /// Gets the settings.
+        /// </summary>
+        /// <value>
+        /// The settings.
+        /// </value>
+        private LogSettings? Settings { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum type of the log.
@@ -53,23 +61,17 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
         /// <summary>
         /// Initializes the service.
         /// </summary>
-        /// <param name="logFolderPath">The log folder path.</param>
-        /// <param name="logFileMaxSize">Maximum size of the log file.</param>
-        /// <param name="logFileName">Name of the log file.</param>
+        /// <param name="settings">The settings.</param>
         /// <exception cref="ArgumentNullException">logFolderPath</exception>
-        public void Initialize(string logFolderPath, int? logFileMaxSize = default, string? logFileName = default)
+        public void Initialize(LogSettings settings)
         {
-            if (string.IsNullOrWhiteSpace(logFolderPath))
-                throw new ArgumentNullException(nameof(logFolderPath));
+            if (string.IsNullOrWhiteSpace(settings.FolderPath))
+                throw new ArgumentNullException(nameof(settings.FolderPath));
 
-            LogFolderPath = logFolderPath;
-            LogFileName = string.IsNullOrWhiteSpace(logFileName) ? DefaultLogFileName : logFileName;
-            MaxLogFileSize = logFileMaxSize.GetValueOrDefault(DefaultLogFileMaxSize);
-
-            // checks if the log file exists, and if its larger than 20mb then deletes it to start again.
-            var fileInfo = new FileInfo(GetFilePath());
-            if (fileInfo.Exists && fileInfo.Length > MaxLogFileSize)
-                fileInfo.Delete();
+            Settings = settings;
+            LogFileName = string.IsNullOrWhiteSpace(settings.FileName) ? DefaultLogFileName : settings.FileName;
+            MaxLogFileSize = settings.FileMaxSize.GetValueOrDefault(DefaultLogFileMaxSize);
+            CheckLogFileMaxSize();
         }
 
         /// <summary>
@@ -166,25 +168,18 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
 
             try
             {
-                if (logType < this.MinimumLogType)
+                if (logType < MinimumLogType)
                     return;
-                
+
+                CheckLogFileMaxSize();
+
                 var result = $"[{DateTime.Now:O}][{type}] - {message}{Environment.NewLine}";
-                AppendText(result);
+                File.AppendAllText(GetFilePath(), result);
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine($"Failed to log line: {e.Message}");
             }
-        }
-
-        /// <summary>
-        /// Saves the file.
-        /// </summary>
-        /// <param name="content">The content.</param>
-        private void AppendText(string content)
-        {
-            File.AppendAllText(GetFilePath(), content);
         }
 
         /// <summary>
@@ -197,6 +192,42 @@ namespace Paradigm.WindowsAppSDK.Services.Logging
                 return string.Empty;
 
             return Path.IsPathRooted(LogFileName) ? LogFileName : Path.Combine(LogFolderPath, LogFileName);
+        }
+
+        /// <summary>
+        /// Checks the maximum size of the log file.
+        /// </summary>
+        private void CheckLogFileMaxSize()
+        {
+            if (Settings is null) return;
+
+            try
+            {
+                var filePath = GetFilePath();
+                var fileInfo = new FileInfo(filePath);
+
+                if (fileInfo.Exists && fileInfo.Length > MaxLogFileSize)
+                {
+                    if (!Settings.ArchivePreviousFile)
+                    {
+                        fileInfo.Delete();
+                        return;
+                    }
+
+                    var fileDirectoryPath = Path.GetDirectoryName(filePath);
+                    if (string.IsNullOrWhiteSpace(fileDirectoryPath))
+                        return;
+
+                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(LogFileName);
+                    var existingLogFilesCount = Directory.GetFiles(fileDirectoryPath, $"{fileNameWithoutExtension}*").Length;
+                    var archivedFileName = filePath.Replace(Path.GetFileName(filePath), $"{fileNameWithoutExtension}_{existingLogFilesCount}.txt");
+                    File.Move(filePath, archivedFileName);
+                }
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         #endregion
