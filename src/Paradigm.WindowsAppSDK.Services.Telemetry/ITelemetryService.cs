@@ -15,7 +15,8 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// </summary>
         /// <param name="eventName">Name of the event.</param>
         /// <param name="properties">The properties.</param>
-        void TrackEvent(string eventName, IDictionary<string, string> properties);
+        /// <param name="preventDebounce">The prevent debounce.</param>
+        void TrackEvent(string eventName, IDictionary<string, string> properties, bool preventDebounce = false);
 
         /// <summary>
         /// Tracks the event.
@@ -23,7 +24,8 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <param name="connectionString">The connection string.</param>
         /// <param name="eventName">Name of the event.</param>
         /// <param name="properties">The properties.</param>
-        void TrackEvent(string connectionString, string eventName, IDictionary<string, string> properties);
+        /// <param name="preventDebounce">The prevent debounce.</param>
+        void TrackEvent(string connectionString, string eventName, IDictionary<string, string> properties, bool preventDebounce = false);
 
         /// <summary>
         /// Tracks the exception.

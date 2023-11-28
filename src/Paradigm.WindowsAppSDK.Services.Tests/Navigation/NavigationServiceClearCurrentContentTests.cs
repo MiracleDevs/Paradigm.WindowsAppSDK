@@ -21,8 +21,8 @@
             await this.Sut.NavigateToAsync(typeof(NavigationMainViewModel));
             await this.Sut.ClearCurrentContentAsync();
 
-            Assert.IsNull(this.Sut.CurrentNavigable);
-            Assert.IsNull(this.Sut.CurrentNavigableView);
+            Assert.That(Sut.CurrentNavigable, Is.Null);
+            Assert.That(Sut.CurrentNavigableView, Is.Null);
         }
     }
 }

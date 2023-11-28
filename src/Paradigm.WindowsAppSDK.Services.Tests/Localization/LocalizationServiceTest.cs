@@ -35,7 +35,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Localization
 
 
             //assert
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.Count, Is.EqualTo(6));
             Assert.That(result.ElementAt(0).Key, Does.StartWith(TestPrefix));
             Assert.That(result.ElementAt(0).Key, Is.EqualTo($"{TestPrefix}.{nameof(LocalizableModel.Heading)}"));
@@ -80,7 +80,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Localization
             var result = TestService.ApplyLocalizableStrings(localizableModel, modelTranslations, TestPrefix);
 
             //assert
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(localizableModel.Id));
             Assert.That(result.Heading, Is.EqualTo(modelTranslations[$"{TestPrefix}.{nameof(LocalizableModel.Heading)}"]));
             Assert.That(result.Paragraph, Is.EqualTo(modelTranslations[$"{TestPrefix}.{nameof(LocalizableModel.Paragraph)}"]));

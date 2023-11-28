@@ -26,7 +26,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Dialog
             var result = await Sut.OpenAsync<TestDialogViewModel>(default(object?));
 
             //assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Dialog
             var result = await Sut.OpenAsync(dialogViewModel);
 
             //assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
     }
 }

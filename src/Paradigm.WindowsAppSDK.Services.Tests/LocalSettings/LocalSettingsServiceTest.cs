@@ -27,7 +27,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LocalSettings
             var result = TestService.GetStoredSettings<SettingsModel>();
 
             //assert
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.StringValue, Is.EqualTo("test"));
             Assert.That(result.NumericValue, Is.EqualTo(5));
             Assert.That(result.BooleanValue, Is.True);
@@ -41,7 +41,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LocalSettings
             var result = TestService.GetStoredSettings<string>();
 
             //assert
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.EqualTo("test"));
         }
 
@@ -52,7 +52,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LocalSettings
             var result = TestService.GetStoredSettings<object>();
 
             //assert
-            Assert.IsNull(result);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -78,12 +78,12 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LocalSettings
             var result2 = TestService.GetStoredSettings<SettingsModel>();
 
             //assert
-            Assert.IsNotNull(result1);
+            Assert.That(result1, Is.Not.Null);
             Assert.That(result1.StringValue, Is.EqualTo("test1"));
             Assert.That(result1.NumericValue, Is.EqualTo(1));
             Assert.That(result1.BooleanValue, Is.True);
 
-            Assert.IsNotNull(result2);
+            Assert.That(result2, Is.Not.Null);
             Assert.That(result2.StringValue, Is.EqualTo("test2"));
             Assert.That(result2.NumericValue, Is.EqualTo(2));
             Assert.That(result2.BooleanValue, Is.False);
@@ -98,7 +98,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LocalSettings
             var result = TestService.GetStoredSettings<string>();
 
             //assert
-            Assert.IsNull(result);
+            Assert.That(result, Is.Null);
         }
     }
 }

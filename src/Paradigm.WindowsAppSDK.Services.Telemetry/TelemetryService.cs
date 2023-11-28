@@ -75,7 +75,9 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// </summary>
         /// <param name="eventName">Name of the event.</param>
         /// <param name="properties">The properties.</param>
-        public void TrackEvent(string eventName, IDictionary<string, string> properties)
+        /// <param name="preventDebounce">The prevent debounce.</param>
+        /// <exception cref="InvalidOperationException">Telemetry was not initialized</exception>
+        public void TrackEvent(string eventName, IDictionary<string, string> properties, bool preventDebounce = false)
         {
             if (Settings is null || TelemetriesClient is null)
                 throw new InvalidOperationException("Telemetry was not initialized");
@@ -83,7 +85,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             if (properties is null)
                 properties = new Dictionary<string, string>();
 
-            if (Settings.DebounceEnabled)
+            if (Settings.DebounceEnabled && !preventDebounce)
             {
                 Debounce(eventName, () => Task.Run(() =>
                 {
@@ -113,12 +115,14 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <param name="connectionString">The connection string.</param>
         /// <param name="eventName">Name of the event.</param>
         /// <param name="properties">The properties.</param>
-        public void TrackEvent(string connectionString, string eventName, IDictionary<string, string> properties)
+        /// <param name="preventDebounce">The prevent debounce.</param>
+        /// <exception cref="ArgumentNullException">connectionString</exception>
+        public void TrackEvent(string connectionString, string eventName, IDictionary<string, string> properties, bool preventDebounce = false)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentNullException(nameof(connectionString));
             ResetClient(connectionString);
-            TrackEvent(eventName, properties);
+            TrackEvent(eventName, properties, preventDebounce);
         }
 
         /// <summary>

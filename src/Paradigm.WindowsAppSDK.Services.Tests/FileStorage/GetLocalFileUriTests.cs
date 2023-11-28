@@ -23,7 +23,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
             var result = this.Sut.GetLocalFileUri(path, useInstallationFolder: useInstallationFolder);
 
             //assert
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.AbsoluteUri, Is.EqualTo(expectedResult));
         }
 
