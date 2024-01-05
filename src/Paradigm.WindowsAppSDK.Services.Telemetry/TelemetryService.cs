@@ -22,7 +22,15 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <value>
         /// The telemetries client.
         /// </value>
-        protected virtual TelemetryClient? TelemetriesClient { get; set; }
+        protected virtual TelemetryClient? DefaultTelemetryClient { get; set; }
+
+        /// <summary>
+        /// Gets the additional clients dictionary.
+        /// </summary>
+        /// <value>
+        /// The additional clients dictionary.
+        /// </value>
+        protected Dictionary<string, TelemetryClient> AdditionalClientsDictionary { get; }
 
         /// <summary>
         /// Gets the extra properties.
@@ -51,6 +59,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         {
             ExtraProperties = new Dictionary<string, string>();
             TimersDictionary = new Dictionary<string, (System.Timers.Timer, int)>();
+            AdditionalClientsDictionary = new Dictionary<string, TelemetryClient>();
         }
 
         #endregion
@@ -63,7 +72,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <param name="settings">The settings.</param>
         public void Initialize(TelemetrySettings settings)
         {
-            if (TelemetriesClient is not null)
+            if (DefaultTelemetryClient is not null)
                 return;
 
             Settings = settings;
@@ -79,34 +88,10 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <exception cref="InvalidOperationException">Telemetry was not initialized</exception>
         public void TrackEvent(string eventName, IDictionary<string, string> properties, bool preventDebounce = false)
         {
-            if (Settings is null || TelemetriesClient is null)
+            if (DefaultTelemetryClient is null)
                 throw new InvalidOperationException("Telemetry was not initialized");
 
-            if (properties is null)
-                properties = new Dictionary<string, string>();
-
-            if (Settings.DebounceEnabled && !preventDebounce)
-            {
-                Debounce(eventName, () => Task.Run(() =>
-                {
-                    RenameProps(properties);
-                    AddExtraPropertiesTo(properties);
-                    AddDebounceCount(eventName, properties);
-                    TelemetriesClient.TrackEvent(eventName, properties);
-                    TelemetriesClient.Flush();
-                }), 500);
-            }
-            else
-            {
-                Task.Run(() =>
-                {
-                    var props = properties.CloneDictionary();
-                    RenameProps(props);
-                    AddExtraPropertiesTo(props);
-                    TelemetriesClient.TrackEvent(eventName, props);
-                    TelemetriesClient.Flush();
-                });
-            }
+            TrackEventInternal(DefaultTelemetryClient, eventName, properties, preventDebounce);
         }
 
         /// <summary>
@@ -121,8 +106,8 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         {
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentNullException(nameof(connectionString));
-            ResetClient(connectionString);
-            TrackEvent(eventName, properties, preventDebounce);
+
+            TrackEventInternal(GetAdditionalClient(connectionString), eventName, properties, preventDebounce);
         }
 
         /// <summary>
@@ -131,30 +116,10 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <param name="ex">The ex.</param>
         public void TrackException(Exception ex)
         {
-            if (Settings is null || TelemetriesClient is null)
+            if (DefaultTelemetryClient is null)
                 throw new InvalidOperationException("Telemetry was not initialized");
 
-            if (Settings.DebounceEnabled)
-            {
-                Debounce("exception", () => Task.Run(() =>
-                {
-                    var properties = new Dictionary<string, string>();
-                    AddExtraPropertiesTo(properties);
-                    AddDebounceCount("exception", properties);
-                    TelemetriesClient.TrackException(ex, properties);
-                    TelemetriesClient.Flush();
-                }), 500);
-            }
-            else
-            {
-                Task.Run(() =>
-                {
-                    var properties = new Dictionary<string, string>();
-                    AddExtraPropertiesTo(properties);
-                    TelemetriesClient.TrackException(ex, properties);
-                    TelemetriesClient.Flush();
-                });
-            }
+            TrackExceptionInternal(DefaultTelemetryClient, ex);
         }
 
         /// <summary>
@@ -167,8 +132,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentNullException(nameof(connectionString));
 
-            ResetClient(connectionString);
-            TrackException(ex);
+            TrackExceptionInternal(GetAdditionalClient(connectionString), ex);
         }
 
         /// <summary>
@@ -257,20 +221,100 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                 return;
 
             var configuration = CreateTelemetryConfiguration(Settings.ConnectionString);
-            TelemetriesClient = new TelemetryClient(configuration);
+            DefaultTelemetryClient = new TelemetryClient(configuration);
         }
 
         /// <summary>
-        /// Resets the client.
+        /// Gets the additional client.
         /// </summary>
         /// <param name="connectionString">The connection string.</param>
-        private void ResetClient(string connectionString)
+        /// <returns></returns>
+        private TelemetryClient GetAdditionalClient(string connectionString)
         {
-            if (connectionString.Equals(TelemetriesClient?.TelemetryConfiguration?.ConnectionString))
-                return;
+            if (connectionString.Equals(DefaultTelemetryClient?.TelemetryConfiguration?.ConnectionString))
+                return DefaultTelemetryClient;
+
+            if (AdditionalClientsDictionary.ContainsKey(connectionString))
+                return AdditionalClientsDictionary[connectionString];
 
             var configuration = CreateTelemetryConfiguration(connectionString);
-            TelemetriesClient = new TelemetryClient(configuration);
+            var client = new TelemetryClient(configuration);
+            AdditionalClientsDictionary.Add(connectionString, client);
+            return client;
+        }
+
+        /// <summary>
+        /// Tracks the event internal.
+        /// </summary>
+        /// <param name="client">The client.</param>
+        /// <param name="eventName">Name of the event.</param>
+        /// <param name="properties">The properties.</param>
+        /// <param name="preventDebounce">if set to <c>true</c> [prevent debounce].</param>
+        /// <exception cref="InvalidOperationException">Telemetry was not initialized</exception>
+        private void TrackEventInternal(TelemetryClient client, string eventName, IDictionary<string, string> properties, bool preventDebounce = false)
+        {
+            if (Settings is null)
+                throw new InvalidOperationException("Telemetry was not initialized");
+
+            if (properties is null)
+                properties = new Dictionary<string, string>();
+
+            if (Settings.DebounceEnabled && !preventDebounce)
+            {
+                Debounce(eventName, () => Task.Run(() =>
+                {
+                    RenameProps(properties);
+                    AddExtraPropertiesTo(properties);
+                    AddDebounceCount(eventName, properties);
+                    client.TrackEvent(eventName, properties);
+                    client.Flush();
+                }), 500);
+            }
+            else
+            {
+                Task.Run(() =>
+                {
+                    var props = properties.CloneDictionary();
+                    RenameProps(props);
+                    AddExtraPropertiesTo(props);
+                    client.TrackEvent(eventName, props);
+                    client.Flush();
+                });
+            }
+        }
+
+        /// <summary>
+        /// Tracks the exception internal.
+        /// </summary>
+        /// <param name="client">The client.</param>
+        /// <param name="ex">The ex.</param>
+        /// <exception cref="InvalidOperationException">Telemetry was not initialized</exception>
+        private void TrackExceptionInternal(TelemetryClient client, Exception ex)
+        {
+            if (Settings is null)
+                throw new InvalidOperationException("Telemetry was not initialized");
+
+            if (Settings.DebounceEnabled)
+            {
+                Debounce("exception", () => Task.Run(() =>
+                {
+                    var properties = new Dictionary<string, string>();
+                    AddExtraPropertiesTo(properties);
+                    AddDebounceCount("exception", properties);
+                    client.TrackException(ex, properties);
+                    client.Flush();
+                }), 500);
+            }
+            else
+            {
+                Task.Run(() =>
+                {
+                    var properties = new Dictionary<string, string>();
+                    AddExtraPropertiesTo(properties);
+                    client.TrackException(ex, properties);
+                    client.Flush();
+                });
+            }
         }
 
         /// <summary>

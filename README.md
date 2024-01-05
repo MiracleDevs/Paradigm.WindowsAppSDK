@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.24`
+- Refactor TelemetryService to keep a dictionary with the requested connection strings.
+
 Version `1.0.23`
 - Modified TelemetryService to allow to prevent event debounce.
 

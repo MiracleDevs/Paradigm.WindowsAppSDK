@@ -212,7 +212,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             var expectedCount = debounce && !preventDebounce ? 1 : eventCount;
 
             TestService.Initialize(new TelemetrySettings(TestConnectionString, debounce, true, null));
-            
+
             var eventName = "test-event";
 
             var properties = new Dictionary<string, string>
@@ -265,16 +265,16 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             TestService.Initialize(new TelemetrySettings(TestConnectionString));
 
             //act
-            Enumerable.Repeat(eventName,count).ToList().ForEach(e => TestService.TrackEvent(e, properties));
+            Enumerable.Repeat(eventName, count).ToList().ForEach(e => TestService.TrackEvent(e, properties));
 
             await Task.Delay(1000);
             var sentTelemetries = ((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries;
-            
+
             var telemetry = sentTelemetries
                 .ToList()
                 .ConvertAll(t => t as EventTelemetry)
-                .FirstOrDefault(t => t !=null && t.Properties.Any(p => p.Key =="count"));
-            
+                .FirstOrDefault(t => t != null && t.Properties.Any(p => p.Key == "count"));
+
             var countProperty = telemetry?.Properties.FirstOrDefault(p => p.Key == "count");
 
             //Assert
@@ -284,7 +284,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
                 Assert.That(countProperty, Is.Not.Null);
                 Assert.That(countProperty?.Value, Is.EqualTo(count.ToString()));
             });
-            
         }
 
         [Test]
@@ -305,12 +304,12 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
 
             //act
             var events = Enumerable.Repeat(eventName, count).ToList();
-            foreach(var e in events)
+            foreach (var e in events)
             {
                 await Task.Delay(2000);
                 TestService.TrackEvent(e, properties);
             }
-            
+
             await Task.Delay(1000);
             var sentTelemetries = ((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries;
 
@@ -362,7 +361,51 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             TestService.TrackEvent(connectionString, "test-event", properties);
 
             //Assert
-            Assert.That(TestService.ClientConnectionString, Is.EqualTo(connectionString));
+            Assert.That(TestService.AdditionalConnectionStrings.Count, Is.EqualTo(1));
+            Assert.That(TestService.AdditionalConnectionStrings[0], Is.EqualTo(connectionString));
+        }
+
+        [Test]
+        public void ShouldRegisterMultipleConnectionStrings()
+        {
+            //arrange
+            TestService.Initialize(new TelemetrySettings(string.Empty, false, false, null));
+
+            var properties = new Dictionary<string, string>
+            {
+                { "prop1", "1" },
+                { "prop2", "2" }
+            };
+
+            //act
+            TestService.TrackEvent(TestConnectionString, "test-event", properties);
+            TestService.TrackEvent(AlternateTestConnectionString, "test-event2", properties);
+
+            //Assert
+            Assert.That(TestService.AdditionalConnectionStrings.Count, Is.EqualTo(2));
+            Assert.That(TestService.AdditionalConnectionStrings[0], Is.EqualTo(TestConnectionString));
+            Assert.That(TestService.AdditionalConnectionStrings[1], Is.EqualTo(AlternateTestConnectionString));
+        }
+
+        [Test]
+        public void ShouldUseDefaultClient()
+        {
+            //arrange
+            TestService.Initialize(new TelemetrySettings(TestConnectionString, false, false, null));
+
+            var properties = new Dictionary<string, string>
+            {
+                { "prop1", "1" },
+                { "prop2", "2" }
+            };
+
+            //act
+            TestService.TrackEvent(TestConnectionString, "test-event", properties);
+            TestService.TrackEvent(AlternateTestConnectionString, "test-event2", properties);
+
+            //Assert
+            Assert.That(TestService.AdditionalConnectionStrings.Count, Is.EqualTo(1));
+            Assert.That(TestService.AdditionalConnectionStrings[0], Is.EqualTo(AlternateTestConnectionString));
         }
 
         [TestCase(TestConnectionString)]
@@ -377,7 +420,8 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             TestService.TrackException(connectionString, ex);
 
             //Assert
-            Assert.That(TestService.ClientConnectionString, Is.EqualTo(connectionString));
+            Assert.That(TestService.AdditionalConnectionStrings.Count, Is.EqualTo(1));
+            Assert.That(TestService.AdditionalConnectionStrings[0], Is.EqualTo(connectionString));
         }
     }
 }

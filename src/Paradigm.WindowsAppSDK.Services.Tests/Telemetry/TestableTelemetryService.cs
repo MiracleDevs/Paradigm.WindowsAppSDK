@@ -8,7 +8,9 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
     {
         public new TelemetrySettings? Settings => base.Settings;
 
-        public string? ClientConnectionString => base.TelemetriesClient?.TelemetryConfiguration?.ConnectionString;
+        public string? ClientConnectionString => base.DefaultTelemetryClient?.TelemetryConfiguration?.ConnectionString;
+
+        public List<string> AdditionalConnectionStrings => base.AdditionalClientsDictionary.Keys.ToList();
 
         public new IDictionary<string, string> ExtraProperties => base.ExtraProperties;
 
