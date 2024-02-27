@@ -41,6 +41,14 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         protected IDictionary<string, string> ExtraProperties { get; }
 
         /// <summary>
+        /// Gets the current session identifier.
+        /// </summary>
+        /// <value>
+        /// The current session identifier.
+        /// </value>
+        protected string? CurrentSessionId { get; private set; }
+
+        /// <summary>
         /// Gets the timers dictionary.
         /// </summary>
         /// <value>
@@ -91,7 +99,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             if (DefaultTelemetryClient is null)
                 throw new InvalidOperationException("Telemetry was not initialized");
 
-            TrackEventInternal(DefaultTelemetryClient, eventName, properties, preventDebounce);
+            TrackEventInternal(DefaultTelemetryClient, eventName, properties, CurrentSessionId, preventDebounce);
         }
 
         /// <summary>
@@ -107,7 +115,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentNullException(nameof(connectionString));
 
-            TrackEventInternal(GetAdditionalClient(connectionString), eventName, properties, preventDebounce);
+            TrackEventInternal(GetAdditionalClient(connectionString), eventName, properties, CurrentSessionId, preventDebounce);
         }
 
         /// <summary>
@@ -119,7 +127,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             if (DefaultTelemetryClient is null)
                 throw new InvalidOperationException("Telemetry was not initialized");
 
-            TrackExceptionInternal(DefaultTelemetryClient, ex);
+            TrackExceptionInternal(DefaultTelemetryClient, CurrentSessionId, ex);
         }
 
         /// <summary>
@@ -132,7 +140,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentNullException(nameof(connectionString));
 
-            TrackExceptionInternal(GetAdditionalClient(connectionString), ex);
+            TrackExceptionInternal(GetAdditionalClient(connectionString), CurrentSessionId, ex);
         }
 
         /// <summary>
@@ -144,6 +152,15 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         {
             if (ExtraProperties.ContainsKey(name)) ExtraProperties.Remove(name);
             ExtraProperties.Add(name, value);
+        }
+
+        /// <summary>
+        /// Sets the session identifier.
+        /// </summary>
+        /// <param name="sessionId">The session identifier.</param>
+        public void SetSessionId(string? sessionId)
+        {
+            CurrentSessionId = sessionId;
         }
 
         #endregion
@@ -249,9 +266,10 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <param name="client">The client.</param>
         /// <param name="eventName">Name of the event.</param>
         /// <param name="properties">The properties.</param>
+        /// <param name="sessionId">The session identifier.</param>
         /// <param name="preventDebounce">if set to <c>true</c> [prevent debounce].</param>
         /// <exception cref="InvalidOperationException">Telemetry was not initialized</exception>
-        private void TrackEventInternal(TelemetryClient client, string eventName, IDictionary<string, string> properties, bool preventDebounce = false)
+        private void TrackEventInternal(TelemetryClient client, string eventName, IDictionary<string, string> properties, string? sessionId, bool preventDebounce = false)
         {
             if (Settings is null)
                 throw new InvalidOperationException("Telemetry was not initialized");
@@ -266,6 +284,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                     RenameProps(properties);
                     AddExtraPropertiesTo(properties);
                     AddDebounceCount(eventName, properties);
+                    client.Context.Session.Id = sessionId;
                     client.TrackEvent(eventName, properties);
                     client.Flush();
                 }), 500);
@@ -277,6 +296,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                     var props = properties.CloneDictionary();
                     RenameProps(props);
                     AddExtraPropertiesTo(props);
+                    client.Context.Session.Id = sessionId;
                     client.TrackEvent(eventName, props);
                     client.Flush();
                 });
@@ -287,9 +307,10 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// Tracks the exception internal.
         /// </summary>
         /// <param name="client">The client.</param>
+        /// <param name="sessionId">The session identifier.</param>
         /// <param name="ex">The ex.</param>
         /// <exception cref="InvalidOperationException">Telemetry was not initialized</exception>
-        private void TrackExceptionInternal(TelemetryClient client, Exception ex)
+        private void TrackExceptionInternal(TelemetryClient client, string? sessionId, Exception ex)
         {
             if (Settings is null)
                 throw new InvalidOperationException("Telemetry was not initialized");
@@ -301,6 +322,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                     var properties = new Dictionary<string, string>();
                     AddExtraPropertiesTo(properties);
                     AddDebounceCount("exception", properties);
+                    client.Context.Session.Id = sessionId;
                     client.TrackException(ex, properties);
                     client.Flush();
                 }), 500);
@@ -311,6 +333,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                 {
                     var properties = new Dictionary<string, string>();
                     AddExtraPropertiesTo(properties);
+                    client.Context.Session.Id = sessionId;
                     client.TrackException(ex, properties);
                     client.Flush();
                 });

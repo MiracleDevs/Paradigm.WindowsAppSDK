@@ -344,9 +344,11 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             Assert.That(((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries, Has.Count.EqualTo(1));
         }
 
-        [TestCase(TestConnectionString)]
-        [TestCase(AlternateTestConnectionString)]
-        public void ShouldTrackEventWithConnectionString(string connectionString)
+        [TestCase(TestConnectionString, null)]
+        [TestCase(TestConnectionString, "sessionIdValue")]
+        [TestCase(AlternateTestConnectionString, null)]
+        [TestCase(AlternateTestConnectionString, "sessionIdValue")]
+        public void ShouldTrackEventWithConnectionString(string connectionString, string? sessionId)
         {
             //arrange
             TestService.Initialize(new TelemetrySettings(string.Empty, false, false, null));
@@ -358,11 +360,13 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             };
 
             //act
+            TestService.SetSessionId(sessionId);
             TestService.TrackEvent(connectionString, "test-event", properties);
 
             //Assert
             Assert.That(TestService.AdditionalConnectionStrings.Count, Is.EqualTo(1));
             Assert.That(TestService.AdditionalConnectionStrings[0], Is.EqualTo(connectionString));
+            Assert.That(TestService.CurrentSessionId, Is.EqualTo(sessionId));
         }
 
         [Test]

@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.0.25`
+- Modified TelemetryService to send a session id when provided.
+
 Version `1.0.24`
 - Refactor TelemetryService to keep a dictionary with the requested connection strings.
 

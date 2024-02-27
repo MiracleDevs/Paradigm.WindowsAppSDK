@@ -46,5 +46,11 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <param name="name">The name.</param>
         /// <param name="value">The value.</param>
         void AddExtraProperty(string name, string value);
+
+        /// <summary>
+        /// Sets the session identifier.
+        /// </summary>
+        /// <param name="sessionId">The session identifier.</param>
+        void SetSessionId(string? sessionId);
     }
 }

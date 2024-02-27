@@ -14,6 +14,8 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
 
         public new IDictionary<string, string> ExtraProperties => base.ExtraProperties;
 
+        public new string? CurrentSessionId => base.CurrentSessionId;
+
         public new void AddExtraPropertiesTo(IDictionary<string, string> properties)
         {
             base.AddExtraPropertiesTo(properties);
