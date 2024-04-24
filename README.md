@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.1.1`
+- Added new converters. Updated Microsoft.WindowsAppSDK version.
+
 Version `1.1.0`
 - Upgrade to use NET8 and WindowsAppSDK 1.5.
 
