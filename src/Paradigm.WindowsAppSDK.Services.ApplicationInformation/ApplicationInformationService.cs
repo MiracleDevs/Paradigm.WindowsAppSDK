@@ -92,7 +92,7 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
 
             try
             {
-                if (RetailInfo.IsDemoModeEnabled)
+                if (RetailInfo.Properties.ContainsKey(KnownRetailInfoProperties.RetailAccessCode))
                     retailAccessCode = RetailInfo.Properties[KnownRetailInfoProperties.RetailAccessCode]?.ToString();
             }
             catch
@@ -113,7 +113,7 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
 
             try
             {
-                if (RetailInfo.IsDemoModeEnabled)
+                if (RetailInfo.Properties.ContainsKey("StoreID"))
                     storeId = RetailInfo.Properties["StoreID"]?.ToString();
             }
             catch
@@ -134,9 +134,13 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
 
             try
             {
-                if (RetailInfo.IsDemoModeEnabled)
-                    machineId = (RetailInfo.Properties["MachineId"]?.ToString() ?? RetailInfo.Properties["original_MachineId"]?.ToString())
-                        ?.Replace("{", "")?.Replace("}", "")?.ToLowerInvariant();
+                if (RetailInfo.Properties.ContainsKey("MachineId"))
+                    machineId = RetailInfo.Properties["MachineId"]?.ToString();
+
+                if (string.IsNullOrWhiteSpace(machineId) && RetailInfo.Properties.ContainsKey("original_MachineId"))
+                    machineId = RetailInfo.Properties["original_MachineId"]?.ToString();
+
+                machineId = machineId?.Replace("{", "")?.Replace("}", "")?.ToLowerInvariant();
             }
             catch
             {
@@ -156,7 +160,7 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
 
             try
             {
-                if (RetailInfo.IsDemoModeEnabled)
+                if (RetailInfo.Properties.ContainsKey("SKU"))
                     sku = RetailInfo.Properties["SKU"]?.ToString();
             }
             catch
