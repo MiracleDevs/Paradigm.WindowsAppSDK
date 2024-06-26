@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.1.3`
+- Added DebounceHandler class to Paradigm.WindowsAppSDK.ViewModels. Fixed issue in LegacyConfigurationService.
+
 Version `1.1.2`
 - Removed IsDemoModeEnabled property call. Updated Microsoft.WindowsAppSDK version.
 

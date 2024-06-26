@@ -71,8 +71,15 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         /// <returns></returns>
         public bool? GetBoolean(string key)
         {
-            var value = GetValueFromConfigurations(key);
-            return value is not null ? Convert.ToBoolean(value) : default(bool?);
+            try
+            {
+                var value = GetValueFromConfigurations(key);
+                return value is not null ? Convert.ToBoolean(value) : default(bool?);
+            }
+            catch
+            {
+                return default;
+            }
         }
 
         /// <summary>
@@ -82,8 +89,15 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         /// <returns></returns>
         public double? GetDouble(string key)
         {
-            var value = GetValueFromConfigurations(key);
-            return value is not null ? Convert.ToDouble(value) : default(double?);
+            try
+            {
+                var value = GetValueFromConfigurations(key);
+                return value is not null ? Convert.ToDouble(value) : default(double?);
+            }
+            catch
+            {
+                return default;
+            }
         }
 
         /// <summary>
