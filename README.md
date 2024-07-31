@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.1.6`
+- Fixed Microsoft.Windows.SDK.BuildTools package issue in Paradigm.WindowsAppSDK.Services.ApplicationInformation.
+
 Version `1.1.5`
 - Fixed Microsoft.Windows.SDK.BuildTools package issue.
 
