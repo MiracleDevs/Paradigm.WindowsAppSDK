@@ -35,8 +35,11 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.1.5`
+- Fixed Microsoft.Windows.SDK.BuildTools package issue.
+
 Version `1.1.4`
-- Updated Microsoft.WindowsAppSDK version. Fixed Microsoft.Windows.SDK.BuildTools package issue.
+- Updated Microsoft.WindowsAppSDK version.
 
 Version `1.1.3`
 - Added DebounceHandler class to Paradigm.WindowsAppSDK.ViewModels. Fixed issue in LegacyConfigurationService.
