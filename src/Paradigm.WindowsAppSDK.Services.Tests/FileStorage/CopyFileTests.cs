@@ -1,11 +1,9 @@
-﻿using System.IO;
-
-namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
+﻿namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
 {
     public class CopyFileTests : FileStorageTestsBase
     {
         private static string FileName => "local-state-test.txt";
-        private static string NewFileName  => $"{Path.GetFileNameWithoutExtension(FileName)}-copy{Path.GetExtension(FileName)}";
+        private static string NewFileName => $"{Path.GetFileNameWithoutExtension(FileName)}-copy{Path.GetExtension(FileName)}";
 
         [TearDown]
         public void TearDown()

@@ -10,7 +10,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
             //arrange
             var path = string.Empty;
             var filePath = "test.txt";
-            
+
             //act
             var files = this.Sut.GetFilesFromFolder(path, true);
 
@@ -25,7 +25,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
             //arrange
             var path = string.Empty;
             var filePath = "local-state-test.txt";
-            
+
             //act
             var files = this.Sut.GetFilesFromFolder(path, false);
 

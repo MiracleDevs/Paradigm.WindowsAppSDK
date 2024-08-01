@@ -14,5 +14,4 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
 
         protected override void Log(string message) => this.Sut.Trace(message);
     }
-
 }

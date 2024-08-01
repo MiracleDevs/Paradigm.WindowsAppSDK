@@ -18,11 +18,10 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
         public virtual void Setup()
         {
             this.NavigationFrame = new Mock<INavigationFrame>();
-            
+
             this.ServiceProvider = new Mock<IServiceProvider>();
 
             this.Sut = new NavigationService(this.ServiceProvider.Object);
         }
-
     }
 }

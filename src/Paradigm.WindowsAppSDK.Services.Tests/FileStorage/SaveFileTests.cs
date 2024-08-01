@@ -7,12 +7,12 @@
         {
             //arrange
             var content = $"Text content from {this.GetType().FullName}";
-            
+
             var path = "local-state-test.txt";
 
             //act
             this.Sut.SaveFile(path, content);
-            
+
             var fileContent = await this.Sut.ReadLocalTextAsync(path);
 
             //assert
@@ -24,7 +24,7 @@
         {
             //arrange
             var content = $"Text content from {this.GetType().FullName}";
-            
+
             var path = "local-state-test.txt";
 
             //act

@@ -9,6 +9,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Localization
 
         public string? Name { get; set; }
         [Localizable]
-        public string? Description { get; set; } 
+        public string? Description { get; set; }
     }
 }

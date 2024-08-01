@@ -3,7 +3,6 @@ using Paradigm.WindowsAppSDK.Services.Interfaces;
 using Paradigm.WindowsAppSDK.Services.Navigation;
 using Paradigm.WindowsAppSDK.Xaml.Extensions;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -79,7 +78,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// <param name="e">The <see cref="Microsoft.UI.Xaml.Input.TappedRoutedEventArgs"/> instance containing the event data.</param>
         private async void OnPickTapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            var openPicker = new Windows.Storage.Pickers.FileOpenPicker 
+            var openPicker = new Windows.Storage.Pickers.FileOpenPicker
             {
                 SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary
             };

@@ -1,6 +1,6 @@
 ﻿namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
 {
-    public  class NavigationServiceInitializeTests: NavigationServiceTestsBase
+    public class NavigationServiceInitializeTests : NavigationServiceTestsBase
     {
         public NavigationServiceInitializeTests()
         {
@@ -20,6 +20,5 @@
             Assert.That(this.Sut.CanGoForward, Is.EqualTo(this.NavigationFrame.Object.CanGoForward));
             Assert.That(this.Sut.CanGoBack, Is.EqualTo(this.NavigationFrame.Object.CanGoBack));
         }
-
     }
 }

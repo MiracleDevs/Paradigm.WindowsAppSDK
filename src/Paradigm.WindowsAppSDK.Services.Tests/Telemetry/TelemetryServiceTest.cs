@@ -1,7 +1,5 @@
 ﻿using Microsoft.ApplicationInsights.DataContracts;
-using NUnit.Framework;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
-using System.Diagnostics.Tracing;
 
 namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
 {

@@ -30,7 +30,6 @@
             Assert.That(this.Sut.CanGoBack, Is.False);
         }
 
-
         [Test]
         public async Task ShouldNotGoBackAsync()
         {
@@ -60,5 +59,4 @@
             });
         }
     }
-
 }

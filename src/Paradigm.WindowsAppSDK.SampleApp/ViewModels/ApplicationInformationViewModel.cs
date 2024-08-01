@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
 using Paradigm.WindowsAppSDK.Services.ApplicationInformation;
-using Paradigm.WindowsAppSDK.ViewModels;
 using System;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels

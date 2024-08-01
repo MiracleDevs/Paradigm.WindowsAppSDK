@@ -96,7 +96,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             Assert.That(this.Sut.CanGoForward, Is.False);
         }
 
-
         [Test]
         public void ShouldNotCanGoBackIfNoNavigationWasPerformed()
         {
@@ -132,7 +131,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             //assert
             Assert.That(canGoForward, Is.True);
         }
-
 
         protected class NavigationTestViewModel2 : INavigable
         {
@@ -211,6 +209,5 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
                 return Task.CompletedTask;
             }
         }
-
     }
 }

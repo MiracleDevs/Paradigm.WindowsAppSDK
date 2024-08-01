@@ -5,7 +5,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
 {
     public class MessageBusTests
     {
-        private MessageBusRegistrationsHandler Sut { get;set;}
+        private MessageBusRegistrationsHandler Sut { get; set; }
         private Mock<IServiceProvider> ServiceProvider { get; set; }
         private IMessageBusService MessageBusService { get; set; }
 
@@ -18,7 +18,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             this.ServiceProvider.Setup(provider => provider.GetService(typeof(IMessageBusService))).Returns(this.MessageBusService);
         }
 
-
         [Test]
         public async Task ShouldRegisterMessage()
         {
@@ -26,13 +25,13 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             var msg = new FirstTestMessage();
             var firstConsumer = this;
             var anotherConsumer = new AnotherMessageConsumer(false);
-            
+
             //act
             this.Sut.RegisterMessageHandler<FirstTestMessage>(firstConsumer, this.ServiceProvider.Object, OnMessageSentAsync);
             this.Sut.RegisterMessageHandler<FirstTestMessage>(anotherConsumer, this.ServiceProvider.Object, anotherConsumer.HandleMessage);
             await this.MessageBusService.SendAsync(msg);
             var registrations = this.Sut.GetRegisteredMessageHandlers(anotherConsumer).Concat(this.Sut.GetRegisteredMessageHandlers(firstConsumer));
-            
+
             //assert
             Assert.Multiple(() =>
             {
@@ -54,12 +53,12 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             this.Sut.RegisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider.Object, OnMessageSentAsync);
             this.Sut.RegisterMessageHandler<AnotherSampleTestMessage>(consumer, this.ServiceProvider.Object, OnMessage2SentAsync);
             this.Sut.UnregisterMessageHandlers(consumer, this.ServiceProvider.Object);
-            
+
             await this.MessageBusService.SendAsync(msg);
             await this.MessageBusService.SendAsync(msg2);
 
             var items = this.Sut.GetRegisteredMessageHandlers(consumer);
-            
+
             //assert
             Assert.Multiple(() =>
             {
@@ -87,7 +86,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
 
                 this.Sut.UnregisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider.Object);
             });
-            
+
             Assert.That(items, Is.Empty);
         }
 
@@ -104,7 +103,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             await this.MessageBusService.SendAsync(msg);
 
             var registrations = this.Sut.GetRegisteredMessageHandlers(consumer);
-            
+
             //assert
             Assert.Multiple(() =>
             {
@@ -112,10 +111,10 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
                 Assert.That(msg.TimesHandled, Is.Null);
             });
         }
-       
+
         private async Task OnMessageSentAsync(FirstTestMessage message)
         {
-            message.TimesHandled= message.TimesHandled.GetValueOrDefault(0) + 1;
+            message.TimesHandled = message.TimesHandled.GetValueOrDefault(0) + 1;
             await Task.CompletedTask;
         }
 

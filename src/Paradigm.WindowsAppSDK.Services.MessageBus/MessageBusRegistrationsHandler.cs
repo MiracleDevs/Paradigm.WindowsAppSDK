@@ -75,7 +75,7 @@ namespace Paradigm.WindowsAppSDK.Services.MessageBus
         /// <exception cref="ArgumentNullException">ServiceProvider</exception>
         public RegistrationToken RegisterMessageHandler<TMessage>(object consumer, Func<TMessage, Task> messageListener)
         {
-            if (ServiceProvider is null) 
+            if (ServiceProvider is null)
                 throw new ArgumentNullException(nameof(ServiceProvider));
 
             return RegisterMessageHandler(consumer, ServiceProvider, messageListener);

@@ -65,7 +65,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public string SelectedLanguage
         {
             get => this._selectedLanguage;
-            set 
+            set
             {
                 if (this.SetPropertyField(ref _selectedLanguage, value))
                     LoadLocalizationFile($"LocalizationSample/{_selectedLanguage.Replace("-", string.Empty)}.json", true);

@@ -6,6 +6,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
     public enum DisplayConfigEnum : int
     {
         Pixels,
-        Percentage 
+        Percentage
     }
 }

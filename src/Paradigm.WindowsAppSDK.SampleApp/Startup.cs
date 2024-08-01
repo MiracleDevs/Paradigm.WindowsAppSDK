@@ -38,7 +38,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
             {
                 typeof(App).Assembly
             };
-            
+
             var serviceAssemblies = mainAssemblies.SelectMany(x => x.GetFilteredReferencedAssemblies(typeof(IService))).Distinct();
 
             serviceCollection.RegisterServices(serviceAssemblies.ToArray());

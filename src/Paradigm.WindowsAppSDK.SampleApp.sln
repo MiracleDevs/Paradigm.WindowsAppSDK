@@ -39,7 +39,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Xaml
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Navigation", "Paradigm.WindowsAppSDK.Services.Navigation\Paradigm.WindowsAppSDK.Services.Navigation.csproj", "{02AEC674-0F79-4C8F-A2E8-A5CF7FD8AD48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigm.WindowsAppSDK.Services.Dialog", "Paradigm.WindowsAppSDK.Services.Dialog\Paradigm.WindowsAppSDK.Services.Dialog.csproj", "{1662E8A7-4E21-4DF5-B13B-F1F1964DE8AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Dialog", "Paradigm.WindowsAppSDK.Services.Dialog\Paradigm.WindowsAppSDK.Services.Dialog.csproj", "{1662E8A7-4E21-4DF5-B13B-F1F1964DE8AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E4874D8B-DB5E-4A6C-ABC6-539A0FD13758}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -3,7 +3,6 @@ using Paradigm.WindowsAppSDK.SampleApp.Models;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
 using Paradigm.WindowsAppSDK.Services.LocalSettings;
 using System;
-using System.Threading.Tasks;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {

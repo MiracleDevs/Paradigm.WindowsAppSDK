@@ -10,7 +10,7 @@
 
             //act
             using var stream = this.Sut.GetStreamForRead(fileName);
-            
+
             //assert
             Assert.That(stream, Is.Not.Null);
             Assert.That(stream.Length, Is.GreaterThan(0));
@@ -28,6 +28,5 @@
             //assert
             Assert.That(stream, Is.Null);
         }
-
     }
 }

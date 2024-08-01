@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Paradigm.WindowsAppSDK.Services.Interfaces
+﻿namespace Paradigm.WindowsAppSDK.Services.Interfaces
 {
     /// <summary>
     /// Provides navigation aware methods for both the navigator and the navigable elements.

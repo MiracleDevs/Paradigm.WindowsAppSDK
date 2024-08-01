@@ -17,7 +17,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Logging
 
         protected virtual int? LogFileMaxSize => 1024 * 1024; //1Mb
 
-
         [SetUp]
         public virtual void Setup()
         {

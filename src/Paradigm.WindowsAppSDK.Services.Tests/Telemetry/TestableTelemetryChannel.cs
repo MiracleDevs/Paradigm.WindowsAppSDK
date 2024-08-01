@@ -18,12 +18,12 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
 
         public void Dispose()
         {
-            
+
         }
 
         public void Flush()
         {
-            
+
         }
 
         public void Send(ITelemetry item)
@@ -31,5 +31,4 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             SentTelemetries.Add(item);
         }
     }
-
 }

@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-using Paradigm.WindowsAppSDK.Services.Localization;
+﻿using Paradigm.WindowsAppSDK.Services.Localization;
 
 namespace Paradigm.WindowsAppSDK.Services.Tests.Localization
 {
@@ -33,7 +32,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Localization
             //act
             var result = TestService.ExtractLocalizableStrings(localizableModel, TestPrefix);
 
-
             //assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Count, Is.EqualTo(6));
@@ -47,7 +45,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Localization
             Assert.That(result.ElementAt(2).Key, Does.StartWith($"{TestPrefix}.{nameof(LocalizableModel.Items)}.0"));
             Assert.That(result.ElementAt(2).Value, Is.Not.Null);
             Assert.That(result.ElementAt(2).Value, Is.EqualTo(localizableModel.Items.First().Name));
-            
+
             Assert.That(result.ElementAt(4).Key, Does.StartWith($"{TestPrefix}.{nameof(LocalizableModel.AllItems)}.test"));
             Assert.That(result.ElementAt(4).Value, Is.Not.Null);
             Assert.That(result.ElementAt(4).Value, Is.EqualTo(localizableModel.AllItems.First().Value.Name));
@@ -67,7 +65,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Localization
             };
             localizableModel.Items.Add(new LocalizableChildModel() { Id = "test", Description = "test", Name = "test" });
             localizableModel.AllItems.Add("test", new LocalizableChildModel() { Id = "test", Description = "test", Name = "test" });
-
 
             var modelTranslations = new Dictionary<string, string>();
             modelTranslations.Add($"{TestPrefix}.{nameof(LocalizableModel.Heading)}", "localized heading text");

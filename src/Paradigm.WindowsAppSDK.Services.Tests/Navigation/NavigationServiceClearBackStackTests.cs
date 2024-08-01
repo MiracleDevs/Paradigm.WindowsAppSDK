@@ -31,8 +31,7 @@
                 Assert.That(this.Sut.CanGoBack, Is.False);
                 Assert.That(this.Sut.CanGoForward, Is.True);
             });
-            
+
         }
     }
-
 }
