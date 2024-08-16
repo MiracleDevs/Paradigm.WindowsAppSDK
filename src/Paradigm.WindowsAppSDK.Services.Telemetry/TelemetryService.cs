@@ -46,7 +46,7 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
         /// <value>
         /// The current session identifier.
         /// </value>
-        protected string? CurrentSessionId { get; private set; }
+        public string? CurrentSessionId { get; private set; }
 
         /// <summary>
         /// Gets the timers dictionary.

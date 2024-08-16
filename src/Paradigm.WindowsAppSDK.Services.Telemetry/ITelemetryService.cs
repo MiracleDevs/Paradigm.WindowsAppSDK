@@ -5,6 +5,14 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
     public interface ITelemetryService : IService
     {
         /// <summary>
+        /// Gets the current session identifier.
+        /// </summary>
+        /// <value>
+        /// The current session identifier.
+        /// </value>
+        string? CurrentSessionId { get; }
+
+        /// <summary>
         /// Initializes the service using the provided settings.
         /// </summary>
         /// <param name="settings">The settings.</param>

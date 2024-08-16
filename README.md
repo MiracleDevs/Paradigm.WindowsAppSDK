@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.1.7`
+- Modified TelemetryService to have the session id as a public readonly property.
+
 Version `1.1.6`
 - Fixed Microsoft.Windows.SDK.BuildTools package issue in Paradigm.WindowsAppSDK.Services.ApplicationInformation.
 
