@@ -1,4 +1,5 @@
 ﻿using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
 
 namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
@@ -424,6 +425,53 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry
             //Assert
             Assert.That(TestService.AdditionalConnectionStrings.Count, Is.EqualTo(1));
             Assert.That(TestService.AdditionalConnectionStrings[0], Is.EqualTo(connectionString));
+        }
+
+        [Test]
+        public async Task ShouldRestoreSessionIdAfterDebounce()
+        {
+            //arrange
+            var count = 5;
+            var expectedCount = 2;
+            var eventName = "test-event";
+            var sessionId = "sessionIdValue";
+
+            var properties = new Dictionary<string, string>
+            {
+                { "prop1", "1" },
+                { "prop2", "2" }
+            };
+
+            TestService.Initialize(new TelemetrySettings(TestConnectionString));
+
+            //act
+            TestService.SetSessionId(sessionId);
+            Enumerable.Repeat(eventName, count).ToList().ForEach(e => TestService.TrackEvent(e, properties));
+
+            var newSessionId = "newSessionIdValue";
+            TestService.SetSessionId(newSessionId);
+            TestService.TrackEvent("new-test-event", properties, true);
+
+            await Task.Delay(1000);
+            var sentTelemetries = ((TestableTelemetryChannel)TestService.TelemetryChannel).SentTelemetries;
+            var registeredSessionIds = sentTelemetries.Select(x => x.Context.Session.Id).Distinct().ToList();
+
+            var telemetry = sentTelemetries
+                .ToList()
+                .ConvertAll(t => t as EventTelemetry)
+                .FirstOrDefault(t => t != null && t.Properties.Any(p => p.Key == "count"));
+
+            var countProperty = telemetry?.Properties.FirstOrDefault(p => p.Key == "count");
+
+            //Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(sentTelemetries, Has.Count.EqualTo(expectedCount));
+                Assert.That(countProperty, Is.Not.Null);
+                Assert.That(countProperty?.Value, Is.EqualTo(count.ToString()));
+                Assert.That(registeredSessionIds, Has.Count.EqualTo(2));
+                Assert.That(TestService.CurrentSessionId, Is.EqualTo(newSessionId));
+            });
         }
     }
 }

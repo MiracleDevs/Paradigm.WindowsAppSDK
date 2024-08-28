@@ -210,7 +210,9 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
 
                 i++;
                 properties.Remove(prop);
-                properties.Add($"value{i}", prop.Value);
+                var valueKey = $"value{i}";
+                if (!properties.ContainsKey(valueKey))
+                    properties.Add(valueKey, prop.Value);
             }
         }
 
@@ -287,19 +289,19 @@ namespace Paradigm.WindowsAppSDK.Services.Telemetry
                     client.Context.Session.Id = sessionId;
                     client.TrackEvent(eventName, properties);
                     client.Flush();
+
+                    // restore the CurrentSessionId in case it changed while the debounce happened
+                    if (!string.Equals(sessionId, CurrentSessionId)) client.Context.Session.Id = CurrentSessionId;
                 }), 500);
             }
             else
             {
-                Task.Run(() =>
-                {
-                    var props = properties.CloneDictionary();
-                    RenameProps(props);
-                    AddExtraPropertiesTo(props);
-                    client.Context.Session.Id = sessionId;
-                    client.TrackEvent(eventName, props);
-                    client.Flush();
-                });
+                var props = properties.CloneDictionary();
+                RenameProps(props);
+                AddExtraPropertiesTo(props);
+                client.Context.Session.Id = sessionId;
+                client.TrackEvent(eventName, props);
+                client.Flush();
             }
         }
 

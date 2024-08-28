@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.1.9`
+- Modified TelemetryService to restore the session id if changed while debouncing an event.
+
 Version `1.1.7`
 - Modified TelemetryService to have the session id as a public readonly property.
 
