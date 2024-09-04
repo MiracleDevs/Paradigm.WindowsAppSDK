@@ -22,7 +22,7 @@ A framework that provides base classes for WindowsAppSDK applications using WinU
 After modifying the solution you can change the version by executing
 ```shell
 $ cd ./build
-$ ./increment.version.sh "1.0.0" "1.0.1"
+$ ./increment.version.sh "1.1.0" "1.1.1"
 ```
 where the first argument ("1.0.0") is the current version and the second one ("1.0.1") is the new version number.
 
@@ -34,6 +34,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 ```
 
 ## Change log
+
+Version `1.1.10`
+- Modified LegacyConfigurationService to support content from multiple configuration files.
 
 Version `1.1.9`
 - Modified TelemetryService to restore the session id if changed while debouncing an event.

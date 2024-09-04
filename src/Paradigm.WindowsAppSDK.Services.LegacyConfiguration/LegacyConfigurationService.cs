@@ -36,21 +36,36 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         #region Public Methods
 
         /// <summary>
-        /// Initializes the instance.
+        /// Adds the provided configuration content to the configurations dictionary.
         /// </summary>
         /// <param name="serializedContent">Content of the serialized.</param>
-        public void Initialize(string serializedContent)
+        /// <param name="overwriteExistingKeys">if set to <c>true</c> [overwrite existing keys].</param>
+        public void AddConfigurationContent(string serializedContent, bool overwriteExistingKeys = false)
         {
+            if (Configurations is null)
+                Configurations = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+
             try
             {
                 var deserializerOptions = new JsonSerializerOptions();
                 deserializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
                 deserializerOptions.Converters.Add(new DictionaryStringObjectJsonConverter());
-                Configurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, deserializerOptions);
+                var newConfigurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, deserializerOptions);
+
+                if (newConfigurations is null)
+                    return;
+
+                foreach (var key in newConfigurations.Keys)
+                {
+                    if (!Configurations.ContainsKey(key))
+                        Configurations.Add(key, newConfigurations[key]);
+                    else if (overwriteExistingKeys)
+                        Configurations[key] = newConfigurations[key];
+                }
             }
             catch
             {
-                Configurations = new Dictionary<string, object>();
+                throw;
             }
         }
 

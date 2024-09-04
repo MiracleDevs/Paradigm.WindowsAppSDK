@@ -6,11 +6,11 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
     public interface ILegacyConfigurationService : IService
     {
         /// <summary>
-        /// Initializes the instance.
+        /// Adds the provided configuration content to the configurations dictionary.
         /// </summary>
         /// <param name="serializedContent">Content of the serialized.</param>
-        /// <returns></returns>
-        void Initialize(string serializedContent);
+        /// <param name="overwriteExistingKeys">if set to <c>true</c> [overwrite existing keys].</param>
+        void AddConfigurationContent(string serializedContent, bool overwriteExistingKeys = false);
 
         /// <summary>
         /// Gets the string.

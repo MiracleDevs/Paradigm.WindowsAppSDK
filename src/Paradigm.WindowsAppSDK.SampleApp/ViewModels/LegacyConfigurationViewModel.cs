@@ -54,7 +54,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public void Initialize()
         {
             var configurationContent = ServiceProvider.GetRequiredService<IFileStorageService>().ReadTextFromInstallationFolder("Configuration\\config.json");
-            Service.Initialize(configurationContent);
+            Service.AddConfigurationContent(configurationContent);
             OnAllPropertiesChanged();
         }
 

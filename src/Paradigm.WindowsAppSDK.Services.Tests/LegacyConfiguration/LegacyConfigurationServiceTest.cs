@@ -18,7 +18,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         {
             //arrange
             var service = new LegacyConfigurationService();
-            service.Initialize(ConfigurationFileContent);
+            service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
             var result = service.GetString(key);
@@ -33,7 +33,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         {
             //arrange
             var service = new LegacyConfigurationService();
-            service.Initialize(ConfigurationFileContent);
+            service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
             var result = service.GetBoolean(key);
@@ -48,7 +48,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         {
             //arrange
             var service = new LegacyConfigurationService();
-            service.Initialize(ConfigurationFileContent);
+            service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
             var result = service.GetDouble(key);
@@ -63,7 +63,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         {
             //arrange
             var service = new LegacyConfigurationService();
-            service.Initialize(ConfigurationFileContent);
+            service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
             var result = service.GetObject<ObjectValueModel>(key);
@@ -77,7 +77,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         {
             //arrange
             var service = new LegacyConfigurationService();
-            service.Initialize(ConfigurationFileContent);
+            service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
             var result = service.GetObject<ObjectValueModel>(key);
@@ -92,7 +92,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         {
             //arrange
             var service = new LegacyConfigurationService();
-            service.Initialize(ConfigurationFileContent);
+            service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
             var result = service.GetObject<List<ObjectValueModel>>(key);
@@ -107,13 +107,78 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         {
             //arrange
             var service = new LegacyConfigurationService();
-            service.Initialize(ConfigurationFileContent);
+            service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
             var result = service.GetObject<List<ObjectValueModel>>(key);
 
             //assert
             Assert.That(result?[index].Prop4?[1], Is.EqualTo(expected));
+        }
+
+        [TestCase()]
+        public void ShouldLoadContentFromMultipleFiles()
+        {
+            //arrange
+            var service = new LegacyConfigurationService();
+            service.AddConfigurationContent(ConfigurationFileContent);
+            service.AddConfigurationContent(File.ReadAllText(".\\LegacyConfiguration\\test2.json"));
+
+            //act
+            var stringValue1 = service.GetString("stringKey");
+            var stringValue2 = service.GetString("stringKey2");
+            var booleanValue1 = service.GetBoolean("booleanKey");
+            var booleanValue2 = service.GetBoolean("booleanKey2");
+
+            //assert
+            Assert.That(stringValue1, Is.EqualTo("test"));
+            Assert.That(stringValue2, Is.EqualTo("test2"));
+            Assert.That(booleanValue1, Is.EqualTo(true));
+            Assert.That(booleanValue2, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionWhenSerializedContentIsInvalid()
+        {
+            //arrange
+            var service = new LegacyConfigurationService();
+            var serializedContent = "invalid content";
+
+            //act & assert
+            Assert.Throws<System.Text.Json.JsonException>(() => service.AddConfigurationContent(serializedContent));
+        }
+
+
+        [TestCase(true, "newValue")]
+        [TestCase(false, "test")]
+        public void ShouldOverwriteKeys(bool overwriteExistingKeys, string expected)
+        {
+            //arrange
+            var service = new LegacyConfigurationService();
+            service.AddConfigurationContent(ConfigurationFileContent, overwriteExistingKeys);
+            service.AddConfigurationContent("{\"stringKey\":\"newValue\"}", overwriteExistingKeys);
+
+            //act
+            var result = service.GetString("stringKey");
+
+            //assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [TestCase("stringKey", "test")]
+        [TestCase("STRINGKEY", "test")]
+        [TestCase("stringkey", "test")]
+        public void ShouldIgnoreCase(string key, string? expected)
+        {
+            //arrange
+            var service = new LegacyConfigurationService();
+            service.AddConfigurationContent(ConfigurationFileContent);
+
+            //act
+            var result = service.GetString(key);
+
+            //assert
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }
