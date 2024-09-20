@@ -16,7 +16,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// <value>
         /// The view model.
         /// </value>
-        private LocalizationViewModel ViewModel { get; set; }
+        private LocalizationViewModel? ViewModel { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LocalizationPage"/> class.
@@ -31,7 +31,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// </summary>
         public async Task DisposeAsync()
         {
-            this.ViewModel.Dispose();
+            this.ViewModel?.Dispose();
             await Task.CompletedTask;
         }
 
@@ -67,7 +67,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
                 return;
 
             CachedFileManager.DeferUpdates(file);
-            ViewModel.ExportLocalizationFile(file.Path);
+            ViewModel?.ExportLocalizationFile(file.Path);
             await CachedFileManager.CompleteUpdatesAsync(file);
         }
 
@@ -91,7 +91,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
             if (file is null)
                 return;
 
-            ViewModel.LoadLocalizationFile(file.Path);
+            ViewModel?.LoadLocalizationFile(file.Path);
         }
     }
 }

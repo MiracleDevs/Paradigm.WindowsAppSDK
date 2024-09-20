@@ -18,7 +18,7 @@
             <NavigationViewItemHeader Content="Services"/>
             <NavigationViewItem Icon="Manage" Content="Application Information" Tag="ApplicationInformation" />
             <NavigationViewItem Icon="Library" Content="File Storage" Tag="FileStorage" />
-            <NavigationViewItem Icon="List" Content="Legacy Configuration" Tag="LegacyConfiguration" />
+            <NavigationViewItem Icon="List" Content="Configuration" Tag="Configuration" />
             <NavigationViewItem Icon="Character" Content="Localization" Tag="Localization" />
             <NavigationViewItem Icon="Setting" Content="Local Settings" Tag="LocalSettings" />
             <NavigationViewItem Icon="More" Content="Logging" Tag="Logging" />

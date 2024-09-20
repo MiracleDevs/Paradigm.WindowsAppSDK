@@ -1,13 +1,13 @@
-﻿using Paradigm.WindowsAppSDK.Services.LegacyConfiguration.JsonConverters;
+﻿using Paradigm.WindowsAppSDK.Services.Configuration.JsonConverters;
 using System.Text.Json;
 
-namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
+namespace Paradigm.WindowsAppSDK.Services.Configuration
 {
     /// <summary>
-    /// Implements the legacy configuration service to load the legacy configuration json file values.
+    /// Implements the configuration service to load the configuration json file values.
     /// </summary>
-    /// <seealso cref="ILegacyConfigurationService" />
-    public class LegacyConfigurationService : ILegacyConfigurationService
+    /// <seealso cref="IConfigurationService" />
+    public class ConfigurationService : IConfigurationService
     {
         #region Properties
 
@@ -24,10 +24,10 @@ namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LegacyConfigurationService"/> class.
+        /// Initializes a new instance of the <see cref="ConfigurationService"/> class.
         /// </summary>
         /// <param name="fileStorage">The file storage.</param>
-        public LegacyConfigurationService()
+        public ConfigurationService()
         {
         }
 

@@ -16,7 +16,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The message text.
         /// </value>
-        public string MessageText { get; private set; }
+        public string? MessageText { get; private set; }
 
         #endregion
 
@@ -41,7 +41,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public async Task NavigateToPageAsync(string typeName)
         {
             var type = typeof(MainWindowViewModel).Assembly.GetType($"Paradigm.WindowsAppSDK.SampleApp.ViewModels.{typeName}ViewModel");
-            await Navigation.NavigateToAsync(type, Services.Navigation.NavigationTransition.Drill);
+            if (type is not null)
+                await Navigation.NavigateToAsync(type, Services.Navigation.NavigationTransition.Drill);
         }
 
         /// <summary>

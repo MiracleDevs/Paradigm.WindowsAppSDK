@@ -1,15 +1,15 @@
-﻿using Paradigm.WindowsAppSDK.Services.LegacyConfiguration;
+﻿using Paradigm.WindowsAppSDK.Services.Configuration;
 
-namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
+namespace Paradigm.WindowsAppSDK.Services.Tests.Configuration
 {
-    public class LegacyConfigurationServiceTest
+    public class ConfigurationServiceTest
     {
         private string ConfigurationFileContent { get; set; }
 
         [SetUp]
         public void Setup()
         {
-            ConfigurationFileContent = File.ReadAllText(".\\LegacyConfiguration\\test.json");
+            ConfigurationFileContent = File.ReadAllText(".\\Configuration\\test.json");
         }
 
         [TestCase("stringKey", "test")]
@@ -17,7 +17,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldReturnStringValue(string key, string? expected)
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
@@ -32,7 +32,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldReturnBooleanValue(string key, bool? expected)
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
@@ -47,7 +47,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldReturnDoubleValue(string key, double? expected)
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
@@ -62,7 +62,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldReturnObjectValue(string key, string? expected)
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
@@ -76,7 +76,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldReturnEnumValue(string key, DisplayConfigEnum expected)
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
@@ -91,7 +91,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldReturnEnumValueFromArray(string key, int index, DisplayConfigEnum expected)
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
@@ -106,7 +106,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldReturnListValueFromArray(string key, int index, string expected)
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
@@ -120,9 +120,9 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldLoadContentFromMultipleFiles()
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             service.AddConfigurationContent(ConfigurationFileContent);
-            service.AddConfigurationContent(File.ReadAllText(".\\LegacyConfiguration\\test2.json"));
+            service.AddConfigurationContent(File.ReadAllText(".\\Configuration\\test2.json"));
 
             //act
             var stringValue1 = service.GetString("stringKey");
@@ -141,7 +141,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldThrowExceptionWhenSerializedContentIsInvalid()
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             var serializedContent = "invalid content";
 
             //act & assert
@@ -154,7 +154,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldOverwriteKeys(bool overwriteExistingKeys, string expected)
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             service.AddConfigurationContent(ConfigurationFileContent, overwriteExistingKeys);
             service.AddConfigurationContent("{\"stringKey\":\"newValue\"}", overwriteExistingKeys);
 
@@ -171,7 +171,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
         public void ShouldIgnoreCase(string key, string? expected)
         {
             //arrange
-            var service = new LegacyConfigurationService();
+            var service = new ConfigurationService();
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act

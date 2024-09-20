@@ -13,7 +13,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// <value>
         /// The view model.
         /// </value>
-        private LoggingViewModel ViewModel { get; set; }
+        private LoggingViewModel? ViewModel { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoggingPage"/> class.
@@ -28,7 +28,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// </summary>
         public async Task DisposeAsync()
         {
-            ViewModel.Dispose();
+            ViewModel?.Dispose();
             await Task.CompletedTask;
         }
 

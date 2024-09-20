@@ -41,7 +41,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The non localizable text.
         /// </value>
-        public string NonLocalizableText => Model.NonLocalizableText;
+        public string? NonLocalizableText => Model.NonLocalizableText;
 
         /// <summary>
         /// Gets the languages.
@@ -54,7 +54,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <summary>
         /// The selected language
         /// </summary>
-        private string _selectedLanguage;
+        private string? _selectedLanguage;
 
         /// <summary>
         /// Gets or sets the selected language.
@@ -62,12 +62,12 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The selected language.
         /// </value>
-        public string SelectedLanguage
+        public string? SelectedLanguage
         {
-            get => this._selectedLanguage;
+            get => _selectedLanguage;
             set
             {
-                if (this.SetPropertyField(ref _selectedLanguage, value))
+                if (SetPropertyField(ref _selectedLanguage, value) && _selectedLanguage is not null)
                     LoadLocalizationFile($"LocalizationSample/{_selectedLanguage.Replace("-", string.Empty)}.json", true);
             }
         }
@@ -137,7 +137,9 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
                 return;
 
             var translations = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(content);
-            Localization.ApplyLocalizableStrings(Model, translations, "sample");
+            if (translations is not null)
+                Localization.ApplyLocalizableStrings(Model, translations, "sample");
+
             OnAllPropertiesChanged();
         }
 

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Interfaces", "Paradigm.WindowsAppSDK.Interfaces\Paradigm.WindowsAppSDK.Services.Interfaces.csproj", "{5E231022-A449-495C-917A-073FF9578FB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.LegacyConfiguration", "Paradigm.WindowsAppSDK.Services.LegacyConfiguration\Paradigm.WindowsAppSDK.Services.LegacyConfiguration.csproj", "{771370BE-334C-4FF3-8370-134CF348949F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Configuration", "Paradigm.WindowsAppSDK.Services.Configuration\Paradigm.WindowsAppSDK.Services.Configuration.csproj", "{771370BE-334C-4FF3-8370-134CF348949F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paradigm.WindowsAppSDK.Services.Telemetry", "Paradigm.WindowsAppSDK.Services.Telemetry\Paradigm.WindowsAppSDK.Services.Telemetry.csproj", "{B68B5461-653A-41D9-9FDE-999F54B342A1}"
 EndProject

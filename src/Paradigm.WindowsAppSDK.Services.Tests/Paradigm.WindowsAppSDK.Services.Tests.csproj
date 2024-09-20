@@ -11,8 +11,8 @@
   <ItemGroup>
     <None Remove="FileStorage\test - Copy.txt" />
     <None Remove="FileStorage\test.txt" />
-    <None Remove="LegacyConfiguration\test.json" />
-    <None Remove="LegacyConfiguration\test2.json" />
+    <None Remove="Configuration\test.json" />
+    <None Remove="Configuration\test2.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,10 +22,10 @@
     <Content Include="FileStorage\test.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="LegacyConfiguration\test2.json">
+    <Content Include="Configuration\test2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="LegacyConfiguration\test.json">
+    <Content Include="Configuration\test.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -35,8 +35,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
-    <PackageReference Include="Moq" Version="4.20.71" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="NUnit" Version="4.2.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
     <PackageReference Include="NUnit.Analyzers" Version="4.3.0">
@@ -52,7 +52,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Dialog\Paradigm.WindowsAppSDK.Services.Dialog.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.FileStorage\Paradigm.WindowsAppSDK.Services.FileStorage.csproj" />
-    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.LegacyConfiguration\Paradigm.WindowsAppSDK.Services.LegacyConfiguration.csproj" />
+    <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Configuration\Paradigm.WindowsAppSDK.Services.Configuration.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Localization\Paradigm.WindowsAppSDK.Services.Localization.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.Logging\Paradigm.WindowsAppSDK.Services.Logging.csproj" />
     <ProjectReference Include="..\Paradigm.WindowsAppSDK.Services.MessageBus\Paradigm.WindowsAppSDK.Services.MessageBus.csproj" />

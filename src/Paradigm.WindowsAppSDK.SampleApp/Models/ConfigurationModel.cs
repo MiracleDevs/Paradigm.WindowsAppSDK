@@ -2,6 +2,6 @@
 {
     public class ConfigurationModel
     {
-        public string TelemetryConnectionString { get; set; }
+        public string? TelemetryConnectionString { get; set; }
     }
 }

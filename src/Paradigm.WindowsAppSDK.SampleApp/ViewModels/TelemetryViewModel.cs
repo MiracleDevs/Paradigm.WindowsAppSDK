@@ -23,7 +23,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The status message.
         /// </value>
-        public string StatusMessage { get; private set; }
+        public string? StatusMessage { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TelemetryViewModel"/> class.
@@ -40,6 +40,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public void Initialize()
         {
             var connString = GetRequiredService<ConfigurationProvider>().GetConfigurationValue<string>("TelemetryConnectionString");
+            if (string.IsNullOrWhiteSpace(connString))
+                return;
 
             Service.Initialize(new TelemetrySettings(connString));
             Service.AddExtraProperty("extraProp1", "extraProp1Value");
@@ -65,7 +67,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </summary>
         public void RegisterEvent2()
         {
-            Service.TrackEvent("sample event2", default);
+            Service.TrackEvent("sample event2", new Dictionary<string, string>());
 
             UpdateStatusMessage("'sample event2' sent.");
         }

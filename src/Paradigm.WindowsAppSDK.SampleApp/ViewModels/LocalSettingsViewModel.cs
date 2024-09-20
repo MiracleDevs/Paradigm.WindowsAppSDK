@@ -24,7 +24,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The current local settings.
         /// </value>
-        public LocalSettingsModel CurrentLocalSettings { get; private set; }
+        public LocalSettingsModel? CurrentLocalSettings { get; private set; }
 
         #endregion
 

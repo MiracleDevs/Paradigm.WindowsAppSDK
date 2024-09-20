@@ -21,7 +21,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// <value>
         /// The main window.
         /// </value>
-        public static MainWindow MainWindow { get; private set; }
+        public static MainWindow? MainWindow { get; private set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code

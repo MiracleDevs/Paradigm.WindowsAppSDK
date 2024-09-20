@@ -13,7 +13,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// <value>
         /// The view model.
         /// </value>
-        private DialogViewModel ViewModel { get; set; }
+        private DialogViewModel? ViewModel { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DialogPage"/> class.
@@ -28,7 +28,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// </summary>
         public async Task DisposeAsync()
         {
-            this.ViewModel.Dispose();
+            this.ViewModel?.Dispose();
             await Task.CompletedTask;
         }
 

@@ -12,15 +12,15 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels.Dialogs
 
         public virtual bool CanConfirm => true;
 
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
-        public string ConfirmOptionText { get; set; }
+        public string? ConfirmOptionText { get; set; }
 
-        public string DenyOptionText { get; set; }
+        public string? DenyOptionText { get; set; }
 
-        public string CancelOptionText { get; set; }
+        public string? CancelOptionText { get; set; }
 
-        public object Content { get; set; }
+        public object? Content { get; set; }
 
         #endregion
 

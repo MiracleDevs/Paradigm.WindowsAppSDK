@@ -1,9 +1,9 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
 using System.Text.Json;
 
-namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration
+namespace Paradigm.WindowsAppSDK.Services.Configuration
 {
-    public interface ILegacyConfigurationService : IService
+    public interface IConfigurationService : IService
     {
         /// <summary>
         /// Adds the provided configuration content to the configurations dictionary.

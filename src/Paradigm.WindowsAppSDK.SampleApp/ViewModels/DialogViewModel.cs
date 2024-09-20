@@ -9,7 +9,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {
     public class DialogViewModel : SampleAppPageViewModelBase
     {
-        public string DialogResult { get; private set; }
+        public string? DialogResult { get; private set; }
 
         private IDialogService DialogService { get; }
 

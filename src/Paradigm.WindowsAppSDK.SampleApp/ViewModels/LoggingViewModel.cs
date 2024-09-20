@@ -19,7 +19,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The log file text.
         /// </value>
-        public string LogFileText { get; private set; }
+        public string? LogFileText { get; private set; }
 
         /// <summary>
         /// Gets the file storage service.

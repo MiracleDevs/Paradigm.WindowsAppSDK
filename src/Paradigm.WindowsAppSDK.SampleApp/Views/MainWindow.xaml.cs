@@ -51,9 +51,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         {
             InitializeComponent();
 
-            if (DesignMode.DesignModeEnabled || DesignMode.DesignMode2Enabled)
-                return;
-
             MessageBus = ServiceLocator.Instance.GetRequiredService<IMessageBusService>();
             ViewModel = ServiceLocator.Instance.GetRequiredService<MainWindowViewModel>();
             Title = AppInfo.Current.DisplayInfo.DisplayName;
@@ -105,7 +102,9 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// <param name="args">The <see cref="Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs"/> instance containing the event data.</param>
         private async void OnNavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            await ViewModel.NavigateToPageAsync((args.SelectedItem as NavigationViewItem).Tag?.ToString());
+            var typeName = (args.SelectedItem as NavigationViewItem)?.Tag?.ToString();
+            if (!string.IsNullOrWhiteSpace(typeName))
+                await ViewModel.NavigateToPageAsync(typeName);
         }
 
         /// <summary>

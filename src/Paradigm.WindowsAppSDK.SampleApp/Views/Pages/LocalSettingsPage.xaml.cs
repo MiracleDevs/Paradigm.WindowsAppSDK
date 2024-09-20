@@ -7,7 +7,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
 {
     public sealed partial class LocalSettingsPage : INavigableView
     {
-        private LocalSettingsViewModel ViewModel { get; set; }
+        private LocalSettingsViewModel? ViewModel { get; set; }
 
         public LocalSettingsPage()
         {
@@ -16,7 +16,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
 
         public async Task DisposeAsync()
         {
-            ViewModel.Dispose();
+            ViewModel?.Dispose();
             await Task.CompletedTask;
         }
 

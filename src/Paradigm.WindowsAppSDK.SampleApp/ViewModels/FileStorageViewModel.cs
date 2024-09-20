@@ -13,7 +13,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <summary>
         /// The text
         /// </summary>
-        private string _text;
+        private string? _text;
 
         /// <summary>
         /// Gets or sets the text.
@@ -21,7 +21,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The text.
         /// </value>
-        public string Text
+        public string? Text
         {
             get => this._text;
             set => this.SetPropertyField(ref this._text, value);

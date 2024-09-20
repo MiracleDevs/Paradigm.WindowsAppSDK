@@ -7,7 +7,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
 {
     public sealed partial class HomePage : INavigableView
     {
-        private HomeViewModel ViewModel { get; set; }
+        private HomeViewModel? ViewModel { get; set; }
 
         public HomePage()
         {
@@ -16,7 +16,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
 
         public async Task DisposeAsync()
         {
-            this.ViewModel.Dispose();
+            this.ViewModel?.Dispose();
             await Task.CompletedTask;
         }
 

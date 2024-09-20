@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Paradigm.WindowsAppSDK.Services.LegacyConfiguration.JsonConverters
+namespace Paradigm.WindowsAppSDK.Services.Configuration.JsonConverters
 {
     internal class DictionaryStringObjectJsonConverter : JsonConverter<Dictionary<string, object>>
     {

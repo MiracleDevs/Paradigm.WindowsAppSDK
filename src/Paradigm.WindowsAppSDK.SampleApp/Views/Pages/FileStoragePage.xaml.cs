@@ -16,7 +16,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// <value>
         /// The view model.
         /// </value>
-        private FileStorageViewModel ViewModel { get; set; }
+        private FileStorageViewModel? ViewModel { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileStoragePage"/> class.
@@ -31,7 +31,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// </summary>
         public async Task DisposeAsync()
         {
-            this.ViewModel.Dispose();
+            this.ViewModel?.Dispose();
             await Task.CompletedTask;
         }
 
@@ -62,7 +62,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
 
             var file = await filePicker.PickSingleFileAsync();
             if (file is not null)
-                ViewModel.LoadFile(file.Path);
+                ViewModel?.LoadFile(file.Path);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
             if (string.IsNullOrWhiteSpace(fileName))
                 return;
 
-            ViewModel.LoadFile($"FileStorage\\{fileName}");
+            ViewModel?.LoadFile($"FileStorage\\{fileName}");
         }
     }
 }

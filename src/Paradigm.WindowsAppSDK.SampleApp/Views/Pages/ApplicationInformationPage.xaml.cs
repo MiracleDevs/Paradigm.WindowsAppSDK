@@ -13,7 +13,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// <value>
         /// The view model.
         /// </value>
-        private ApplicationInformationViewModel ViewModel { get; set; }
+        private ApplicationInformationViewModel? ViewModel { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationInformationPage"/> class.
@@ -28,7 +28,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// </summary>
         public async Task DisposeAsync()
         {
-            this.ViewModel.Dispose();
+            ViewModel?.Dispose();
             await Task.CompletedTask;
         }
 
@@ -38,7 +38,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
         /// <param name="navigable">The navigable.</param>
         public async Task InitializeNavigationAsync(INavigable navigable)
         {
-            this.ViewModel = (ApplicationInformationViewModel)navigable;
+            ViewModel = (ApplicationInformationViewModel)navigable;
             await Task.CompletedTask;
         }
     }

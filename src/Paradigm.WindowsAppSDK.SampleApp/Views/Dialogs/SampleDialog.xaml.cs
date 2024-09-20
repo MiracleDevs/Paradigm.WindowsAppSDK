@@ -56,6 +56,9 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Dialogs
         /// <returns></returns>
         public async Task<bool?> ShowAsync()
         {
+            if (App.MainWindow is null)
+                return false;
+
             App.MainWindow.LayoutGrid.Children.Add(this);
             ContentDialogControl.Closed += (s, e) => App.MainWindow.LayoutGrid.Children.Remove(ContentDialogControl);
             var result = await ContentDialogControl.ShowAsync();

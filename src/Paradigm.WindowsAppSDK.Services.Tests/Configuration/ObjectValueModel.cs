@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Paradigm.WindowsAppSDK.Services.Tests.LegacyConfiguration
+namespace Paradigm.WindowsAppSDK.Services.Tests.Configuration
 {
     internal class ObjectValueModel
     {
