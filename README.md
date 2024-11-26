@@ -24,7 +24,7 @@ After modifying the solution you can change the version by executing
 $ cd ./build
 $ ./increment.version.sh "1.1.0" "1.1.1"
 ```
-where the first argument ("1.0.0") is the current version and the second one ("1.0.1") is the new version number.
+where the first argument ("1.1.0") is the current version and the second one ("1.1.1") is the new version number.
 
 
 To publish to nuget you need to execute the following script
@@ -34,6 +34,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 ```
 
 ## Change log
+
+Version `1.2.0`
+- Upgrade to use NET9 and WindowsAppSDK 1.6.
 
 Version `1.1.10`
 - Modified LegacyConfigurationService to support content from multiple configuration files.
