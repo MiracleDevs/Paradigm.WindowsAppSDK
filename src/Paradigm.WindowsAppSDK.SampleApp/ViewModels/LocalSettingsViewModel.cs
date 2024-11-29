@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Paradigm.WindowsAppSDK.SampleApp.JsonContexts;
 using Paradigm.WindowsAppSDK.SampleApp.Models;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
 using Paradigm.WindowsAppSDK.Services.LocalSettings;
@@ -48,7 +49,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </summary>
         public void LoadLocalSettings()
         {
-            CurrentLocalSettings = Service.GetStoredSettings<LocalSettingsModel>() ?? new LocalSettingsModel();
+            CurrentLocalSettings = Service.GetStoredSettings(LocalSettingsModelJsonContext.Default.LocalSettingsModel) ?? new LocalSettingsModel();
             OnPropertyChanged(nameof(CurrentLocalSettings));
         }
 
@@ -57,7 +58,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </summary>
         public void SaveLocalSettings()
         {
-            Service.StoreSettings(CurrentLocalSettings);
+            Service.StoreSettings(CurrentLocalSettings, LocalSettingsModelJsonContext.Default.LocalSettingsModel);
         }
 
         /// <summary>
