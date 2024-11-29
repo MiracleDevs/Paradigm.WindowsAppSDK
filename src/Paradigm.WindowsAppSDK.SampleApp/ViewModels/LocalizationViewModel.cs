@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Paradigm.WindowsAppSDK.SampleApp.JsonContexts;
 using Paradigm.WindowsAppSDK.SampleApp.Models;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
 using Paradigm.WindowsAppSDK.Services.Localization;
 using System;
-using System.Collections.Generic;
 
 namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 {
@@ -42,14 +42,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// The non localizable text.
         /// </value>
         public string? NonLocalizableText => Model.NonLocalizableText;
-
-        /// <summary>
-        /// Gets the languages.
-        /// </summary>
-        /// <value>
-        /// The languages.
-        /// </value>
-        public List<string> Languages { get; }
 
         /// <summary>
         /// The selected language
@@ -109,7 +101,6 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             Localization = serviceProvider.GetRequiredService<ILocalizationService>();
             FileStorage = serviceProvider.GetRequiredService<IFileStorageService>();
             Model = new LocalizableModel { NonLocalizableText = "This text is not localizable and won't be translated." };
-            Languages = new List<string> { "en-US", "es-ES", "fr-FR" };
         }
 
         #endregion
@@ -122,7 +113,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         public void ExportLocalizationFile(string filePath)
         {
             var export = Localization.ExtractLocalizableStrings(Model, "sample");
-            FileStorage.SaveFile(filePath, System.Text.Json.JsonSerializer.Serialize(export));
+            FileStorage.SaveFile(filePath, System.Text.Json.JsonSerializer.Serialize(export, LocalizationDictionaryJsonContext.Default.DictionaryStringString));
         }
 
         /// <summary>
@@ -136,7 +127,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
             if (string.IsNullOrWhiteSpace(content))
                 return;
 
-            var translations = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(content);
+            var translations = System.Text.Json.JsonSerializer.Deserialize(content, LocalizationDictionaryJsonContext.Default.DictionaryStringString);
             if (translations is not null)
                 Localization.ApplyLocalizableStrings(Model, translations, "sample");
 

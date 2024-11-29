@@ -49,7 +49,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp
                 LocalFolderPath = ApplicationData.Current.LocalFolder.Path,
                 InstallationFolderPath = $"{Windows.ApplicationModel.Package.Current.InstalledLocation.Path}\\Assets",
                 LocalBaseUri = "ms-appdata:///local",
-                InstallationBaseUri = "ms-appx:///Assets"
+                InstallationBaseUri = "ms-appx:///Assets",
+                CreateDirectories = true
             });
 
             MessageBusRegistrationsHandler.Instance.AddServiceProvider(ServiceLocator.Instance.ServiceProvider);

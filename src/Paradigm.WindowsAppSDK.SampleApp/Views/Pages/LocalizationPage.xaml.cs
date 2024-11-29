@@ -58,9 +58,9 @@ namespace Paradigm.WindowsAppSDK.SampleApp.Views.Pages
                 SuggestedFileName = "export"
             };
 
-            savePicker.FileTypeChoices.Add("JSON file", new[] { ".json" });
-
             App.MainWindow.InitializeTarget(savePicker);
+
+            savePicker.FileTypeChoices.Add("JSON file", [".json"]);
 
             var file = await savePicker.PickSaveFileAsync();
             if (file is null)

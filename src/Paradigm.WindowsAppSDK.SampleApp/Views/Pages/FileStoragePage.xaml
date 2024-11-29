@@ -22,9 +22,10 @@
             <Button Margin="5 0" Content="Clear saved files" Tapped="{x:Bind ViewModel.ClearFiles}" />
         </StackPanel>
 
-        <ListView Grid.Row="1" Margin="5" SelectionMode="Single"
+        <!--TODO: check why this is not working when AOT is enabled-->
+        <!--<ListView Grid.Row="1" Margin="5" SelectionMode="Single"
                   ItemsSource="{x:Bind ViewModel.SavedFiles, Mode=OneWay}"
-                  SelectionChanged="OnSelectionChanged"/>
+                  SelectionChanged="OnSelectionChanged"/>-->
 
         <TextBox Grid.Row="2" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" 
                  Header="File content" PlaceholderText="Enter text to save"

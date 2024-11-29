@@ -47,11 +47,14 @@ namespace Paradigm.WindowsAppSDK.Services.Configuration
 
             try
             {
-                var deserializerOptions = new JsonSerializerOptions();
-                deserializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
+                var deserializerOptions = new JsonSerializerOptions
+                {
+                    ReadCommentHandling = JsonCommentHandling.Skip,
+                    TypeInfoResolver = DictionaryJsonContext.Default
+                };
                 deserializerOptions.Converters.Add(new DictionaryStringObjectJsonConverter());
-                var newConfigurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, deserializerOptions);
 
+                var newConfigurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, deserializerOptions);
                 if (newConfigurations is null)
                     return;
 

@@ -1,4 +1,6 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Paradigm.WindowsAppSDK.Services.LocalSettings
 {
@@ -26,7 +28,9 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
         /// <summary>
         /// Gets the stored settings.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">SettingsContainer</exception>
         public T? GetStoredSettings<T>()
         {
             if (SettingsContainer is null)
@@ -37,9 +41,27 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
         }
 
         /// <summary>
+        /// Gets the stored settings.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="jsonTypeInfo">The json type information.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">SettingsContainer</exception>
+        public T? GetStoredSettings<T>(JsonTypeInfo<T> jsonTypeInfo)
+        {
+            if (SettingsContainer is null)
+                throw new ArgumentNullException(nameof(SettingsContainer));
+
+            var storedSettings = SettingsContainer.ContainsKey(SettingsKey) ? SettingsContainer[SettingsKey].ToString() : default;
+            return !string.IsNullOrWhiteSpace(storedSettings) ? JsonSerializer.Deserialize<T>(storedSettings, jsonTypeInfo) : default;
+        }
+
+        /// <summary>
         /// Stores the settings.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="settings">The settings.</param>
+        /// <exception cref="ArgumentNullException">SettingsContainer</exception>
         public void StoreSettings<T>(T settings)
         {
             if (SettingsContainer is null)
@@ -49,6 +71,24 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
                 return;
 
             SettingsContainer[SettingsKey] = JsonSerializer.Serialize(settings);
+        }
+
+        /// <summary>
+        /// Stores the settings.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="settings">The settings.</param>
+        /// <param name="jsonTypeInfo">The json type information.</param>
+        /// <exception cref="ArgumentNullException">SettingsContainer</exception>
+        public void StoreSettings<T>(T settings, JsonTypeInfo<T> jsonTypeInfo)
+        {
+            if (SettingsContainer is null)
+                throw new ArgumentNullException(nameof(SettingsContainer));
+
+            if (settings is null)
+                return;
+
+            SettingsContainer[SettingsKey] = JsonSerializer.Serialize(settings, jsonTypeInfo);
         }
 
         /// <summary>
