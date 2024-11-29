@@ -33,7 +33,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The saved files.
         /// </value>
-        public ObservableCollection<string> SavedFiles { get; private set; }
+        public ObservableCollection<string> SavedFiles { get; }
 
         /// <summary>
         /// Gets the service.
@@ -122,8 +122,8 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         private void LoadSavedFiles()
         {
             var savedFiles = Service.GetFilesFromFolder("FileStorage", false) ?? new List<string>();
-            SavedFiles = new ObservableCollection<string>(savedFiles);
-            OnPropertyChanged(nameof(SavedFiles));
+            SavedFiles.Clear();
+            foreach (var file in savedFiles) SavedFiles.Add(file);
         }
 
         #endregion
