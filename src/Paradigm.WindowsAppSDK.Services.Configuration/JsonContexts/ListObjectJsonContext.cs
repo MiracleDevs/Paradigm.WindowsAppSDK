@@ -2,7 +2,8 @@
 
 namespace Paradigm.WindowsAppSDK.Services.Configuration;
 
+[JsonSerializable(typeof(List<object>))]
 [JsonSerializable(typeof(Dictionary<string, object>))]
-internal partial class DictionaryJsonContext : JsonSerializerContext
+internal partial class ListObjectJsonContext : JsonSerializerContext
 {
 }

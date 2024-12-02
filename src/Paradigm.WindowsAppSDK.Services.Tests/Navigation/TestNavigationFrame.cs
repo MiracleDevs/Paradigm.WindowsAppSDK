@@ -11,9 +11,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
         public TestNavigationFrame(IDictionary<Type, Type> navigationTypes)
         {
             NavigationTypes = navigationTypes;
-
-            this.ActiveFrameKeyType = navigationTypes.Keys.First();
-
+            this.ActiveFrameKeyType = navigationTypes.Keys.FirstOrDefault();
             this.OnNavigated += new Action<object, NavigationFrameEventArgs>(OnNavigatedCallback);
         }
 

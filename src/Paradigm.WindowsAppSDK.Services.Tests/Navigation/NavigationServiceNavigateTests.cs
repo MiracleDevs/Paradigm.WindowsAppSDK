@@ -17,9 +17,9 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             this.Sut.Register<NavigationTestPage, NavigationTestViewModel>();
             this.Sut.Register<NavigationTestPage2, NavigationTestViewModel2>();
 
-            this.ServiceProvider.Setup(provider => provider.GetService(typeof(NavigationMainViewModel))).Returns(new NavigationMainViewModel());
-            this.ServiceProvider.Setup(provider => provider.GetService(typeof(NavigationTestViewModel))).Returns(new NavigationTestViewModel());
-            this.ServiceProvider.Setup(provider => provider.GetService(typeof(NavigationTestViewModel2))).Returns(new NavigationTestViewModel2());
+            this.ServiceProvider.RegisterService(new NavigationMainViewModel());
+            this.ServiceProvider.RegisterService(new NavigationTestViewModel());
+            this.ServiceProvider.RegisterService(new NavigationTestViewModel2());
         }
 
         [Test]
@@ -83,9 +83,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Navigation
             this.Sut.Initialize(navigationFrame);
 
             await this.Sut.NavigateToAsync(typeof(NavigationMainViewModel));
-
             await this.Sut.NavigateToAsync(typeof(NavigationTestViewModel));
-
             await this.Sut.NavigateToAsync(typeof(NavigationMainViewModel));
 
             var navigationResult = await this.Sut.NavigateToAsync(typeof(NavigationTestViewModel2));

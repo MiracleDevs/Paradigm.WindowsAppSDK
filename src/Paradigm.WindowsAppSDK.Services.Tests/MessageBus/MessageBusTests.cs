@@ -1,21 +1,21 @@
-﻿using Moq;
-using Paradigm.WindowsAppSDK.Services.MessageBus;
+﻿using Paradigm.WindowsAppSDK.Services.MessageBus;
 
 namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
 {
     public class MessageBusTests
     {
         private MessageBusRegistrationsHandler Sut { get; set; }
-        private Mock<IServiceProvider> ServiceProvider { get; set; }
+        private MockServiceProvider? ServiceProvider { get; set; }
         private IMessageBusService MessageBusService { get; set; }
 
         [SetUp]
         public void Setup()
         {
             this.Sut = MessageBusRegistrationsHandler.Instance;
-            this.ServiceProvider = new Mock<IServiceProvider>();
+
             this.MessageBusService = new MessageBusService();
-            this.ServiceProvider.Setup(provider => provider.GetService(typeof(IMessageBusService))).Returns(this.MessageBusService);
+            this.ServiceProvider = new MockServiceProvider();
+            this.ServiceProvider.RegisterService(this.MessageBusService);
         }
 
         [Test]
@@ -27,8 +27,8 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             var anotherConsumer = new AnotherMessageConsumer(false);
 
             //act
-            this.Sut.RegisterMessageHandler<FirstTestMessage>(firstConsumer, this.ServiceProvider.Object, OnMessageSentAsync);
-            this.Sut.RegisterMessageHandler<FirstTestMessage>(anotherConsumer, this.ServiceProvider.Object, anotherConsumer.HandleMessage);
+            this.Sut.RegisterMessageHandler<FirstTestMessage>(firstConsumer, this.ServiceProvider, OnMessageSentAsync);
+            this.Sut.RegisterMessageHandler<FirstTestMessage>(anotherConsumer, this.ServiceProvider, anotherConsumer.HandleMessage);
             await this.MessageBusService.SendAsync(msg);
             var registrations = this.Sut.GetRegisteredMessageHandlers(anotherConsumer).Concat(this.Sut.GetRegisteredMessageHandlers(firstConsumer));
 
@@ -50,9 +50,9 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             var consumer = this;
 
             //act
-            this.Sut.RegisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider.Object, OnMessageSentAsync);
-            this.Sut.RegisterMessageHandler<AnotherSampleTestMessage>(consumer, this.ServiceProvider.Object, OnMessage2SentAsync);
-            this.Sut.UnregisterMessageHandlers(consumer, this.ServiceProvider.Object);
+            this.Sut.RegisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider, OnMessageSentAsync);
+            this.Sut.RegisterMessageHandler<AnotherSampleTestMessage>(consumer, this.ServiceProvider, OnMessage2SentAsync);
+            this.Sut.UnregisterMessageHandlers(consumer, this.ServiceProvider);
 
             await this.MessageBusService.SendAsync(msg);
             await this.MessageBusService.SendAsync(msg2);
@@ -76,15 +76,15 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             var consumer = this;
 
             // act 
-            this.Sut.RegisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider.Object, OnMessageSentAsync);
+            this.Sut.RegisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider, OnMessageSentAsync);
             var items = this.Sut.GetRegisteredMessageHandlers(consumer);
 
             //assert
             Assert.DoesNotThrow(() =>
             {
-                this.Sut.UnregisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider.Object);
+                this.Sut.UnregisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider);
 
-                this.Sut.UnregisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider.Object);
+                this.Sut.UnregisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider);
             });
 
             Assert.That(items, Is.Empty);
@@ -98,8 +98,8 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.MessageBus
             var consumer = this;
 
             //act
-            this.Sut.RegisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider.Object, OnMessageSentAsync);
-            this.Sut.UnregisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider.Object);
+            this.Sut.RegisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider, OnMessageSentAsync);
+            this.Sut.UnregisterMessageHandler<FirstTestMessage>(consumer, this.ServiceProvider);
             await this.MessageBusService.SendAsync(msg);
 
             var registrations = this.Sut.GetRegisteredMessageHandlers(consumer);

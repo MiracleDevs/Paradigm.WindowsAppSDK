@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Paradigm.WindowsAppSDK.SampleApp.JsonContexts;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
 using Paradigm.WindowsAppSDK.Services.Configuration;
 using System;
@@ -26,7 +27,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
 
         public bool? BooleanValue2 => _service.GetBoolean("booleanValue2");
 
-        public string? ObjectValue => _service.GetObject<Models.ObjectPropertyModel>("objectValue")?.ToString();
+        public string? ObjectValue => _service.GetObject("objectValue", ObjectPropertyModelJsonContext.Default.ObjectPropertyModel)?.ToString();
 
         #endregion
 

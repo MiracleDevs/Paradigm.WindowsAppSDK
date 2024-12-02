@@ -53,7 +53,7 @@ namespace Paradigm.WindowsAppSDK.Services.LocalSettings
                 throw new ArgumentNullException(nameof(SettingsContainer));
 
             var storedSettings = SettingsContainer.ContainsKey(SettingsKey) ? SettingsContainer[SettingsKey].ToString() : default;
-            return !string.IsNullOrWhiteSpace(storedSettings) ? JsonSerializer.Deserialize<T>(storedSettings, jsonTypeInfo) : default;
+            return !string.IsNullOrWhiteSpace(storedSettings) ? JsonSerializer.Deserialize(storedSettings, jsonTypeInfo) : default;
         }
 
         /// <summary>

@@ -22,9 +22,9 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LocalSettings
                 StringValue = "test",
                 NumericValue = 5,
                 BooleanValue = true
-            });
+            }, SettingsModelJsonContext.Default.SettingsModel);
 
-            var result = TestService.GetStoredSettings<SettingsModel>();
+            var result = TestService.GetStoredSettings(SettingsModelJsonContext.Default.SettingsModel);
 
             //assert
             Assert.That(result, Is.Not.Null);
@@ -37,8 +37,8 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LocalSettings
         public void ShouldStoreAndRetrievePrimitiveValue()
         {
             //act
-            TestService.StoreSettings("test");
-            var result = TestService.GetStoredSettings<string>();
+            TestService.StoreSettings("test", SettingsModelJsonContext.Default.String);
+            var result = TestService.GetStoredSettings(SettingsModelJsonContext.Default.String);
 
             //assert
             Assert.That(result, Is.Not.Null);
@@ -49,7 +49,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LocalSettings
         public void ShouldReturnNull()
         {
             //act
-            var result = TestService.GetStoredSettings<object>();
+            var result = TestService.GetStoredSettings(SettingsModelJsonContext.Default.Object);
 
             //assert
             Assert.That(result, Is.Null);
@@ -64,18 +64,18 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LocalSettings
                 StringValue = "test1",
                 NumericValue = 1,
                 BooleanValue = true
-            });
+            }, SettingsModelJsonContext.Default.SettingsModel);
 
-            var result1 = TestService.GetStoredSettings<SettingsModel>();
+            var result1 = TestService.GetStoredSettings(SettingsModelJsonContext.Default.SettingsModel);
 
             TestService.StoreSettings(new SettingsModel
             {
                 StringValue = "test2",
                 NumericValue = 2,
                 BooleanValue = false
-            });
+            }, SettingsModelJsonContext.Default.SettingsModel);
 
-            var result2 = TestService.GetStoredSettings<SettingsModel>();
+            var result2 = TestService.GetStoredSettings(SettingsModelJsonContext.Default.SettingsModel);
 
             //assert
             Assert.That(result1, Is.Not.Null);
@@ -93,9 +93,9 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.LocalSettings
         public void ShouldClearStoredValue()
         {
             //act
-            TestService.StoreSettings("test");
+            TestService.StoreSettings("test", SettingsModelJsonContext.Default.String);
             TestService.ResetToDefaultSettings();
-            var result = TestService.GetStoredSettings<string>();
+            var result = TestService.GetStoredSettings(SettingsModelJsonContext.Default.String);
 
             //assert
             Assert.That(result, Is.Null);

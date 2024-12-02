@@ -1,27 +1,28 @@
-﻿using Moq;
-using Paradigm.WindowsAppSDK.Services.Dialog;
+﻿using Paradigm.WindowsAppSDK.Services.Dialog;
 
 namespace Paradigm.WindowsAppSDK.Services.Tests.Dialog
 {
     public class DialogServiceTest
     {
-        private IDialogService Sut { get; set; }
+        private IDialogService? Sut { get; set; }
 
-        private Mock<IServiceProvider> ServiceProvider { get; set; }
+        private MockServiceProvider? ServiceProvider { get; set; }
 
         [SetUp]
         public virtual void Setup()
         {
-            ServiceProvider = new Mock<IServiceProvider>();
-            ServiceProvider.Setup(provider => provider.GetService(typeof(TestDialogViewModel))).Returns(new TestDialogViewModel());
+            ServiceProvider = new MockServiceProvider();
+            ServiceProvider.RegisterService(new TestDialogViewModel());
 
-            Sut = new DialogService(ServiceProvider.Object);
+            Sut = new DialogService(ServiceProvider);
             Sut.Register<TestDialogView, TestDialogViewModel>();
         }
 
         [Test]
         public async Task ShouldInitializeViewModelAndOpenAsync()
         {
+            if (Sut is null) return;
+
             //act
             var result = await Sut.OpenAsync<TestDialogViewModel>(default(object?));
 
@@ -32,6 +33,8 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Dialog
         [Test]
         public async Task ShouldReceiveViewModelAndOpenAsync()
         {
+            if (Sut is null) return;
+
             //arrange
             var dialogViewModel = new TestDialogViewModel();
 

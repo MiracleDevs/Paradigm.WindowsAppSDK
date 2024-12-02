@@ -10,15 +10,14 @@
         public void ShouldInitializeNavigationService()
         {
             //arrange
-            this.NavigationFrame.Setup(frame => frame.CanGoForward).Returns(false);
-            this.NavigationFrame.Setup(frame => frame.CanGoBack).Returns(true);
+            using var navigationFrame = new TestNavigationFrame(new Dictionary<Type, Type>());
 
             //act
-            this.Sut.Initialize(this.NavigationFrame.Object);
+            Sut.Initialize(navigationFrame);
 
             //assert
-            Assert.That(this.Sut.CanGoForward, Is.EqualTo(this.NavigationFrame.Object.CanGoForward));
-            Assert.That(this.Sut.CanGoBack, Is.EqualTo(this.NavigationFrame.Object.CanGoBack));
+            Assert.That(Sut.CanGoForward, Is.EqualTo(navigationFrame.CanGoForward));
+            Assert.That(Sut.CanGoBack, Is.EqualTo(navigationFrame.CanGoBack));
         }
     }
 }

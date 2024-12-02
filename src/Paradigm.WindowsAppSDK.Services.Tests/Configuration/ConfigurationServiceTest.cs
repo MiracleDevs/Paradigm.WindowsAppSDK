@@ -66,7 +66,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Configuration
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
-            var result = service.GetObject<ObjectValueModel>(key);
+            var result = service.GetObject(key, ObjectValueModelJsonContext.Default.ObjectValueModel);
 
             //assert
             Assert.That(result?.Prop2, Is.EqualTo(expected));
@@ -80,7 +80,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Configuration
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
-            var result = service.GetObject<ObjectValueModel>(key);
+            var result = service.GetObject(key, ObjectValueModelJsonContext.Default.ObjectValueModel);
 
             //assert
             Assert.That(result?.Prop3, Is.EqualTo(expected));
@@ -95,7 +95,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Configuration
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
-            var result = service.GetObject<List<ObjectValueModel>>(key);
+            var result = service.GetObject(key, ListObjectValueModelJsonContext.Default.ListObjectValueModel);
 
             //assert
             Assert.That(result?[index].Prop3, Is.EqualTo(expected));
@@ -110,7 +110,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Configuration
             service.AddConfigurationContent(ConfigurationFileContent);
 
             //act
-            var result = service.GetObject<List<ObjectValueModel>>(key);
+            var result = service.GetObject(key, ListObjectValueModelJsonContext.Default.ListObjectValueModel);
 
             //assert
             Assert.That(result?[index].Prop4?[1], Is.EqualTo(expected));

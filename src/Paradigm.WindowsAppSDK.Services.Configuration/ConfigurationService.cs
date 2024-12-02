@@ -1,5 +1,6 @@
 ﻿using Paradigm.WindowsAppSDK.Services.Configuration.JsonConverters;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Paradigm.WindowsAppSDK.Services.Configuration
 {
@@ -47,14 +48,14 @@ namespace Paradigm.WindowsAppSDK.Services.Configuration
 
             try
             {
-                var deserializerOptions = new JsonSerializerOptions
+                var serializerOptions = new JsonSerializerOptions
                 {
                     ReadCommentHandling = JsonCommentHandling.Skip,
-                    TypeInfoResolver = DictionaryJsonContext.Default
+                    TypeInfoResolver = ListObjectJsonContext.Default
                 };
-                deserializerOptions.Converters.Add(new DictionaryStringObjectJsonConverter());
+                serializerOptions.Converters.Add(new DictionaryStringObjectJsonConverter());
 
-                var newConfigurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, deserializerOptions);
+                var newConfigurations = JsonSerializer.Deserialize<Dictionary<string, object>>(serializedContent, serializerOptions);
                 if (newConfigurations is null)
                     return;
 
@@ -137,6 +138,42 @@ namespace Paradigm.WindowsAppSDK.Services.Configuration
 
                 return !string.IsNullOrWhiteSpace(serializedValue)
                     ? JsonSerializer.Deserialize<T>(serializedValue, options)
+                    : default;
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// Gets the object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">The key.</param>
+        /// <param name="jsonTypeInfo">The json type information.</param>
+        /// <returns></returns>
+        public T? GetObject<T>(string key, JsonTypeInfo<T> jsonTypeInfo) where T : class
+        {
+            try
+            {
+                var value = GetValueFromConfigurations(key);
+                if (value is null)
+                    return default;
+
+                string? serializedValue;
+
+                try
+                {
+                    serializedValue = JsonSerializer.Serialize(value, ListObjectJsonContext.Default.DictionaryStringObject);
+                }
+                catch (InvalidCastException)
+                {
+                    serializedValue = JsonSerializer.Serialize(value, ListObjectJsonContext.Default.ListObject);
+                }
+
+                return !string.IsNullOrWhiteSpace(serializedValue)
+                    ? JsonSerializer.Deserialize(serializedValue, jsonTypeInfo)
                     : default;
             }
             catch
