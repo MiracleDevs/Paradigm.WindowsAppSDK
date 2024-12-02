@@ -35,6 +35,9 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.2.1`
+- Modified libraries to be AOT compatible.
+
 Version `1.2.0`
 - Upgrade to use NET9 and WindowsAppSDK 1.6.
 
