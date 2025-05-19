@@ -60,6 +60,10 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.3.1`
+
+- Updated Microsoft.WindowsAppSDK and libraries.
+
 Version `1.3.0`
 
 - Upgrade to WindowsAppSDK 1.7.

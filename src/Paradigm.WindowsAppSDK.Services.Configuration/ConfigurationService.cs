@@ -22,18 +22,6 @@ namespace Paradigm.WindowsAppSDK.Services.Configuration
 
         #endregion
 
-        #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConfigurationService"/> class.
-        /// </summary>
-        /// <param name="fileStorage">The file storage.</param>
-        public ConfigurationService()
-        {
-        }
-
-        #endregion
-
         #region Public Methods
 
         /// <summary>
