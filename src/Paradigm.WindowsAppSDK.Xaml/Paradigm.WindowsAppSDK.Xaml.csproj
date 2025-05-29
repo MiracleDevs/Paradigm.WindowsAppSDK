@@ -23,9 +23,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250513003" />
-      <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
-      <PackageReference Include="WinUIEx" Version="2.5.1" />
+      <PackageReference Include="Microsoft.WindowsAppSDK" />
+      <PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
+      <PackageReference Include="WinUIEx" />
   </ItemGroup>
 
   <ItemGroup>
