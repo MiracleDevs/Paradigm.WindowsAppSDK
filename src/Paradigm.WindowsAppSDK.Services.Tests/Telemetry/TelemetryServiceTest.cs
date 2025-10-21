@@ -1,5 +1,4 @@
 ﻿using Microsoft.ApplicationInsights.DataContracts;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
 using Paradigm.WindowsAppSDK.Services.Telemetry;
 
 namespace Paradigm.WindowsAppSDK.Services.Tests.Telemetry

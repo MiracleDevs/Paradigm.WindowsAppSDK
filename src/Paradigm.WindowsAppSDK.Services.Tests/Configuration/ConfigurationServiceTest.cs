@@ -148,7 +148,6 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.Configuration
             Assert.Throws<System.Text.Json.JsonException>(() => service.AddConfigurationContent(serializedContent));
         }
 
-
         [TestCase(true, "newValue")]
         [TestCase(false, "test")]
         public void ShouldOverwriteKeys(bool overwriteExistingKeys, string expected)

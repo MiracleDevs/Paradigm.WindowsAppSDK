@@ -60,6 +60,10 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.3.4`
+
+- Updated Microsoft.WindowsAppSDK and libraries.
+
 Version `1.3.3`
 
 - Updated packages icon. Updated Microsoft.WindowsAppSDK and libraries.

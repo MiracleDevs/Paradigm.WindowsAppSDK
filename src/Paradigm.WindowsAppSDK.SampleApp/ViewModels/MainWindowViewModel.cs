@@ -40,7 +40,21 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// </summary>
         public async Task NavigateToPageAsync(string typeName)
         {
-            var type = typeof(MainWindowViewModel).Assembly.GetType($"Paradigm.WindowsAppSDK.SampleApp.ViewModels.{typeName}ViewModel");
+            var type = typeName switch
+            {
+                "Home" => typeof(HomeViewModel),
+                "ApplicationInformation" => typeof(ApplicationInformationViewModel),
+                "FileStorage" => typeof(FileStorageViewModel),
+                "Configuration" => typeof(ConfigurationViewModel),
+                "Localization" => typeof(LocalizationViewModel),
+                "LocalSettings" => typeof(LocalSettingsViewModel),
+                "Logging" => typeof(LoggingViewModel),
+                "MessageBus" => typeof(MessageBusViewModel),
+                "Telemetry" => typeof(TelemetryViewModel),
+                "Dialog" => typeof(DialogViewModel),
+                _ => null
+            };
+
             if (type is not null)
                 await Navigation.NavigateToAsync(type, Services.Navigation.NavigationTransition.Drill);
         }

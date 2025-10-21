@@ -99,7 +99,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
         /// Called when [navigation view selection changed].
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="NavigationViewSelectionChangedEventArgs"/> instance containing the event data.</param>
         private async void OnNavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             var typeName = (args.SelectedItem as NavigationViewItem)?.Tag?.ToString();
