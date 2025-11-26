@@ -1,0 +1,28 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="arm64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/00.Services/">
+    <Project Path="Paradigm.WindowsAppSDK.Interfaces/Paradigm.WindowsAppSDK.Services.Interfaces.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Services.ApplicationInformation/Paradigm.WindowsAppSDK.Services.ApplicationInformation.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Services.Configuration/Paradigm.WindowsAppSDK.Services.Configuration.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Services.Dialog/Paradigm.WindowsAppSDK.Services.Dialog.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Services.FileStorage/Paradigm.WindowsAppSDK.Services.FileStorage.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Services.Localization/Paradigm.WindowsAppSDK.Services.Localization.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Services.LocalSettings/Paradigm.WindowsAppSDK.Services.LocalSettings.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Services.Logging/Paradigm.WindowsAppSDK.Services.Logging.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Services.MessageBus/Paradigm.WindowsAppSDK.Services.MessageBus.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Services.Navigation/Paradigm.WindowsAppSDK.Services.Navigation.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Services.Telemetry/Paradigm.WindowsAppSDK.Services.Telemetry.csproj" />
+  </Folder>
+  <Folder Name="/01.MVVM/">
+    <Project Path="Paradigm.WindowsAppSDK.ViewModels/Paradigm.WindowsAppSDK.ViewModels.csproj" />
+    <Project Path="Paradigm.WindowsAppSDK.Xaml/Paradigm.WindowsAppSDK.Xaml.csproj" />
+  </Folder>
+  <Folder Name="/02.Tests/">
+    <Project Path="Paradigm.WindowsAppSDK.Services.Tests/Paradigm.WindowsAppSDK.Services.Tests.csproj" />
+  </Folder>
+</Solution>

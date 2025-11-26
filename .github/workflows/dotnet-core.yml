@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Install dependencies
-      run: dotnet restore ./src/Paradigm.WindowsAppSDK.sln
+      run: dotnet restore ./src/Paradigm.WindowsAppSDK.slnx
     - name: Build
-      run: dotnet build ./src/Paradigm.WindowsAppSDK.sln --configuration Release --no-restore
+      run: dotnet build ./src/Paradigm.WindowsAppSDK.slnx --configuration Release --no-restore
     - name: Test
-      run: dotnet test ./src/Paradigm.WindowsAppSDK.sln --no-restore --verbosity normal
+      run: dotnet test ./src/Paradigm.WindowsAppSDK.slnx --no-restore --verbosity normal
