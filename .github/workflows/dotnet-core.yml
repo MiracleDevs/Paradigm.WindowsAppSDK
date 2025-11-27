@@ -12,14 +12,14 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 10.0.x
     - name: Install dependencies
-      run: dotnet restore ./src/Paradigm.WindowsAppSDK.sln
+      run: dotnet restore ./src/Paradigm.WindowsAppSDK.slnx
     - name: Build
-      run: dotnet build ./src/Paradigm.WindowsAppSDK.sln --configuration Release --no-restore
+      run: dotnet build ./src/Paradigm.WindowsAppSDK.slnx --configuration Release --no-restore
     - name: Test
-      run: dotnet test ./src/Paradigm.WindowsAppSDK.sln --no-restore --verbosity normal
+      run: dotnet test ./src/Paradigm.WindowsAppSDK.slnx --no-restore --verbosity normal

@@ -60,6 +60,10 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.4.0`
+
+- Upgrade to use NET10.
+
 Version `1.3.4`
 
 - Updated Microsoft.WindowsAppSDK and libraries.
