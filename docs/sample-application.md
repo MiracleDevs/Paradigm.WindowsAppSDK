@@ -93,10 +93,10 @@ public partial class App : Application
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         Startup.Start();
-        
+
         var window = new MainWindow();
         window.Activate();
-        
+
         var navigationService = ServiceLocator.Instance.GetRequiredService<INavigationService>();
         navigationService.NavigateToAsync<HomeViewModel>();
     }
@@ -155,7 +155,7 @@ The Telemetry page demonstrates how to track events and metrics using the Teleme
 
 To run the sample application:
 
-1. Open the `Paradigm.WindowsAppSDK.SampleApp.sln` solution in Visual Studio
+1. Open the `Paradigm.WindowsAppSDK.SampleApp.slnx` solution in Visual Studio
 2. Set `Paradigm.WindowsAppSDK.SampleApp` as the startup project
 3. Build and run the application
 
@@ -166,4 +166,4 @@ The sample application is designed to be a learning resource. You can:
 1. Examine the code to understand how to use the different services
 2. See how the MVVM pattern is implemented using the framework
 3. Learn best practices for structuring a Windows App SDK application
-4. Use it as a starting point for your own applications 
+4. Use it as a starting point for your own applications
