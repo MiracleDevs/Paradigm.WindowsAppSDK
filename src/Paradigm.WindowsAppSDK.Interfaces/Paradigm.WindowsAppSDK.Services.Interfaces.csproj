@@ -1,24 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
     <Authors>Miracle Devs</Authors>
     <Company>Miracle Devs</Company>
     <Product>Paradigm WindowsAppSDK</Product>
     <Copyright>Miracle Devs</Copyright>
     <PackageProjectUrl>https://www.paradigm.net.co/</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/MiracleDevs/Paradigm.WindowsAppSDK.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Description>Provides interfaces shared across all the Paradigm.WindowsAppSDK libraries.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="icon.png">
+    <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="../../README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
