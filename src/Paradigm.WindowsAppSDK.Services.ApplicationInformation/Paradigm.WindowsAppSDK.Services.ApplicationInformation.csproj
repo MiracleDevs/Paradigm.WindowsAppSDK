@@ -16,6 +16,7 @@
     <Copyright>Miracle Devs</Copyright>
     <PackageProjectUrl>https://www.paradigm.net.co/</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/MiracleDevs/Paradigm.WindowsAppSDK.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Description>Provides application and OS information from the RetailInfo object.</Description>
@@ -32,6 +33,10 @@
 
   <ItemGroup>
     <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="../../README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
