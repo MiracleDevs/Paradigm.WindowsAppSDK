@@ -28,7 +28,8 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// <param name="windowId">The window identifier.</param>
         public void SetCurrentWindow(Microsoft.UI.WindowId windowId)
         {
-            CurrentWindow = AppWindow.GetFromWindowId(windowId);
+            if (CurrentWindow is null)
+                CurrentWindow = AppWindow.GetFromWindowId(windowId);
         }
 
         /// <summary>

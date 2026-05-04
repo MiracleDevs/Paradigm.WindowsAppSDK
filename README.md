@@ -60,6 +60,10 @@ $ ./publish.nuget.sh "{nuget-secret-key}"
 
 ## Change log
 
+Version `1.4.2`
+
+- Enabled nullable flag in ApplicationInformationService. Updated dependencies.
+
 Version `1.4.1`
 
 - Keep support for both, NET9 and NET10. Updated dependencies.
