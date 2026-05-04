@@ -47,7 +47,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The name of the computer.
         /// </value>
-        public string ComputerName => ApplicationInformation.GetComputerName();
+        public string? ComputerName => ApplicationInformation.GetComputerName();
 
         /// <summary>
         /// Gets the retail access code.
@@ -55,7 +55,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The retail access code.
         /// </value>
-        public string RetailAccessCode => ApplicationInformation.GetRetailAccessCode();
+        public string? RetailAccessCode => ApplicationInformation.GetRetailAccessCode();
 
         /// <summary>
         /// Gets the store identifier.
@@ -63,7 +63,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The store identifier.
         /// </value>
-        public string StoreId => ApplicationInformation.GetStoreId();
+        public string? StoreId => ApplicationInformation.GetStoreId();
 
         /// <summary>
         /// Gets the machine identifier.
@@ -71,7 +71,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The machine identifier.
         /// </value>
-        public string MachineId => ApplicationInformation.GetMachineId();
+        public string? MachineId => ApplicationInformation.GetMachineId();
 
         /// <summary>
         /// Gets the sku.
@@ -79,7 +79,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp.ViewModels
         /// <value>
         /// The sku.
         /// </value>
-        public string Sku => ApplicationInformation.GetSku();
+        public string? Sku => ApplicationInformation.GetSku();
 
         /// <summary>
         /// Gets the visible bounds.

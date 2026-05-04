@@ -20,15 +20,16 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// <value>
         /// The current window.
         /// </value>
-        private AppWindow CurrentWindow { get; set; }
+        private AppWindow? CurrentWindow { get; set; }
 
         /// <summary>
-        /// Initializes the service.
+        /// Sets the current window.
         /// </summary>
         /// <param name="windowId">The window identifier.</param>
-        public void Initialize(Microsoft.UI.WindowId windowId)
+        public void SetCurrentWindow(Microsoft.UI.WindowId windowId)
         {
-            CurrentWindow = AppWindow.GetFromWindowId(windowId);
+            if (CurrentWindow is null)
+                CurrentWindow = AppWindow.GetFromWindowId(windowId);
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// Gets the name of the computer.
         /// </summary>
         /// <returns></returns>
-        public string GetComputerName()
+        public string? GetComputerName()
         {
             var hostNames = NetworkInformation.GetHostNames();
             var localName = hostNames.FirstOrDefault(name => name.DisplayName.Contains(".local"));
@@ -77,7 +78,7 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         public Size GetVisibleBounds()
         {
             if (CurrentWindow is null)
-                throw new InvalidOperationException("ApplicationInformation was not initialized");
+                throw new InvalidOperationException("CurrentWindow was not configured");
 
             return new Size(CurrentWindow.Size.Width, CurrentWindow.Size.Height);
         }
@@ -86,9 +87,9 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// Gets the retail access code.
         /// </summary>
         /// <returns></returns>
-        public string GetRetailAccessCode()
+        public string? GetRetailAccessCode()
         {
-            var retailAccessCode = default(string);
+            var retailAccessCode = default(string?);
 
             try
             {
@@ -107,9 +108,9 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// Gets the store identifier.
         /// </summary>
         /// <returns></returns>
-        public string GetStoreId()
+        public string? GetStoreId()
         {
-            var storeId = default(string);
+            var storeId = default(string?);
 
             try
             {
@@ -128,9 +129,9 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// Gets the machine identifier.
         /// </summary>
         /// <returns></returns>
-        public string GetMachineId()
+        public string? GetMachineId()
         {
-            var machineId = default(string);
+            var machineId = default(string?);
 
             try
             {
@@ -154,9 +155,9 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// Gets the sku.
         /// </summary>
         /// <returns></returns>
-        public string GetSku()
+        public string? GetSku()
         {
-            var sku = default(string);
+            var sku = default(string?);
 
             try
             {

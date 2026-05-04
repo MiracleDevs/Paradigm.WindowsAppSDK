@@ -9,10 +9,10 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
     public interface IApplicationInformationService : IService
     {
         /// <summary>
-        /// Initializes the service.
+        /// Sets the current window.
         /// </summary>
         /// <param name="windowId">The window identifier.</param>
-        void Initialize(Microsoft.UI.WindowId windowId);
+        void SetCurrentWindow(Microsoft.UI.WindowId windowId);
 
         /// <summary>
         /// Gets the name of the application.
@@ -36,7 +36,7 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// Gets the name of the computer.
         /// </summary>
         /// <returns></returns>
-        string GetComputerName();
+        string? GetComputerName();
 
         /// <summary>
         /// Gets the application visible bounds.
@@ -48,24 +48,24 @@ namespace Paradigm.WindowsAppSDK.Services.ApplicationInformation
         /// Gets the retail access code.
         /// </summary>
         /// <returns></returns>
-        string GetRetailAccessCode();
+        string? GetRetailAccessCode();
 
         /// <summary>
         /// Gets the store identifier.
         /// </summary>
         /// <returns></returns>
-        string GetStoreId();
+        string? GetStoreId();
 
         /// <summary>
         /// Gets the machine identifier.
         /// </summary>
         /// <returns></returns>
-        string GetMachineId();
+        string? GetMachineId();
 
         /// <summary>
         /// Gets the sku.
         /// </summary>
         /// <returns></returns>
-        string GetSku();
+        string? GetSku();
     }
 }
