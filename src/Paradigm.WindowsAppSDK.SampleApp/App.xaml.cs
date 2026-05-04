@@ -59,7 +59,7 @@ namespace Paradigm.WindowsAppSDK.SampleApp
 
             ServiceLocator.Instance.GetRequiredService<INavigationService>().Initialize(MainWindow.GetNavigationFrame());
             ServiceLocator.Instance.GetRequiredService<ILocalSettingsService>().Initialize(ApplicationData.Current.LocalSettings.Values);
-            ServiceLocator.Instance.GetRequiredService<IApplicationInformationService>().Initialize(MainWindow.GetWindowId());
+            ServiceLocator.Instance.GetRequiredService<IApplicationInformationService>().SetCurrentWindow(MainWindow.GetWindowId());
 
             MainWindow.Activate();
         }
