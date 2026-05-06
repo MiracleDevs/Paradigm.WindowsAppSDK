@@ -2,7 +2,7 @@
 
 namespace Paradigm.WindowsAppSDK.SampleApp.Models
 {
-    [JsonConverter(typeof(JsonStringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter<DisplayConfigEnum>))]
     public enum DisplayConfigEnum : int
     {
         Percentage,
