@@ -17,11 +17,11 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Center">
             <Button Margin="5 0" Content="Export file" Tapped="OnExportTapped" />
             <Button Margin="5 0" Content="Pick file" Tapped="OnPickTapped" />
-            <ComboBox Margin="5 0" PlaceholderText="Pick a language" SelectedValuePath="Content"
-                      SelectedValue="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}">
-                <ComboBoxItem Content="en-US" />
-                <ComboBoxItem Content="es-ES" />
-                <ComboBoxItem Content="fr-FR" />
+            <ComboBox Margin="5 0" PlaceholderText="Pick a language"
+                      SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}">
+                <x:String>en-US</x:String>
+                <x:String>es-ES</x:String>
+                <x:String>fr-FR</x:String>
             </ComboBox>
         </StackPanel>
 

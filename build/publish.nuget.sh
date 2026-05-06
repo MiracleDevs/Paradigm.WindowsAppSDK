@@ -9,7 +9,7 @@ index=$2
 noclsArg=$3
 nugetDir=../.nuget/
 nugetExt=*.nupkg
-nugetUrl=https://www.nuget.org/api/v2/package
+nugetUrl=https://www.nuget.org
 
 if [[ "$nugetKey" == "" ]]; then error "Missing nuget key." ; buildFailed ; fi
 if [[ "$index" == "" ]]; 	then index="1"; fi
@@ -27,6 +27,6 @@ execute "bash ./build.nuget.sh $index.1 nocls"
 #------------------------------------------------
 for f in $(find $nugetDir -type f -name "$nugetExt"); do
 	echo "PUBLISHING: $f"
-	./nuget.exe push $f $nugetKey -source $nugetUrl
+	dotnet nuget push "$f" --api-key "$nugetKey" --source "$nugetUrl"
 	echo ""
 done
