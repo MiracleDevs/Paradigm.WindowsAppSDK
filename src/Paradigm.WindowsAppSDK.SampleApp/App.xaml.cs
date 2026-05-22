@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Paradigm.WindowsAppSDK.Services.ApplicationInformation;
+using Paradigm.WindowsAppSDK.Services.FileStorage;
 using Paradigm.WindowsAppSDK.Services.LocalSettings;
 using Paradigm.WindowsAppSDK.Services.Logging;
 using Paradigm.WindowsAppSDK.Services.MessageBus;

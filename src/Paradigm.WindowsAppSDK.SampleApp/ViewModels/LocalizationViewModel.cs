@@ -2,6 +2,7 @@
 using Paradigm.WindowsAppSDK.SampleApp.JsonContexts;
 using Paradigm.WindowsAppSDK.SampleApp.Models;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
+using Paradigm.WindowsAppSDK.Services.FileStorage;
 using Paradigm.WindowsAppSDK.Services.Localization;
 using System;
 

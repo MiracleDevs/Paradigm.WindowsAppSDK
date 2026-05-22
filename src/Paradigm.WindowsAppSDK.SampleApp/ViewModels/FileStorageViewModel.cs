@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Paradigm.WindowsAppSDK.SampleApp.ViewModels.Base;
+using Paradigm.WindowsAppSDK.Services.FileStorage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
