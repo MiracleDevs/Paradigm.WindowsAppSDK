@@ -1,5 +1,6 @@
-﻿using Paradigm.WindowsAppSDK.Services.FileStorage;
-using Paradigm.WindowsAppSDK.Services.Interfaces;
+﻿using Paradigm.WindowsAppSDK.Services.Interfaces;
+
+namespace Paradigm.WindowsAppSDK.Services.FileStorage;
 
 /// <summary>
 /// Provides an interface for a file storage service.
