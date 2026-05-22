@@ -77,7 +77,7 @@ public class FileStorageService : IFileStorageService
     /// </summary>
     /// <param name="path">The path.</param>
     /// <returns></returns>
-    /// <exception cref="System.ArgumentNullException">InstallationFolderPath</exception>
+    /// <exception cref="ArgumentNullException">InstallationFolderPath</exception>
     public async Task<string> ReadTextFromInstallationFolderAsync(string path)
     {
         if (string.IsNullOrEmpty(InstallationFolderPath))
@@ -91,7 +91,7 @@ public class FileStorageService : IFileStorageService
     /// </summary>
     /// <param name="path">The path.</param>
     /// <returns></returns>
-    /// <exception cref="System.ArgumentNullException">InstallationFolderPath</exception>
+    /// <exception cref="ArgumentNullException">InstallationFolderPath</exception>
     public string ReadTextFromInstallationFolder(string path)
     {
         if (string.IsNullOrEmpty(InstallationFolderPath))
@@ -229,7 +229,7 @@ public class FileStorageService : IFileStorageService
     public async Task<string?> ReadAsBase64Async(string fileName)
     {
         var bytes = await this.ReadAsByteArrayAsync(fileName);
-        return bytes is null ? await Task.FromResult((string?)null) : Convert.ToBase64String(bytes);
+        return bytes is not null ? Convert.ToBase64String(bytes) : null;
     }
 
     /// <summary>
