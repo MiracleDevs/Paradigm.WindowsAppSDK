@@ -1,4 +1,5 @@
 ﻿namespace Paradigm.WindowsAppSDK.Services.Tests;
+
 public class MockServiceProvider : IServiceProvider
 {
     private readonly Dictionary<Type, object> _services = new();
