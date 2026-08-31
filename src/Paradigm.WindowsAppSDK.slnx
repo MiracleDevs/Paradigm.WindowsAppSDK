@@ -5,7 +5,12 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Folder Name="/00.Services/">
+  <Folder Name="/00.Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/01.Services/">
     <Project Path="Paradigm.WindowsAppSDK.Interfaces/Paradigm.WindowsAppSDK.Services.Interfaces.csproj" />
     <Project Path="Paradigm.WindowsAppSDK.Services.ApplicationInformation/Paradigm.WindowsAppSDK.Services.ApplicationInformation.csproj" />
     <Project Path="Paradigm.WindowsAppSDK.Services.Configuration/Paradigm.WindowsAppSDK.Services.Configuration.csproj" />
@@ -18,11 +23,11 @@
     <Project Path="Paradigm.WindowsAppSDK.Services.Navigation/Paradigm.WindowsAppSDK.Services.Navigation.csproj" />
     <Project Path="Paradigm.WindowsAppSDK.Services.Telemetry/Paradigm.WindowsAppSDK.Services.Telemetry.csproj" />
   </Folder>
-  <Folder Name="/01.MVVM/">
+  <Folder Name="/02.MVVM/">
     <Project Path="Paradigm.WindowsAppSDK.ViewModels/Paradigm.WindowsAppSDK.ViewModels.csproj" />
     <Project Path="Paradigm.WindowsAppSDK.Xaml/Paradigm.WindowsAppSDK.Xaml.csproj" />
   </Folder>
-  <Folder Name="/02.Tests/">
+  <Folder Name="/03.Tests/">
     <Project Path="Paradigm.WindowsAppSDK.Services.Tests/Paradigm.WindowsAppSDK.Services.Tests.csproj" />
   </Folder>
 </Solution>
