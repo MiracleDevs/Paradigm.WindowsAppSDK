@@ -48,7 +48,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
         }
 
         [Test]
-        public void ShouldThrowExceptionIfLocalFolderPathIsNullAsync()
+        public async Task ShouldThrowExceptionIfLocalFolderPathIsNullAsync()
         {
             //arrange
             var path = "local-state-test.txt";
@@ -59,7 +59,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
                 LocalFolderPath = string.Empty,
                 InstallationFolderPath = this.InstallationFolderPath
             });
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await Sut.ReadLocalTextAsync(path));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await Sut.ReadLocalTextAsync(path));
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
         }
 
         [Test]
-        public void ShouldThrowExceptionIInstallationFolderPathIsEmptyAsync()
+        public async Task ShouldThrowExceptionIInstallationFolderPathIsEmptyAsync()
         {
             //arrange
             var path = "test.txt";
@@ -59,7 +59,7 @@ namespace Paradigm.WindowsAppSDK.Services.Tests.FileStorage
             });
 
             //act && assert
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await this.Sut.ReadTextFromInstallationFolderAsync(path));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await this.Sut.ReadTextFromInstallationFolderAsync(path));
         }
     }
 }
