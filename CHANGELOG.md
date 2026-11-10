@@ -1,5 +1,9 @@
 # Change log
 
+Version `1.5.4`
+
+- Updated Microsoft.WindowsAppSDK and libraries.
+
 Version `1.5.3`
 
 - Updated Microsoft.WindowsAppSDK and libraries.
